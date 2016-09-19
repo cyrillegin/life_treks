@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import os
 import cherrypy
 
@@ -7,9 +6,7 @@ PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 
 
 class Root(object):
-    # def GetData():
-        print "\n\nHello from Server!\n"
-    #     return "A message from the server!"
+    print "\n\nHello from Server!\n"
 
 
 def get_cp_config():
