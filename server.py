@@ -3,6 +3,7 @@ import cherrypy
 
 
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+STATIC = os.path.join(PATH, 'static')
 
 
 class Root(object):
@@ -13,7 +14,7 @@ def get_cp_config():
     return {
         '/': {
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': PATH,
+            'tools.staticdir.dir': STATIC,
             'tools.staticdir.index': 'index.html',
         },
     }
