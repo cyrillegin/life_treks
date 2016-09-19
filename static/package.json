@@ -1,15 +1,15 @@
 {
-  "name": "locust",
+  "name": "life_treks",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "life_treks website",
+  "repository": "https://github.com/cyrillegin/life_treks.git",
   "license": "MIT",
   "devDependencies": {
-    "bower": "^1.4.1"    
-  },
-  "scripts": {
-    "postinstall": "bower install --config.interactive=false"
+    "jquery": "3.1.0",
+    "angular": "1.5.8",
+    "bootstrap": "3.3.7"
+    
   }
 }
 
