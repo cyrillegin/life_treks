@@ -1,0 +1,15 @@
+{
+  "name": "locust",
+  "private": true,
+  "version": "0.0.0",
+  "description": "A starter project for AngularJS",
+  "repository": "https://github.com/angular/angular-seed",
+  "license": "MIT",
+  "devDependencies": {
+    "bower": "^1.4.1"    
+  },
+  "scripts": {
+    "postinstall": "bower install --config.interactive=false"
+  }
+}
+
