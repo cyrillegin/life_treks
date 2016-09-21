@@ -1,17 +1,21 @@
 .header{
 	background-color: #6b8e23;
+	height:110px;
 }
 
 .mainmenu{
 	background-color: #69db84;
+	margin-top: 109px;
 }
 
 .homemenu{
 	background-color: #5ea1d4;
+	margin-top: 109px;
 }
 
 .homecontent{
 	background-color: #19c8a6;
+	margin-top: 109px;
 }
 
 .footer{
