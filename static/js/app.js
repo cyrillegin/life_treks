@@ -7,7 +7,8 @@
 'use strict';
 
 var app = angular.module('lifeTreks', [
-  'lifeTreks.main'
+  'lifeTreks.main',
+  'lifeTreks.homepageblog'
 ]);
 
 // app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider){
