@@ -1,11 +1,10 @@
-angular.module('lifeTreks.homepageblog', [])
+angular.module('lifeTreks.videoblog', [])
 
-.controller('lifeTreksHomePageBlog', function($scope){
+.controller('lifeTreksVideoBlog', function($scope){
 	//Will need a server call to populate this:
 	$scope.blogroll = [{
 		"title": "My First Post",
-		"date": "9/22/15",
-		"content": "This is my first post on this blog for the home page!!!",
+		"url": 'a-Qj6Hs43b4',
 		"tag": [
 			"homepage",
 			"firstpost",
@@ -23,8 +22,7 @@ angular.module('lifeTreks.homepageblog', [])
 		}]
 	}, {
 		"title": "My Second Post",
-		"date": "9/20/15",
-		"content": "This is my second post on this blog for the home page!!!",
+		"url": "JRTvo9KJilg",
 		"tag": [
 			"homepage",
 			"firstpost",
@@ -41,4 +39,8 @@ angular.module('lifeTreks.homepageblog', [])
 			"body": "This is another comment!"
 		}]
 	}];
+
+	$scope.getIframeSrc = function(src) {
+      return 'https://www.youtube.com/embed/' + src;
+    };
 });

@@ -8,8 +8,16 @@
 
 var app = angular.module('lifeTreks', [
   'lifeTreks.main',
-  'lifeTreks.homepageblog'
-]);
+  'lifeTreks.homepageblog',
+  'lifeTreks.videoblog'
+])
+
+.config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+    'self',
+    'https://www.youtube.com/**'
+  ]);
+});
 
 // app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider){
 //     $routeProvider.otherwise({redirectTo: '/'});
