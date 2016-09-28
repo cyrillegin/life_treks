@@ -9,7 +9,8 @@
 var app = angular.module('lifeTreks', [
   'lifeTreks.main',
   'lifeTreks.homepageblog',
-  'lifeTreks.videoblog'
+  'lifeTreks.videoblog',
+  'lifeTreks.galleryController'
 ])
 
 .config(function($sceDelegateProvider) {
