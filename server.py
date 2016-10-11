@@ -16,6 +16,7 @@ STATIC = os.path.join(PATH, 'static')
 Base = declarative_base()
 
 
+# create a models.py file
 class User(Base):
 
     __tablename__ = 'user'
@@ -25,17 +26,15 @@ class User(Base):
     password = Column(String())
 
 
-class RestrictedArea:
-    # all methods in this controller (and subcontrollers) is
-    # open only to members of the admin group
+# class RestrictedArea:
 
-    _cp_config = {
-        'auth.require': [member_of('admin')]
-    }
+#     _cp_config = {
+#         'auth.require': [member_of('admin')]
+#     }
 
-    @cherrypy.expose
-    def index(self):
-        return """This is the admin only area."""
+#     @cherrypy.expose
+#     def index(self):
+#         return """This is the admin only area."""
 
 
 class Root(object):
@@ -50,7 +49,7 @@ class Root(object):
     }
 
     auth = AuthController()
-    restricted = RestrictedArea()
+    # restricted = RestrictedArea()
 
     @cherrypy.expose
     def index(self):
@@ -58,13 +57,19 @@ class Root(object):
         print "\n\n{}".format(url)
         return serve_file(url)
 
-    # This is only available if the user name is joe _and_ he's in group admin
+    # move all "required" things to its own file......
     @require(name_is("cyrille"))
     @cherrypy.expose
     def admin(self):
         url = "/".join([PATH, 'admin.html'])
         return serve_file(url)
 
+    """
+    consider making multiple databases,
+    one for admin users, another that public
+    queries for posts. All this should be moved
+    to its own file as well.
+    """
     @require(name_is("cyrille"))
     @cherrypy.expose
     def submitNewAdmin(self, **kwargs):
