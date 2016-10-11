@@ -1,17 +1,28 @@
 import os
 import cherrypy
+import json
 
 from tool import SQLAlchemyTool
 from plugin import SQLAlchemyPlugin
-from sqlalchemy.ext.declarative import declarative_base
-
 from auth import AuthController, require, member_of, name_is
 
+from sqlalchemy import Column
+from sqlalchemy.types import String, Integer
+from sqlalchemy.ext.declarative import declarative_base
 from cherrypy.lib.static import serve_file
 
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 STATIC = os.path.join(PATH, 'static')
 Base = declarative_base()
+
+
+class User(Base):
+
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String())
+    password = Column(String())
 
 
 class RestrictedArea:
@@ -29,6 +40,10 @@ class RestrictedArea:
 
 class Root(object):
 
+    @property
+    def db(self):
+        return cherrypy.request.db
+
     _cp_config = {
         'tools.sessions.on': True,
         'tools.auth.on': True
@@ -44,13 +59,49 @@ class Root(object):
         return serve_file(url)
 
     # This is only available if the user name is joe _and_ he's in group admin
-    
     @require(name_is("cyrille"))
     @cherrypy.expose
     def admin(self):
-        # return "this is a page for Cyrille"
         url = "/".join([PATH, 'admin.html'])
         return serve_file(url)
+
+    @require(name_is("cyrille"))
+    @cherrypy.expose
+    def submitNewAdmin(self, **kwargs):
+        cherrypy.response.headers['Content-Type'] = 'application/json'
+        adminObj = {
+            'name': kwargs['name'],
+            'password': kwargs['password']
+        }
+        self.db.add(User(name=adminObj['name'], password=adminObj['password']))
+        self.db.commit()
+        return json.dumps(adminObj, indent=4)
+
+    @require(name_is("cyrille"))
+    @cherrypy.expose
+    def getAdminList(self):
+        objs = self.db.query(User)
+        obj = []
+        for i in objs:
+            newobj = {
+                "name": i.name,
+                "password": i.password
+            }
+            obj.append(newobj)
+        return json.dumps(obj, indent=4)
+
+    @require(name_is("cyrille"))
+    @cherrypy.expose
+    def deleteAdmin(self, **kwargs):
+        newname = kwargs['name']
+        curUsers = self.db.query(User)
+        filteredUser = curUsers.filter_by(name=newname)
+        if len(filteredUser.all()) > 0:
+            self.db.delete(filteredUser.all()[0])
+            myResponse = newname
+        else:
+            myResponse = "User not found!"
+        return json.dumps(myResponse, indent=4)
 
 
 def get_cp_config():

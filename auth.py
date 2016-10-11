@@ -6,7 +6,7 @@
 
 import cherrypy
 import urllib
-from databasemanagement import getUserName
+from databasemanagement import dbmanager
 SESSION_KEY = '_cp_username'
 
 
@@ -14,17 +14,17 @@ def check_credentials(username, password):
     """Verifies credentials for username and password.
     Returns None on success or a string describing the error on failure"""
     # Adapt to your needs
-    # if username in ('cyrille') and password == 'password':
-    #     return None
-    # else:
-    #     return u"Incorrect username or password."
+    if username in ('cyrille') and password == 'pass':
+        return None
+    else:
+        return u"Incorrect username or password."
 
     # An example implementation which uses an ORM could be:
-    u = User.getUserName(username)
-    if u is None:
-        return u"Username %s is unknown to me." % username
-    if u.password != md5.new(password).hexdigest():
-        return u"Incorrect password"
+    # u = dbmanager.getUserName(username)
+    # if u is None:
+    #     return u"Username %s is unknown to me." % username
+    # if u.password != md5.new(password).hexdigest():
+    #     return u"Incorrect password"
 
 
 def check_auth(*args, **kwargs):

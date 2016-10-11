@@ -3,6 +3,7 @@ import cherrypy
 import json
 import random
 import string
+# from Models import User
 
 
 class dbmanager(object):
@@ -11,22 +12,18 @@ class dbmanager(object):
     def db(self):
         return cherrypy.request.db
 
-    @cherrypy.expose
-    def enter_name(self, **kwargs):
-        self.db.add(Entry(firstName=kwargs['first_name'], lastName=kwargs['last_name'], age=kwargs['age']))
-        self.db.commit()
+    # @cherrypy.expose
+    # def create_new_admin(self, newAdmin):
+    #     self.db.add(User(firstName=newAdmin['name'], password=newAdmin['password']))
+    #     self.db.commit()
 
-    @cherrypy.expose
-    def get_table(self, **kwargs):
-        print "\n\n{}\n".format(kwargs)
-        data = []
-        return json.dumps(data, indent=4)
+    # @cherrypy.expose
+    # def getUserName(self, username):
+    #     print "\nwe're here!\n"
+    #     results = self.db.query(User)
+    #     print results
+        # .filter(name=username)
 
-    @cherrypy.expose
-    def delete_entries(self, **kwargs):
-        for i in self.db.query(Entry).all():
-            self.db.delete(i)
-        self.db.commit()
-
-    @cherrypy.expose
-    def getUserName():
+    # @cherrypy.expose
+    # def viewDatabase(self):
+    #     print self.db

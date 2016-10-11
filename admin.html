@@ -9,15 +9,50 @@
         <title>Life Treks Admin</title>
 
         <!-- css -->
-        <!-- <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
          <!-- javascript -->
-        <!-- <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
+        <script src="/node_modules/angular/angular.min.js"></script>
+        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         
-        <!-- <script src="/js/adminmain.js"></script> -->
+        <script src="/js/adminapp.js"></script>
     </head>
-    <body>
-    	<h3>This is the admin area!</h3>
+    <body ng-app="adminApp" ng-controller="adminController" id="main">
+        <div class="row col-md-12">
+        	<h3>This is the admin area!</h3>
+        </div>
+        <div class = "row" >
+            <div class = "col-md-6">
+                <p> Enter a new admin User name:</p>
+                <input id="newAdminName" type="text">
+                <p>and password:</p>
+                <input id="newAdminPass" type="text">
+                <button ng-click="submitNewAdmin()"> Submit </button>
+                <div>{{successDialog}}</div>
+            </div>
+            <div class="col-md-6">
+                <button ng-click="getAdminList()">Get list</button>
+                <div ng-repeat="obj in currentAdmins">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{obj.name}}
+                        </div>
+                        <div class="col-md-6">
+                            {{obj.password}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col-md-12">
+            <p>Delete entry by name</p>
+            <input id="deleteUserName" type="text">
+            <br>
+            <button ng-click="deleteAdmin()">Delete</button>
+            <p>{{deleteDialog}}</p>
+        </div>
     </body>
 </html>
