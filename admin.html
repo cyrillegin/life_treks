@@ -20,39 +20,81 @@
         <script src="/js/adminapp.js"></script>
     </head>
     <body ng-app="adminApp" ng-controller="adminController" id="main">
-        <div class="row col-md-12">
-        	<h3>This is the admin area!</h3>
-        </div>
-        <div class = "row" >
-            <div class = "col-md-6">
-                <p> Enter a new admin User name:</p>
-                <input id="newAdminName" type="text">
-                <p>and password:</p>
-                <input id="newAdminPass" type="text">
-                <button ng-click="submitNewAdmin()"> Submit </button>
-                <div>{{successDialog}}</div>
-            </div>
-            <div class="col-md-6">
-                <button ng-click="getAdminList()">Get list</button>
-                <div ng-repeat="obj in currentAdmins">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="row col-md-12">
+                        	<h3>This is the admin area!</h3>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class = "col-md-6">
+                            <p> Enter a new admin User name:</p>
+                            <input id="newAdminName" type="text">
+                            <p>and password:</p>
+                            <input id="newAdminPass" type="text">
+                            <button ng-click="submitNewAdmin()"> Submit </button>
+                            <div>{{successDialog}}</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Delete entry by name</p>
+                            <input id="deleteUserName" type="text">
+                            <button ng-click="deleteAdmin()">Delete</button>
+                            <p>{{deleteDialog}}</p>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
-                            {{obj.name}}
-                        </div>
-                        <div class="col-md-6">
-                            {{obj.password}}
+                            <button ng-click="getAdminList()">Get list</button>
+                            <div ng-repeat="obj in currentAdmins">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{obj.name}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{obj.password}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <h3>New Blog Post</h3>
+                        <p>Blog Title: <input id="blog-title" type="text"></p>
+                    </div>
+                    <div class="row">
+                        <p>Blog Content</p>
+                        <input id="blog-content" type="text" style="width: 100%; height: 300px">
+                        <br>
+                        <p>Blog Tags: <input id="blog-tags" type="text"></p>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <button ng-click="SubmitPost()" style="float: right;">Submit</button>
+                    </div>
+                    {{blogSuccess}}
+                </div>
             </div>
-        </div>
-
-        <div class="row col-md-12">
-            <p>Delete entry by name</p>
-            <input id="deleteUserName" type="text">
-            <br>
-            <button ng-click="deleteAdmin()">Delete</button>
-            <p>{{deleteDialog}}</p>
         </div>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
