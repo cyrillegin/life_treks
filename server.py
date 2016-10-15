@@ -33,6 +33,8 @@ class Blog(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String())
     content = Column(String())
+    tags = Column(String())
+    date = Column(String())
 
 
 # class RestrictedArea:
@@ -120,9 +122,26 @@ class Root(object):
     @require(name_is("cyrille"))
     @cherrypy.expose
     def SubmitPost(self, **kwargs):
-        self.db.add(Blog(title=kwargs['title'], content=kwargs['content']))
+        self.db.add(Blog(title=kwargs['title'], content=kwargs['content'], date="changeThis", tags=kwargs['tags']))
         self.db.commit()
         return json.dumps("success", indent=4)
+
+    @cherrypy.expose
+    def getBlogRoll(self, **kwargs):
+        print "\nwe're here!\n"
+        objs = self.db.query(Blog)
+        print "did query! {}".format(objs)
+        obj = []
+        for i in objs:
+            print "\ngot new obj: {}".format(i)
+            newobj = {
+                "title": i.title,
+                "content": i.content,
+                "date": i.date,
+                "tags": i.tags
+            }
+            obj.append(newobj)
+        return json.dumps(obj, indent=2)
 
 
 def get_cp_config():

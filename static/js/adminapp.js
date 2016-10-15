@@ -53,7 +53,8 @@ var app = angular.module('adminApp', [])
                 url: 'SubmitPost',
                 params: {
                     'title': $('#blog-title').val(),
-                    'content': $('#blog-content').val()
+                    'content': $('#blog-content').val(),
+                    'tags': $('#blog-tags').val()
                 }
             };
 
