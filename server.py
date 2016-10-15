@@ -16,17 +16,6 @@ PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 STATIC = os.path.join(PATH, 'static')
 
 
-# class RestrictedArea:
-
-#     _cp_config = {
-#         'auth.require': [member_of('admin')]
-#     }
-
-#     @cherrypy.expose
-#     def index(self):
-#         return """This is the admin only area."""
-
-
 class Root(object):
 
     @property
@@ -39,7 +28,6 @@ class Root(object):
     }
 
     auth = AuthController()
-    # restricted = RestrictedArea()
 
     @cherrypy.expose
     def index(self):
@@ -63,7 +51,6 @@ class Root(object):
     @require(name_is("cyrille"))
     @cherrypy.expose
     def submitNewAdmin(self, **kwargs):
-        # cherrypy.response.headers['Content-Type'] = 'application/json'
         adminObj = {
             'name': kwargs['name'],
             'password': kwargs['password']
@@ -161,8 +148,6 @@ else:
     cherrypy.config.update({'environment': 'embedded'})
     application = cherrypy.Application(
         Root(), script_name=None, config=get_cp_config())
-
-
 
 
 
