@@ -4,7 +4,7 @@ import json
 
 from tool import SQLAlchemyTool
 from plugin import SQLAlchemyPlugin
-from auth import AuthController, require, member_of, name_is
+from auth import AuthController, require, name_is
 
 from sqlalchemy import Column
 from sqlalchemy.types import String, Integer
@@ -24,6 +24,15 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String())
     password = Column(String())
+
+
+class Blog(Base):
+
+    __tablename__ = 'blog'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String())
+    content = Column(String())
 
 
 # class RestrictedArea:
@@ -73,7 +82,7 @@ class Root(object):
     @require(name_is("cyrille"))
     @cherrypy.expose
     def submitNewAdmin(self, **kwargs):
-        cherrypy.response.headers['Content-Type'] = 'application/json'
+        # cherrypy.response.headers['Content-Type'] = 'application/json'
         adminObj = {
             'name': kwargs['name'],
             'password': kwargs['password']
@@ -107,6 +116,13 @@ class Root(object):
         else:
             myResponse = "User not found!"
         return json.dumps(myResponse, indent=4)
+
+    @require(name_is("cyrille"))
+    @cherrypy.expose
+    def SubmitPost(self, **kwargs):
+        self.db.add(Blog(title=kwargs['title'], content=kwargs['content']))
+        self.db.commit()
+        return json.dumps("success", indent=4)
 
 
 def get_cp_config():

@@ -46,5 +46,26 @@ var app = angular.module('adminApp', [])
                 $scope.deleteDialog = myStr;
             })
         }
+
+        $scope.SubmitPost = function(){
+            var req = {
+                method: 'POST',
+                url: 'SubmitPost',
+                params: {
+                    'title': $('#blog-title').val(),
+                    'content': $('#blog-content').val()
+                }
+            };
+
+            $http(req).then(function successCallback(response){
+                var myStr = "You've just posted a new blog!";
+                $scope.blogSuccess = myStr;
+            })
+        }
     }]);
+
+
+
+
+
 
