@@ -5,36 +5,15 @@ import json
 from tool import SQLAlchemyTool
 from plugin import SQLAlchemyPlugin
 from auth import AuthController, require, name_is
+import base
+import Models
 
-from sqlalchemy import Column
-from sqlalchemy.types import String, Integer
+
 from sqlalchemy.ext.declarative import declarative_base
 from cherrypy.lib.static import serve_file
 
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 STATIC = os.path.join(PATH, 'static')
-Base = declarative_base()
-
-
-# create a models.py file
-class User(Base):
-
-    __tablename__ = 'user'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String())
-    password = Column(String())
-
-
-class Blog(Base):
-
-    __tablename__ = 'blog'
-
-    id = Column(Integer, primary_key=True)
-    title = Column(String())
-    content = Column(String())
-    tags = Column(String())
-    date = Column(String())
 
 
 # class RestrictedArea:
@@ -89,14 +68,14 @@ class Root(object):
             'name': kwargs['name'],
             'password': kwargs['password']
         }
-        self.db.add(User(name=adminObj['name'], password=adminObj['password']))
+        self.db.add(Models.User(name=adminObj['name'], password=adminObj['password']))
         self.db.commit()
         return json.dumps(adminObj, indent=4)
 
     @require(name_is("cyrille"))
     @cherrypy.expose
     def getAdminList(self):
-        objs = self.db.query(User)
+        objs = self.db.query(Models.User)
         obj = []
         for i in objs:
             newobj = {
@@ -110,7 +89,7 @@ class Root(object):
     @cherrypy.expose
     def deleteAdmin(self, **kwargs):
         newname = kwargs['name']
-        curUsers = self.db.query(User)
+        curUsers = self.db.query(Models.User)
         filteredUser = curUsers.filter_by(name=newname)
         if len(filteredUser.all()) > 0:
             self.db.delete(filteredUser.all()[0])
@@ -122,14 +101,14 @@ class Root(object):
     @require(name_is("cyrille"))
     @cherrypy.expose
     def SubmitPost(self, **kwargs):
-        self.db.add(Blog(title=kwargs['title'], content=kwargs['content'], date="changeThis", tags=kwargs['tags']))
+        self.db.add(Models.Blog(title=kwargs['title'], content=kwargs['content'], date="changeThis", tags=kwargs['tags']))
         self.db.commit()
         return json.dumps("success", indent=4)
 
     @cherrypy.expose
     def getBlogRoll(self, **kwargs):
         print "\nwe're here!\n"
-        objs = self.db.query(Blog)
+        objs = self.db.query(Models.Blog)
         print "did query! {}".format(objs)
         obj = []
         for i in objs:
@@ -165,7 +144,7 @@ def runserver(config):
         open(dbfile, 'w+').close()
 
     sqlalchemy_plugin = SQLAlchemyPlugin(
-        cherrypy.engine, Base, 'sqlite:///%s' % (dbfile),
+        cherrypy.engine, base.Base, 'sqlite:///%s' % (dbfile),
         echo=True
     )
     sqlalchemy_plugin.subscribe()
