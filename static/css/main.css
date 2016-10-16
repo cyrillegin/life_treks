@@ -1,8 +1,12 @@
+.life-treks-main{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    letter-spacing: 3px;
+}
+
 .header{
     line-height: 100px;
     height: 100px;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    letter-spacing: 3px;
+    
 }
 
 .header-title{
@@ -15,7 +19,7 @@
 }
 
 .homemenu{
-	background-color: #5ea1d4;
+	/*background-color: #5ea1d4;*/
 	/*margin-top: 109px;*/
 }
 
@@ -26,4 +30,13 @@
 
 .footer{
 	background-color: #cf0038;
+}
+
+
+
+
+
+
+.panel{
+    border: 0;
 }
