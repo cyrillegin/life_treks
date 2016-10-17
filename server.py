@@ -97,6 +97,11 @@ class Root(object):
         objs = self.db.query(Models.Blog)
         obj = []
         for i in objs:
+            print "\nThing here:"
+            print i.title
+            print i.content
+            print i.date
+            print i.blogTag
             newobj = {
                 "blog": i.title
             }
@@ -121,8 +126,16 @@ class Root(object):
     @require(name_is("cyrille"))
     @cherrypy.expose
     def SubmitPost(self, **kwargs):
-
-        self.db.add(Models.Blog(title=kwargs['title'], content=kwargs['content'], date=str(date.today()), tags=kwargs['tags']))
+        newpost = Models.Blog(
+            title=kwargs['title'],
+            content=kwargs['content'],
+            date=str(date.today()),
+            )
+        tags = []
+        for x in kwargs['tags']:
+            tags.append(Models.BlogTag(blog_id=newpost, tagname=x))
+        newpost.blogtag = tags
+        self.db.add(newpost)
         self.db.commit()
         return json.dumps("success", indent=4)
 

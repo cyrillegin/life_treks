@@ -20,14 +20,17 @@ class Blog(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String())
     content = Column(String())
-    tags = relationship("BlogTags")
     date = Column(String())
 
+    blogTag = relationship("BlogTag", back_populates="blog")
 
-class BlogTags(Base):
 
-    __tablename__ = 'tags'
+class BlogTag(Base):
+
+    __tablename__ = 'blogTag'
 
     id = Column(Integer, primary_key=True)
-    parent_id = Column(Integer, ForeignKey('Blog.id'))
     tagname = Column(String())
+
+    blog_id = Column(Integer, ForeignKey('blog.id'))
+    blog = relationship("Blog", back_populates="blogTag")
