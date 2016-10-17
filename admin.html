@@ -64,6 +64,32 @@
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Delete blogpost by name</p>
+                            <input id="deleteBlog" type="text">
+                            <button ng-click="deleteBlog()">Delete</button>
+                            <p>{{deleteBlogDialog}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button ng-click="getBlogList()">Get blog list</button>
+                            <div ng-repeat="obj in currentBlogs">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{obj.title}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="col-md-6">
                     <div class="row">

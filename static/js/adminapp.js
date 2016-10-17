@@ -47,6 +47,31 @@ var app = angular.module('adminApp', [])
             })
         }
 
+        $scope.getBlogList = function(){
+            var req = {
+                method: 'POST',
+                url: 'getBlogList',
+            };
+            $http(req).then(function successCallback(response){
+                $scope.currentBlogs = response['data']
+            });
+        };
+
+        $scope.deleteBlog = function(){
+            var req = {
+                method: 'POST',
+                url: 'deleteBlog',
+                params: {
+                    'name': $('#deleteBlog').val(),
+                }
+            };
+
+            $http(req).then(function successCallback(response){
+                var myStr = "You've just deleted " + response['data'];
+                $scope.deleteDialog = myStr;
+            })
+        }
+
         $scope.SubmitPost = function(){
             var req = {
                 method: 'POST',

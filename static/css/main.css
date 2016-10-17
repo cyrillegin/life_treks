@@ -1,23 +1,48 @@
-.header{
-	background-color: #6b8e23;
-	height:110px;
+.life-treks-main{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    letter-spacing: 3px;
 }
+
+.header{
+    line-height: 100px;
+    height: 100px;
+    
+}
+
+.blogPreviews{
+    padding-bottom: 10px;
+    line-height: 97px;
+    height:97px;
+    overflow: hidden;
+}
+
+.backgroundImage{
+    position: absolute;
+}
+
 
 .mainmenu{
-	background-color: #69db84;
-	margin-top: 109px;
-}
-
-.homemenu{
-	background-color: #5ea1d4;
-	margin-top: 109px;
 }
 
 .homecontent{
-	background-color: #19c8a6;
-	margin-top: 109px;
 }
 
 .footer{
-	background-color: #cf0038;
+    margin: 30px;
+    font-size: 7pt;
+
+}
+
+
+
+/*html tag modification*/
+li {
+ list-style: none;
+}
+
+
+/*bootstrap modifications*/
+.panel{
+    border: 0;
+    background-color: transparent;
 }
