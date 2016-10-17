@@ -87,6 +87,31 @@ class Root(object):
 
     @require(name_is("cyrille"))
     @cherrypy.expose
+    def getBlogList(self):
+        objs = self.db.query(Models.Blog)
+        obj = []
+        for i in objs:
+            newobj = {
+                "blog": i.name
+            }
+            obj.append(newobj)
+        return json.dumps(obj, indent=4)
+
+    @require(name_is("cyrille"))
+    @cherrypy.expose
+    def deleteBlog(self, **kwargs):
+        newname = kwargs['name']
+        curBlog = self.db.query(Models.Blog)
+        filteredBlog = curBlog.filter_by(name=newname)
+        if len(filteredBlog.all()) > 0:
+            self.db.delete(filteredBlog.all()[0])
+            myResponse = newname
+        else:
+            myResponse = "User not found!"
+        return json.dumps(myResponse, indent=4)
+
+    @require(name_is("cyrille"))
+    @cherrypy.expose
     def SubmitPost(self, **kwargs):
         self.db.add(Models.Blog(title=kwargs['title'], content=kwargs['content'], date="changeThis", tags=kwargs['tags']))
         self.db.commit()
