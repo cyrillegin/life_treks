@@ -7,6 +7,8 @@ from plugin import SQLAlchemyPlugin
 from auth import AuthController, require, name_is
 import base
 import Models
+import time
+from datetime import date
 
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -63,6 +65,7 @@ class Root(object):
     @cherrypy.expose
     def getAdminList(self):
         objs = self.db.query(Models.User)
+
         obj = []
         for i in objs:
             newobj = {
@@ -70,6 +73,9 @@ class Root(object):
                 "password": i.password
             }
             obj.append(newobj)
+        print "\n obj is: {}".format(obj)
+        if len(obj) == 0:
+            return json.dumps([{"name": "There are no admins in database", "password": ""}], indent=4)
         return json.dumps(obj, indent=4)
 
     @require(name_is("cyrille"))
@@ -91,10 +97,17 @@ class Root(object):
         objs = self.db.query(Models.Blog)
         obj = []
         for i in objs:
+            print "\nThing here:"
+            print i.title
+            print i.content
+            print i.date
+            print i.blogTag
             newobj = {
-                "blog": i.name
+                "blog": i.title
             }
             obj.append(newobj)
+        if len(obj) == 0:
+            return json.dumps([{"blog": "There are no blogs in database"}], indent=4)
         return json.dumps(obj, indent=4)
 
     @require(name_is("cyrille"))
@@ -102,7 +115,7 @@ class Root(object):
     def deleteBlog(self, **kwargs):
         newname = kwargs['name']
         curBlog = self.db.query(Models.Blog)
-        filteredBlog = curBlog.filter_by(name=newname)
+        filteredBlog = curBlog.filter_by(title=newname)
         if len(filteredBlog.all()) > 0:
             self.db.delete(filteredBlog.all()[0])
             myResponse = newname
@@ -113,15 +126,22 @@ class Root(object):
     @require(name_is("cyrille"))
     @cherrypy.expose
     def SubmitPost(self, **kwargs):
-        self.db.add(Models.Blog(title=kwargs['title'], content=kwargs['content'], date="changeThis", tags=kwargs['tags']))
+        newpost = Models.Blog(
+            title=kwargs['title'],
+            content=kwargs['content'],
+            date=str(date.today()),
+            )
+        tags = []
+        for x in kwargs['tags']:
+            tags.append(Models.BlogTag(blog_id=newpost, tagname=x))
+        newpost.blogtag = tags
+        self.db.add(newpost)
         self.db.commit()
         return json.dumps("success", indent=4)
 
     @cherrypy.expose
     def getBlogRoll(self, **kwargs):
-        print "\nwe're here!\n"
         objs = self.db.query(Models.Blog)
-        print "did query! {}".format(objs)
         obj = []
         for i in objs:
             print "\ngot new obj: {}".format(i)
