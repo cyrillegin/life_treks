@@ -1,5 +1,6 @@
-from sqlalchemy import Column
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.types import String, Integer
+from sqlalchemy.orm import relationship
 from base import Base
 
 
@@ -19,5 +20,17 @@ class Blog(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String())
     content = Column(String())
-    tags = Column(String())
     date = Column(String())
+
+    blogTag = relationship("BlogTag", back_populates="blog")
+
+
+class BlogTag(Base):
+
+    __tablename__ = 'blogTag'
+
+    id = Column(Integer, primary_key=True)
+    tagname = Column(String())
+
+    blog_id = Column(Integer, ForeignKey('blog.id'))
+    blog = relationship("Blog", back_populates="blogTag")
