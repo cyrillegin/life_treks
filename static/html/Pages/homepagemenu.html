@@ -1,5 +1,6 @@
 
 <div class="homemenu" ng-controller="miniMenuController">
+    Blog Archive:
     <div class="panel-group" id="DateAccordion">
         <div class="panel panel-default">
             <div ng-repeat="year in years">
@@ -8,7 +9,7 @@
                         <a data-toggle="collapse" data-parent="#DateAccordion" href="#{{year.AccordianId}}">{{year.Year}}</a>
                     </h4>
                 </div>
-                <div id="{{year.AccordianId}}" class="panel-collapse collapse in">
+                <div id="{{year.AccordianId}}" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="panel-group" id="{{year.AccordianId}}">
                             <div class="panel panel-default">
@@ -18,7 +19,7 @@
                                             <a data-toggle="collapse" data-parent="#{{year.AccordianId}}" href="#{{month.AccordianId}}">{{month.Month}}</a>
                                         </h4>
                                     </div>
-                                    <div id="{{month.AccordianId}}" class="panel-collapse collapse in">
+                                    <div id="{{month.AccordianId}}" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <div id="navbar" class="navbar-collapse collapse ">
                                                 <ul class="nav navbar-nav">
@@ -43,7 +44,7 @@
         </div>
     </div>
 
-
+    Tags:
     <div class="panel-group" id="TagAccordion">
         <div class="panel panel-default">
             <div ng-repeat="tag in blogTags">
@@ -52,7 +53,7 @@
                     <a data-toggle="collapse" data-parent="#TagAccordion" href="#{{tag.AccordianId}}">{{tag.tagname}}</a>
                     </h4>
                 </div>
-                <div id="{{tag.AccordianId}}" class="panel-collapse collapse in">
+                <div id="{{tag.AccordianId}}" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="panel-group" id="{{tag.AccordianId}}">
                             <div class="panel panel-default">

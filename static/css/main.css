@@ -9,23 +9,27 @@
     
 }
 
-.header-title{
-    /*font-size: 24pt;*/
+.blogPreviews{
+    padding-bottom: 10px;
+    line-height: 97px;
+    height:97px;
+    overflow: hidden;
+    /*border-style: solid;
+    border-width: 1px;
+    border-color: #e2e2e2;*/
 }
+
+.backgroundImage{
+    position: absolute;
+}
+
 
 .mainmenu{
 	background-color: #69db84;
-	/*margin-top: 109px;*/
-}
-
-.homemenu{
-	/*background-color: #5ea1d4;*/
-	/*margin-top: 109px;*/
 }
 
 .homecontent{
 	background-color: #19c8a6;
-	/*margin-top: 109px;*/
 }
 
 .footer{
@@ -36,7 +40,8 @@
 
 
 
-
+/*bootstrap modifications*/
 .panel{
     border: 0;
+    background-color: transparent;
 }

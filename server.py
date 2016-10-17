@@ -104,7 +104,13 @@ class Root(object):
                 "title": i.title,
                 "content": i.content,
                 "date": i.date,
-                "tags": i.tags
+                "tags": [{
+                    "name": "tag1", "link": "www.something.com"
+                    }, {
+                    "name": "tag2", "link": "www.something.com"
+                    }, {
+                    "name": "tag3", "link": "www.something.com"
+                    }]
             }
             obj.append(newobj)
         return json.dumps(obj, indent=2)
