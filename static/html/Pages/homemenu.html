@@ -6,7 +6,7 @@
             <div ng-repeat="year in years">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#DateAccordion" href="#{{year.AccordianId}}">{{year.Year}}</a>
+                        <li data-toggle="collapse" data-parent="#DateAccordion" ng-click="ToggleYear(year)">{{year.Year}}</li>
                     </h4>
                 </div>
                 <div id="{{year.AccordianId}}" class="panel-collapse collapse">
@@ -16,7 +16,7 @@
                                 <div ng-repeat="month in year.Months">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#{{year.AccordianId}}" href="#{{month.AccordianId}}">{{month.Month}}</a>
+                                            <li data-toggle="collapse" data-parent="#{{year.AccordianId}}" ng-click="ToggleMonth(month)">{{month.Month}}</li>
                                         </h4>
                                     </div>
                                     <div id="{{month.AccordianId}}" class="panel-collapse collapse">

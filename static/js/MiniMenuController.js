@@ -1,6 +1,6 @@
 angular.module('lifeTreks.miniMenuController', [])
 
-.controller('miniMenuController', function($scope){
+.controller('miniMenuController', ['$scope', '$location', function($scope, $location){
     templateDateTree = [{
         "Year": "2016",
         "AccordianId": "2016Accordian",
@@ -45,8 +45,8 @@ angular.module('lifeTreks.miniMenuController', [])
                 "BlogId": 8
             }]
         }, {
-            "Month": "Augest",
-            "AccordianId": "2016AugestAccordian",
+            "Month": "August",
+            "AccordianId": "2016AugustAccordian",
             "Blogs": [{
                 "Blog title": "my first!",
                 "Blog date": "8-20-2016",
@@ -109,8 +109,8 @@ angular.module('lifeTreks.miniMenuController', [])
                 "BlogId": 20
             }]
         }, {
-            "Month": "Augest",
-            "AccordianId": "2015AugestAccordian",
+            "Month": "August",
+            "AccordianId": "2015AugustAccordian",
             "Blogs": [{
                 "Blog title": "my first!",
                 "Blog date":  "8-20-2015",
@@ -173,8 +173,8 @@ angular.module('lifeTreks.miniMenuController', [])
                 "BlogId": 32
             }]
         }, {
-            "Month": "Augest",
-            "AccordianId": "2014AugestAccordian",
+            "Month": "August",
+            "AccordianId": "2014AugustAccordian",
             "Blogs": [{
                 "Blog title": "my first!",
                 "Blog date":  "8-20-2014",
@@ -247,6 +247,15 @@ angular.module('lifeTreks.miniMenuController', [])
         console.log(something);
     };
 
+
+    $scope.ToggleYear = function(year){
+        $('#'+year.AccordianId).collapse('show');
+        
+    }
+
+    $scope.ToggleMonth = function(month){
+        $('#'+month.AccordianId).collapse('toggle');
+    }
     
 
 
@@ -284,4 +293,4 @@ angular.module('lifeTreks.miniMenuController', [])
 
 
 
-});
+}]);
