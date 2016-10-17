@@ -34,3 +34,4 @@ class BlogTag(Base):
 
     blog_id = Column(Integer, ForeignKey('blog.id'))
     blog = relationship("Blog", back_populates="blogTag")
+# something
