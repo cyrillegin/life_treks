@@ -247,6 +247,8 @@ angular.module('lifeTreks.miniMenuController', [])
         console.log(something);
     };
 
+    
+
 
 
 

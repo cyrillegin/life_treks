@@ -25,19 +25,23 @@
 
 
 .mainmenu{
-	background-color: #69db84;
 }
 
 .homecontent{
-	background-color: #19c8a6;
 }
 
 .footer{
-	background-color: #cf0038;
+    margin: 30px;
+    font-size: 7pt;
+
 }
 
 
 
+/*html tag modification*/
+li {
+ list-style: none;
+}
 
 
 /*bootstrap modifications*/
