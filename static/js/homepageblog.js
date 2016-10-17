@@ -13,7 +13,21 @@ angular.module('lifeTreks.homepageblog', [])
         url: 'getBlogRoll'
     };
     $http(req).then(function successCallback(response){
-    	$scope.blogroll = response.data;
+    	$scope.blog = response.data[response.data.length-1];
+
+        previewArr = []
+        for(var i in response.data){
+            if(i > response.data.length-1){
+                break;
+            }
+            previewArr.push({
+                "title": response.data[i].title,
+                "content": response.data[i].content,
+                "date": response.data[i].date
+            })
+        }
+
+        $scope.blogPreviews = previewArr;
     	console.log(response.data)
     	
     });
