@@ -23,12 +23,15 @@ var app = angular.module('adminApp', [])
         }
 
         $scope.getAdminList = function(){
+
             var req = {
                 method: 'POST',
                 url: 'getAdminList',
             };
             $http(req).then(function successCallback(response){
+                console.log(response);
                 $scope.currentAdmins = response['data']
+                console.log($scope.currentAdmins);
             });
         };
 
@@ -53,6 +56,7 @@ var app = angular.module('adminApp', [])
                 url: 'getBlogList',
             };
             $http(req).then(function successCallback(response){
+                console.log(response);
                 $scope.currentBlogs = response['data']
             });
         };
@@ -68,7 +72,7 @@ var app = angular.module('adminApp', [])
 
             $http(req).then(function successCallback(response){
                 var myStr = "You've just deleted " + response['data'];
-                $scope.deleteDialog = myStr;
+                $scope.deleteBlogDialog = myStr;
             })
         }
 
@@ -79,7 +83,7 @@ var app = angular.module('adminApp', [])
                 params: {
                     'title': $('#blog-title').val(),
                     'content': $('#blog-content').val(),
-                    'tags': $('#blog-tags').val()
+                    'tags': $('#blog-tags').val().split(", ")
                 }
             };
 
