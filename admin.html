@@ -66,6 +66,8 @@
                     </div>
                     <br>
                     <br>
+                    <br>
+                    <br>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -82,7 +84,7 @@
                             <div ng-repeat="obj in currentBlogs">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        {{obj.title}}
+                                        {{obj.blog}}
                                     </div>
                                 </div>
                             </div>
@@ -98,13 +100,16 @@
                     </div>
                     <div class="row">
                         <p>Blog Content</p>
-                        <input id="blog-content" type="text" style="width: 100%; height: 300px">
-                        <br>
-                        <p>Blog Tags: <input id="blog-tags" type="text"></p>
+                        <input id="blog-content" type="text" style="width: 100%; padding: 0 5px 400px">
                     </div>
                     <br>
                     <div class="row">
-                        <button ng-click="SubmitPost()" style="float: right;">Submit</button>
+                        <div class="col-md-6">
+                            <p>Blog Tags: <input id="blog-tags" type="text"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <button ng-click="SubmitPost()" style="float: right;">Submit</button>
+                        </div>
                     </div>
                     {{blogSuccess}}
                 </div>
