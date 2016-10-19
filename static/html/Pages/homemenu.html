@@ -1,7 +1,7 @@
 
 <div class="homemenu" ng-controller="miniMenuController">
     Blog Archive:
-    <div class="panel-group" id="accordion">
+    <div class="panel-group" id="DateAccordion">
         <div class="panel panel-default">
             <div ng-repeat="year in years">
                 <div class="panel-heading">
@@ -50,7 +50,7 @@
             <div ng-repeat="tag in blogTags">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#TagAccordion" href="#{{tag.AccordianId}}">{{tag.tagname}}</a>
+                    <a data-toggle="collapse" data-parent="#TagAccordion" ng-click="ToggleTag(tag)">{{tag.tagname}}</a>
                     </h4>
                 </div>
                 <div id="{{tag.AccordianId}}" class="panel-collapse collapse">

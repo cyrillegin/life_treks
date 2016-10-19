@@ -281,17 +281,19 @@ angular.module('lifeTreks.miniMenuController', [])
 
     $scope.ToggleMonth = function(month){
         $('#'+month.AccordianId).collapse('toggle');
-        $location.url(currentUrl[0] + "/" + month.Month + "/" + (currentUrl.length > 1 ? currentUrl[1] : ""));
+        $location.url(currentPath[1] + "/" + currentPath[2] + "/" + month.Month + "/" + (currentUrl.length > 1 ? currentUrl[1] : ""));
         currentUrl = $location.url().split("?");
         currentPath = currentUrl[0].split("/");
     }
     
+    $scope.ToggleTag = function(tag){
+        $('#'+tag.AccordianId).collapse('toggle');
+    }
+
+    // this handles the blog call for both tags and time.
     $scope.SelectBlog = function(something){
         console.log(something);
     };
-
-
-
 
 
 
