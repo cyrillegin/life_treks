@@ -59,6 +59,7 @@ var app = angular.module('adminApp', [])
                 console.log(response);
                 $scope.currentBlogs = response['data']
             });
+            console.log($('#blog-type li').text());
         };
 
         $scope.deleteBlog = function(){
@@ -76,6 +77,12 @@ var app = angular.module('adminApp', [])
             })
         }
 
+        $scope.ChangeBlogType = function(){
+            console.log("here")
+            console.log( $('#blog-type-menu'))
+            document.getElementById('blog-type-menu').innerHTML = $('#blog-type li').text();
+        }
+
         $scope.SubmitPost = function(){
             var req = {
                 method: 'POST',
@@ -83,7 +90,8 @@ var app = angular.module('adminApp', [])
                 params: {
                     'title': $('#blog-title').val(),
                     'content': $('#blog-content').val(),
-                    'tags': $('#blog-tags').val().split(", ")
+                    'tags': $('#blog-tags').val().split(", "),
+                    'blogType': $('#blog-type li').text()
                 }
             };
 
