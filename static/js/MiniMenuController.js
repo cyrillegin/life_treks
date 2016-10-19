@@ -1,6 +1,6 @@
 angular.module('lifeTreks.miniMenuController', [])
 
-.controller('miniMenuController', function($scope){
+.controller('miniMenuController', ['$scope', '$location', '$timeout', function($scope, $location, $timeout){
     templateDateTree = [{
         "Year": "2016",
         "AccordianId": "2016Accordian",
@@ -45,8 +45,8 @@ angular.module('lifeTreks.miniMenuController', [])
                 "BlogId": 8
             }]
         }, {
-            "Month": "Augest",
-            "AccordianId": "2016AugestAccordian",
+            "Month": "August",
+            "AccordianId": "2016AugustAccordian",
             "Blogs": [{
                 "Blog title": "my first!",
                 "Blog date": "8-20-2016",
@@ -109,8 +109,8 @@ angular.module('lifeTreks.miniMenuController', [])
                 "BlogId": 20
             }]
         }, {
-            "Month": "Augest",
-            "AccordianId": "2015AugestAccordian",
+            "Month": "August",
+            "AccordianId": "2015AugustAccordian",
             "Blogs": [{
                 "Blog title": "my first!",
                 "Blog date":  "8-20-2015",
@@ -173,8 +173,8 @@ angular.module('lifeTreks.miniMenuController', [])
                 "BlogId": 32
             }]
         }, {
-            "Month": "Augest",
-            "AccordianId": "2014AugestAccordian",
+            "Month": "August",
+            "AccordianId": "2014AugustAccordian",
             "Blogs": [{
                 "Blog title": "my first!",
                 "Blog date":  "8-20-2014",
@@ -239,15 +239,62 @@ angular.module('lifeTreks.miniMenuController', [])
 
 
     $scope.years = templateDateTree;
-
     $scope.blogTags = templateTagTree;
 
+    var currentUrl = $location.url().split("?");
+    var currentPath = currentUrl[0].split("/");
 
+    console.log(currentPath);
+
+    $timeout(function(){
+        if(currentPath.length > 2){
+            for(i in $scope.years){
+                if(currentPath[2] === $scope.years[i].Year){
+                    $('#'+$scope.years[i].AccordianId).collapse('toggle');
+                    var currentYear = $scope.years[i];
+                }
+            }
+        }
+        if(currentPath.length > 3){
+            for(j in currentYear.Months){
+                if(currentPath[3] === currentYear.Months[j].Month){
+                    $('#'+currentYear.Months[j].AccordianId).collapse('show');
+                }
+            }
+        }
+    });
+
+    $scope.ToggleYear = function(year){
+        $('#'+year.AccordianId).collapse('toggle');
+        if(currentPath.length <= 1){
+            newUrl = '/home/' + year.Year;
+        } else  {
+           newUrl = currentPath[1]+ "/" + year.Year;;
+       }
+        if(currentUrl.length === 2){
+            newUrl += currentUrl[1];
+        }
+        $location.url(newUrl);
+        currentUrl = $location.url().split("?");
+        currentPath = currentUrl[0].split("/");
+    }
+
+    $scope.ToggleMonth = function(month){
+        $('#'+month.AccordianId).collapse('toggle');
+        $location.url(currentPath[1] + "/" + currentPath[2] + "/" + month.Month + "/" + (currentUrl.length > 1 ? currentUrl[1] : ""));
+        currentUrl = $location.url().split("?");
+        currentPath = currentUrl[0].split("/");
+    }
+    
+    $scope.ToggleTag = function(tag){
+        $('#'+tag.AccordianId).collapse('toggle');
+    }
+
+    // this handles the blog call for both tags and time.
     $scope.SelectBlog = function(something){
         console.log(something);
     };
 
-    
 
 
 
@@ -279,9 +326,4 @@ angular.module('lifeTreks.miniMenuController', [])
 
 
 
-
-
-
-
-
-});
+}]);

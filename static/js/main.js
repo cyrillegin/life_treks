@@ -17,5 +17,4 @@ angular.module('lifeTreks.main', [])
     	$scope.menupage = "/html/pages/" + path + "menu.html";
         $location.url(path)
 	};
-
 }]);
