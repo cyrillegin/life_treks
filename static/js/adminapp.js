@@ -77,10 +77,10 @@ var app = angular.module('adminApp', [])
             })
         }
 
-        $scope.ChangeBlogType = function(){
+        $scope.ChangeBlogType = function(type){
             console.log("here")
             console.log( $('#blog-type-menu'))
-            document.getElementById('blog-type-menu').innerHTML = $('#blog-type li').text();
+            document.getElementById('blog-type-menu').innerHTML = type;
         }
 
         $scope.SubmitPost = function(){

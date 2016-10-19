@@ -94,21 +94,25 @@
 
                 </div>
                 <div class="col-md-6">
+                    <h3>New Blog Post</h3>
                     <div class="row">
                         <div class="col-md-6">
-                            <h3>New Blog Post</h3>
                             <p>Blog Title: <input id="blog-title" type="text"></p>
                         </div>
                         <div class="col-md-6">
+                            <div class="col-md-6">
                             Blog type:
-                            <div class="dropdown">
-                                <button  class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <div id="blog-type-menu"></div>
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu" id="blog-type">
-                                    <li><a ng-click="ChangeBlogType()">Homepage</a></li>
-                                    <li><a ng-click="ChangeBlogType()">Video</a></li>
-                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="dropdown">
+                                    <button  id="blog-type-menu" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="blog-type">
+                                        <li><a ng-click="ChangeBlogType('homepage')">Homepage</a></li>
+                                        <li><a ng-click="ChangeBlogType('video')">Video</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
