@@ -1,6 +1,6 @@
 angular.module('lifeTreks.miniMenuController', [])
 
-.controller('miniMenuController', ['$scope', '$location', function($scope, $location){
+.controller('miniMenuController', ['$scope', '$location', '$timeout', function($scope, $location, $timeout){
     templateDateTree = [{
         "Year": "2016",
         "AccordianId": "2016Accordian",
@@ -243,12 +243,26 @@ angular.module('lifeTreks.miniMenuController', [])
 
     var currentUrl = $location.url().split("?");
     var currentPath = currentUrl[0].split("/");
+
     console.log(currentPath);
 
-    $scope.SelectBlog = function(something){
-        console.log(something);
-    };
-
+    $timeout(function(){
+        if(currentPath.length > 2){
+            for(i in $scope.years){
+                if(currentPath[2] === $scope.years[i].Year){
+                    $('#'+$scope.years[i].AccordianId).collapse('toggle');
+                    var currentYear = $scope.years[i];
+                }
+            }
+        }
+        if(currentPath.length > 3){
+            for(j in currentYear.Months){
+                if(currentPath[3] === currentYear.Months[j].Month){
+                    $('#'+currentYear.Months[j].AccordianId).collapse('show');
+                }
+            }
+        }
+    });
 
     $scope.ToggleYear = function(year){
         $('#'+year.AccordianId).collapse('toggle');
@@ -258,16 +272,23 @@ angular.module('lifeTreks.miniMenuController', [])
            newUrl = currentPath[1]+ "/" + year.Year;;
        }
         if(currentUrl.length === 2){
-            newUrl += currentUrl[1]
+            newUrl += currentUrl[1];
         }
         $location.url(newUrl);
+        currentUrl = $location.url().split("?");
+        currentPath = currentUrl[0].split("/");
     }
 
     $scope.ToggleMonth = function(month){
         $('#'+month.AccordianId).collapse('toggle');
+        $location.url(currentUrl[0] + "/" + month.Month + "/" + (currentUrl.length > 1 ? currentUrl[1] : ""));
+        currentUrl = $location.url().split("?");
+        currentPath = currentUrl[0].split("/");
     }
     
-
+    $scope.SelectBlog = function(something){
+        console.log(something);
+    };
 
 
 
