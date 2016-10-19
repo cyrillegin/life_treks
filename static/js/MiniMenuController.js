@@ -239,9 +239,11 @@ angular.module('lifeTreks.miniMenuController', [])
 
 
     $scope.years = templateDateTree;
-
     $scope.blogTags = templateTagTree;
 
+    var currentUrl = $location.url().split("?");
+    var currentPath = currentUrl[0].split("/");
+    console.log(currentPath);
 
     $scope.SelectBlog = function(something){
         console.log(something);
@@ -249,8 +251,16 @@ angular.module('lifeTreks.miniMenuController', [])
 
 
     $scope.ToggleYear = function(year){
-        $('#'+year.AccordianId).collapse('show');
-        
+        $('#'+year.AccordianId).collapse('toggle');
+        if(currentPath.length <= 1){
+            newUrl = '/home/' + year.Year;
+        } else  {
+           newUrl = currentPath[1]+ "/" + year.Year;;
+       }
+        if(currentUrl.length === 2){
+            newUrl += currentUrl[1]
+        }
+        $location.url(newUrl);
     }
 
     $scope.ToggleMonth = function(month){
