@@ -18,10 +18,10 @@ class Blog(Base):
     __tablename__ = 'blog'
 
     id = Column(Integer, primary_key=True)
+    blogType = Column(String())
     title = Column(String())
     content = Column(String())
     date = Column(String())
-
     blogTag = relationship("BlogTag", back_populates="blog")
 
 

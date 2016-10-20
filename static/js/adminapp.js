@@ -78,8 +78,6 @@ var app = angular.module('adminApp', [])
         }
 
         $scope.ChangeBlogType = function(type){
-            console.log("here")
-            console.log( $('#blog-type-menu'))
             document.getElementById('blog-type-menu').innerHTML = type;
         }
 
@@ -91,7 +89,7 @@ var app = angular.module('adminApp', [])
                     'title': $('#blog-title').val(),
                     'content': $('#blog-content').val(),
                     'tags': $('#blog-tags').val().split(", "),
-                    'blogType': $('#blog-type li').text()
+                    'blogType': document.getElementById('#blog-type-menu').innerHTML
                 }
             };
 

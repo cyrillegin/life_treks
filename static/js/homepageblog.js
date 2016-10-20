@@ -10,7 +10,7 @@ angular.module('lifeTreks.homepageblog', [])
         	"endDate": "someDate?",
         	"number": "someNumber?"
         },
-        url: 'getBlogRoll'
+        url: 'getHomeBlogRoll'
     };
     $http(req).then(function successCallback(response){
     	$scope.blog = response.data[response.data.length-1];

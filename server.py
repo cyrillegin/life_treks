@@ -97,11 +97,6 @@ class Root(object):
         objs = self.db.query(Models.Blog)
         obj = []
         for i in objs:
-            print "\nThing here:"
-            print i.title
-            print i.content
-            print i.date
-            print i.blogTag
             newobj = {
                 "blog": i.title
             }
@@ -129,6 +124,7 @@ class Root(object):
         newpost = Models.Blog(
             title=kwargs['title'],
             content=kwargs['content'],
+            blogType=kwargs['blogType'],
             date=str(date.today()),
             )
         tags = []
@@ -140,10 +136,36 @@ class Root(object):
         return json.dumps("success", indent=4)
 
     @cherrypy.expose
-    def getBlogRoll(self, **kwargs):
+    def getHomeBlogRoll(self, **kwargs):
         objs = self.db.query(Models.Blog)
         obj = []
         for i in objs:
+            print "\nblogtype: {}".format(i.blogType)
+            if i.blogType is "video":
+                continue
+            print "\ngot new obj: {}".format(i)
+            newobj = {
+                "title": i.title,
+                "content": i.content,
+                "date": i.date,
+                "tags": [{
+                    "name": "tag1", "link": "www.something.com"
+                    }, {
+                    "name": "tag2", "link": "www.something.com"
+                    }, {
+                    "name": "tag3", "link": "www.something.com"
+                    }]
+            }
+            obj.append(newobj)
+        return json.dumps(obj, indent=2)
+
+    @cherrypy.expose
+    def getVideoBlogRoll(self, **kwargs):
+        objs = self.db.query(Models.Blog)
+        obj = []
+        for i in objs:
+            if i.blogType is "home":
+                continue
             print "\ngot new obj: {}".format(i)
             newobj = {
                 "title": i.title,
