@@ -5,6 +5,7 @@ var app = angular.module('adminApp', [])
     
     .controller('adminController', ['$scope', '$http', function($scope, $http) {
         $scope.currentAdmins = [];
+        $scope.blogType = "Choose Blog Type";
 
         $scope.submitNewAdmin = function(){
             var req = {
@@ -78,7 +79,8 @@ var app = angular.module('adminApp', [])
         }
 
         $scope.ChangeBlogType = function(type){
-            document.getElementById('blog-type-menu').innerHTML = type;
+            // document.getElementById('blog-type-menu').innerHTML = type;
+            $scope.blogType = type;
         }
 
         $scope.SubmitPost = function(){
@@ -89,7 +91,7 @@ var app = angular.module('adminApp', [])
                     'title': $('#blog-title').val(),
                     'content': $('#blog-content').val(),
                     'tags': $('#blog-tags').val().split(", "),
-                    'blogType': document.getElementById('#blog-type-menu').innerHTML
+                    'blogType': $scope.blogType
                 }
             };
 
