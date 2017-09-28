@@ -9,6 +9,8 @@ import demoPage from './pages/demo/demo-page.html';
 import aboutPage from './pages/about/about-page.html';
 // Controller imports
 import blogController from './pages/blog-roll/blog.controller';
+import demoController from './pages/demo/demo.controller';
+import aboutController from './pages/about/about.controller';
 // Component imports
 import navbar from './components/navbar/navbar.component';
 import blogHeader from './components/blog-head/blogHeader.component';
@@ -25,6 +27,8 @@ angular.module('life_treks', ['ngRoute'])
     .component('blogfooter', blogFooter)
     .component('blognav', blogNav)
     .controller('blogController', blogController)
+    .controller('demoController', demoController)
+    .controller('aboutController', aboutController)
     .config(
         ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
             $locationProvider.hashPrefix('');
