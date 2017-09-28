@@ -17,6 +17,8 @@ import blogHeader from './components/blog-head/blogHeader.component';
 import blogBody from './components/blog-body/blogBody.component';
 import blogFooter from './components/blog-foot/blogFooter.component';
 import blogNav from './components/blog-nav/blogNav.component';
+import dthree from './components/dthree/dthree.component';
+import threejs from './components/threejs/threejs.component';
 // Style
 import './main.style.scss';
 
@@ -26,6 +28,8 @@ angular.module('life_treks', ['ngRoute'])
     .component('blogbody', blogBody)
     .component('blogfooter', blogFooter)
     .component('blognav', blogNav)
+    .component('threejs', threejs)
+    .component('dthree', dthree )
     .controller('blogController', blogController)
     .controller('demoController', demoController)
     .controller('aboutController', aboutController)
