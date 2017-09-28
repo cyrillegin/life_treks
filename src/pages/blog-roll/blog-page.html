@@ -1,7 +1,22 @@
 <navbar></navbar>
-Start
-<div class="container-fluid" ng-controller="blogController">
-    <div ng-repeat="blog in blogs">
-        <p>Theres a blog</p>
+
+<div ng-controller="blogController as mainCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div ng-repeat="blog in blogs">
+                    <div class="card">
+                        <blogheader> </blogheader>
+                        <blogbody></blogbody>
+                        <blogfooter></blogfooter>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <blognav></blognav>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

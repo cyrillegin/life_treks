@@ -10,6 +10,8 @@ module.exports = {
             'angular',
             'angular-route',
             'jquery',
+            'bootstrap',
+            './node_modules/bootstrap/dist/css/bootstrap.min.css'
         ],
     },
     output: {

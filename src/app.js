@@ -11,10 +11,19 @@ import aboutPage from './pages/about/about-page.html';
 import blogController from './pages/blog-roll/blog.controller';
 // Component imports
 import navbar from './components/navbar/navbar.component';
-
+import blogHeader from './components/blog-head/blogHeader.component';
+import blogBody from './components/blog-body/blogBody.component';
+import blogFooter from './components/blog-foot/blogFooter.component';
+import blogNav from './components/blog-nav/blogNav.component';
+// Style
+import './main.style.scss';
 
 angular.module('life_treks', ['ngRoute'])
     .component('navbar', navbar)
+    .component('blogheader', blogHeader)
+    .component('blogbody', blogBody)
+    .component('blogfooter', blogFooter)
+    .component('blognav', blogNav)
     .controller('blogController', blogController)
     .config(
         ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {

@@ -19,10 +19,10 @@
         "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q",
         "eslint": "./node_modules/.bin/eslint src",
         "pythonlint": "find ./server -name '*.py' | xargs pep8 --max-line-length=200",
-        "postinstall": "npm --prefix ./node_modules/node-sass/ run install"
+        "postinstall": "npm --prefix ./node_modules/node-sass/ run install && npm prune"
     },
     "dependencies": {
-        "@uirouter/angularjs": "1.0.3",
+        "@uirouter/angularjs": "1.0.6",
         "angular": "1.6.6",
         "angular-animate": "1.6.6",
         "angular-aria": "1.6.6",
