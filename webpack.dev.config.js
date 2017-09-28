@@ -9,10 +9,7 @@ module.exports = {
         vendor: [
             'angular',
             'angular-route',
-            'd3',
             'jquery',
-            'angular-material',
-            './node_modules/angular-material/angular-material.min.css',
         ],
     },
     output: {
@@ -41,6 +38,16 @@ module.exports = {
             }, {
                 loader: 'css-loader',
             }, {
+                loader: 'postcss-loader', // Run post css actions
+                options: {
+                    plugins: function () { // post css plugins, can be exported to postcss.config.js
+                        return [
+                            require('precss'),
+                            require('autoprefixer'),
+                        ];
+                    },
+                },
+            }, {
                 loader: 'sass-loader',
             }],
         }, {
@@ -55,7 +62,7 @@ module.exports = {
         }],
     },
     plugins: [
-        // new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin(),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',
             $: 'jquery',
@@ -70,5 +77,14 @@ module.exports = {
             filename: 'vendor.bundle.js',
         }),
         new webpack.NamedModulesPlugin(),
+        new webpack.ProvidePlugin({
+            '$': 'jquery',
+            'jQuery': 'jquery',
+            'window.jQuery': 'jquery',
+            'Popper': ['popper.js', 'default'],
+            // In case you imported plugins individually, you must also require them here:
+            'Util': 'exports-loader?Util!bootstrap/js/dist/util',
+            'Dropdown': 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
+        }),
     ],
 };

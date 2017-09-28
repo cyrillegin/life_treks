@@ -4,7 +4,7 @@ import cherrypy
 from cherrypy.lib.static import serve_file
 
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-STATIC = os.path.join(PATH, 'static')
+STATIC = os.path.join(PATH, '../static')
 
 
 class Root(object):

@@ -7,7 +7,7 @@
     "license": "MIT",
     "author": "Cyrille Gindreau",
     "scripts": {
-        "start": "npm run buildDev & python server/run.py run",
+        "start": "npm run buildDev & python server/server.py run",
         "buildDev": "npm run clean && npm run watch",
         "clean": "rm -fr static/dist/",
         "watch": "webpack --watch --progress --config ./webpack.dev.config.js",
@@ -18,21 +18,21 @@
         "htmllint": "./node_modules/.bin/htmlhint --config .htmlhintrc src",
         "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q",
         "eslint": "./node_modules/.bin/eslint src",
-        "pythonlint": "find ./server -name '*.py' | xargs pep8 --max-line-length=200 --exclude='server/commands/dht11.py'"
+        "pythonlint": "find ./server -name '*.py' | xargs pep8 --max-line-length=200",
+        "postinstall": "npm --prefix ./node_modules/node-sass/ run install"
     },
     "dependencies": {
+        "@uirouter/angularjs": "1.0.3",
         "angular": "1.6.6",
         "angular-animate": "1.6.6",
         "angular-aria": "1.6.6",
-        "angular-material": "1.1.5",
         "angular-route": "1.6.6",
-        "angular-ui-router": "1.0.3",
-        "bootstrap": "4.0.0-beta",
+        "bootstrap": "3.3.7",
         "d3": "4.10.2",
-        "jquery": "3.2.1",
-        "popper": "^1.0.0"
+        "jquery": "3.2.1"
     },
     "devDependencies": {
+        "autoprefixer": "7.1.4",
         "babel-cli": "6.26.0",
         "babel-core": "6.26.0",
         "babel-loader": "7.1.2",
@@ -53,6 +53,8 @@
         "less": "2.7.2",
         "less-loader": "4.0.5",
         "node-sass": "4.5.3",
+        "precss": "2.0.0",
+        "postcss-loader": "2.0.6",
         "sass-lint": "1.11.1",
         "sass-loader": "6.0.6",
         "style-loader": "0.18.2",
