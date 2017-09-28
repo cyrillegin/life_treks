@@ -1,7 +1,7 @@
 {
     "name": "life_treks",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "Life Treks website",
     "repository": "https://github.com/cyrillegin/life_treks.git",
     "license": "MIT",
