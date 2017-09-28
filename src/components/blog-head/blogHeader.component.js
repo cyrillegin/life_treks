@@ -6,7 +6,7 @@ const blogHeaderComponent = {
     template: blogHead,
     controller: blogHeaderController,
     bindings: {
-        'data': '<',
+        data: '<',
     },
 };
 

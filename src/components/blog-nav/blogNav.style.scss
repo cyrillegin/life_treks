@@ -1,3 +1,5 @@
+$black: #000;
+
 .glyphicon {
     font-size: 10px;
 }
@@ -7,10 +9,10 @@
 }
 
 .blog-nav-title {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid $black;
 }
 
 ul {
-    padding-left: 10px;
     margin-top: 10px;
+    padding-left: 10px;
 }

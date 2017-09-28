@@ -1,10 +1,10 @@
+$shadow-one: rgba(0, 0, 0, .12);
+$shadow-two: rgba(0, 0, 0, .24);
+
 .card {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    padding-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 15px;
+    box-shadow: 0 1px 3px $shadow-one, 0 1px 2px $shadow-two;
     margin-bottom: 15px;
+    padding: 5px 15px;
 }
 
 .title {
