@@ -1,3 +1,9 @@
-export default function blogBody() {
-    console.log('body');
+export default class body {
+    constructor($scope) {
+        this.$scope = $scope;
+    }
+    $onInit() {
+        console.log(this.data);
+        this.$scope.content = this.data.bodyText;
+    }
 }

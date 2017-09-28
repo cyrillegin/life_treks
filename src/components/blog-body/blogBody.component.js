@@ -5,6 +5,9 @@ import './blogBody.style.scss';
 const blogBodyComponent = {
     template: blogBody,
     controller: blogBodyController,
+    bindings: {
+        data: '<',
+    },
 };
 
 export default blogBodyComponent;

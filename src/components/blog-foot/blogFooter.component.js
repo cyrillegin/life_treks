@@ -5,6 +5,9 @@ import './blogFooter.style.scss';
 const blogFooterComponent = {
     template: foot,
     controller: blogFooterController,
+    bindings: {
+        data: '<',
+    },
 };
 
 export default blogFooterComponent;
