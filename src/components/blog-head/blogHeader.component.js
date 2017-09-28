@@ -5,6 +5,9 @@ import './blogHeader.style.scss';
 const blogHeaderComponent = {
     template: blogHead,
     controller: blogHeaderController,
+    bindings: {
+        'data': '<',
+    },
 };
 
 export default blogHeaderComponent;
