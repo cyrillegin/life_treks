@@ -25,8 +25,8 @@ export default class dthree {
 
     $onInit() {
         console.log('start');
-        const data = this.GenerateGraphData();
-        this.DrawGraph(data);
+        const data = this.generateGraphData();
+        this.drawGraph(data);
     }
 
     GenerateGraphData() {
@@ -34,15 +34,15 @@ export default class dthree {
             readings: [],
         };
         let time = new Date().getTime();
-        for (let i = 0; i < 10; i ++) {
+        for (let index = 0; index < 100; index ++) {
             let newValue = Math.random() * 100;
-            if (i > 0) {
+            if (index > 0) {
                 // unsure if this is correctly working yet, awaiting rest of graph.
-                if (newValue > newData.readings[i - 1].value + 20) {
-                    newValue = newData.readings[i - 1].value + 20;
+                if (newValue > newData.readings[index - 1].value + 20) {
+                    newValue = newData.readings[index - 1].value + 20;
                 }
-                if (newValue < newData.readings[i - 1].value - 20) {
-                    newValue = newData.readings[i - 1].value - 20;
+                if (newValue < newData.readings[index - 1].value - 20) {
+                    newValue = newData.readings[index - 1].value - 20;
                 }
             }
             const newReading = {
@@ -50,7 +50,7 @@ export default class dthree {
                 timestamp: time,
             };
             newData.readings.push(newReading);
-            time -= 1000 * 60; // decrement by five minutes.
+            time -= 1000 * 60 * 5; // decrement by five minutes.
         }
         return newData;
     }
@@ -61,7 +61,6 @@ export default class dthree {
 
         let width = container[0].clientWidth;
         let height = 400;
-        let i = 0;
         const margin = {
             top: 20,
             right: 20,
@@ -71,24 +70,24 @@ export default class dthree {
         width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
 
-        let start = data.readings[0].created;
-        let end = data.readings[0].created;
-        let min = data.readings[0].value;
-        let max = data.readings[0].value;
+        let start = data.readings[0].timestamp;
+        let end = data.readings[0].timestamp;
+        const min = 0; // data.readings[0].value;
+        const max = 100; // data.readings[0].value;
 
         // Set min and max values
-        for (i = 0; i < data.readings.length; i ++) {
-            if (min > data.readings[i].value) {
-                min = data.readings[i].value;
+        for (let index = 0; index < data.readings.length; index ++) {
+            // if (min > data.readings[i].value) {
+            //     min = data.readings[i].value;
+            // }
+            // if (max < data.readings[i].value) {
+            //     max = data.readings[i].value;
+            // }
+            if (start > data.readings[index].timestamp) {
+                start = data.readings[index].timestamp;
             }
-            if (max < data.readings[i].value) {
-                max = data.readings[i].value;
-            }
-            if (start > data.readings[i].created) {
-                start = data.readings[i].created;
-            }
-            if (end < data.readings[i].created) {
-                end = data.readings[i].created;
+            if (end < data.readings[index].timestamp) {
+                end = data.readings[index].timestamp;
             }
         }
 
@@ -97,7 +96,7 @@ export default class dthree {
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top + margin.bottom)
             .append('g')
-            .attr('transform', 'translate(' + margin.left + ',' + margin.bottom + ')');
+            .attr('transform', `translate(${margin.left},${margin.bottom})`);
             // .classed('svg-content-responsive', true);
 
         // Scale
@@ -106,17 +105,17 @@ export default class dthree {
             .rangeRound([0, width]);
 
         const yScale = d3.scaleLinear()
-            .domain([min, max + (max - min) * 0.1])
+            .domain([min, max])
             .rangeRound([height, margin.bottom]);
 
         // yAxis
         const yAxis = d3.axisLeft(yScale)
             .tickSizeInner(- width)
             .tickSizeOuter(0)
-            .ticks(7)
-            .tickFormat((d) => {
-                const f = d3.format('.1f');
-                return f(d);
+            .ticks(10)
+            .tickFormat((value) => { //eslint-disable-line
+                // const f = d3.format('.1f');
+                return value;
             });
 
         newChart.append('g')
@@ -130,7 +129,7 @@ export default class dthree {
             .ticks(5);
 
         newChart.append('g')
-            .attr('transform', 'translate(0,' + height + ')')
+            .attr('transform', `translate(0,${height})`)
             .call(xAxis);
 
         // Top border
@@ -150,13 +149,13 @@ export default class dthree {
             .attr('x2', width)
             .attr('y1', margin.bottom)
             .attr('y2', height);
-        /*
+
         // Graph title
         newChart.append('text')
             .attr('class', 'chart-title-text')
             .attr('x', 0)
             .attr('y', 0)
-            .text(data.sensor.name);
+            .text('My Graph Title goes here');
 
         // Legend
         const colors = ['#FFB90F', '#62f1ff', 'blue', 'red', 'green', 'yellow'];
@@ -167,7 +166,7 @@ export default class dthree {
             .style('text-anchor', 'end')
             .attr('x', width - 18)
             .attr('y', 10)
-            .text(data.sensor.name);
+            .text('something');
 
         // Legend icon
         newChart.append('rect')
@@ -179,16 +178,12 @@ export default class dthree {
 
         // Graph lines
         const lineFunction = d3.line()
-            .defined(() => {
+            .defined(() => { //eslint-disable-line
                 // TODO: add linebreak behaivor
                 return true;
             })
-            .x((d) => {
-                return xScale(d.created);
-            })
-            .y((d) => {
-                return yScale(d.value);
-            });
+            .x((value) => xScale(value.timestamp))
+            .y((value) => yScale(value.value));
 
         newChart.append('path')
             .attr('d', lineFunction(data.readings))
@@ -196,6 +191,14 @@ export default class dthree {
             .attr('stroke-width', 2)
             .attr('fill', 'none');
 
+        // TOOL-TIPS
+        // Tooltip container
+        const circleElements = [];
+        const lineElements = [];
+        const textElements = [];
+
+        const tooltip = newChart.append('g')
+            .style('display', 'none');
 
         // Tooltip circle
         const newCircle = tooltip.append('circle')
@@ -215,22 +218,12 @@ export default class dthree {
             .attr('x2', width);
         lineElements.push(newLine);
         // Tooltip text
-        newText = tooltip.append('text')
+        const newText = tooltip.append('text')
             .attr('width', 100 * 2)
             .attr('height', 100 * 0.4)
             .attr('fill', 'black');
         textElements.push(newText);
 
-
-        // TOOL-TIPS
-        // Tooltip container
-        const tooltip = newChart.append('g')
-            .style('display', 'none');
-
-        // Tooltip helper
-        const bisectDate = d3.bisector((d) => {
-            return d.created;
-        }).left;
 
         // Y-axis line for tooltip
         const yLine = tooltip.append('g')
@@ -252,64 +245,66 @@ export default class dthree {
             .attr('fill', 'black');
 
         // Drag behaivors for the selection box.
-        const dragStart = 0, dragStartPos = 0, dragEnd = 0;
-        const drag = d3.drag()
-            .on('drag', function (d, i) {
-                const x0 = xScale.invert(d3.mouse(this)[0]);
-                i = bisectDate(data.readings, x0, 1);
-                const d0 = data.readings[i - 1],
-                    d1 = data.readings[i];
-                d = x0 - d0.created > d1.created - x0 ? d1 : d0;
-
-                if (xScale(d.created) > dragStartPos) {
-                    selectionBox.attr('width', (xScale(d.created) - dragStartPos));
-                } else {
-                    selectionBox.attr('width', (dragStartPos - xScale(d.created)));
-                    selectionBox.attr('transform', 'translate(' + xScale(d.created) + ',0)');
-                }
-            })
-            .on('end', function (d, i) {
-                dragEnd = d3.mouse(this)[0];
-                if (Math.abs(dragStart - dragEnd) < 10) {
-                    return;
-                }
-
-                const x0 = xScale.invert(dragStart), x1 = xScale.invert(dragEnd);
-
-                scope.$apply(() => {
-                    if (x1 > x0) {
-                        $location.search('start_date', x0.getTime());
-                        $location.search('end_date', x1.getTime());
-                    } else {
-                        $location.search('start_date', x1.getTime());
-                        $location.search('end_date', x0.getTime());
-                    }
-                });
-            });
+        // let dragStart = 0;
+        // let dragStartPos = 0;
+        // let dragEnd = 0;
+        // const drag = d3.drag()
+        //     .on('drag', function (d, i) {
+        //         const x0 = xScale.invert(d3.mouse(this)[0]);
+        //         i = bisectDate(data.readings, x0, 1);
+        //         const d0 = data.readings[i - 1];
+        //         const d1 = data.readings[i];
+        //         d = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
+        //
+        //         if (xScale(d.timestamp) > dragStartPos) {
+        //             selectionBox.attr('width', (xScale(d.timestamp) - dragStartPos));
+        //         } else {
+        //             selectionBox.attr('width', (dragStartPos - xScale(d.timestamp)));
+        //             selectionBox.attr('transform', 'translate(' + xScale(d.timestamp) + ',0)');
+        //         }
+        //     })
+        //     .on('end', function (d, i) {
+        //         dragEnd = d3.mouse(this)[0];
+        //         if (Math.abs(dragStart - dragEnd) < 10) {
+        //             return;
+        //         }
+        //
+        //         const x0 = xScale.invert(dragStart);
+        //         const x1 = xScale.invert(dragEnd);
+        //
+        //         scope.$apply(() => {
+        //             if (x1 > x0) {
+        //                 $location.search('start_date', x0.getTime());
+        //                 $location.search('end_date', x1.getTime());
+        //             } else {
+        //                 $location.search('start_date', x1.getTime());
+        //                 $location.search('end_date', x0.getTime());
+        //             }
+        //         });
+        //     });
         // Update loop for tooltips.
-        const circleElements = [];
-        const lineElements = [];
-        const textElements = [];
+
+        // Tooltip helper
+        const bisectDate = d3.bisector((value) => value.timestamp).right;
 
         function mousemove() {
             const x0 = xScale.invert(d3.mouse(this)[0]); // jshint ignore:line
-            const i = bisectDate(data.readings, x0, 1);
-            const d0 = data.readings[i - 1];
-            const d1 = data.readings[i];
+            const index = bisectDate(data.readings, x0, 1);
+            const d0 = data.readings[index - 1];
+            const d1 = data.readings[index];
             if (d1 === undefined) {
                 return;
             }
-            const d = x0 - d0.created > d1.created - x0 ? d1 : d0;
-
-            circleElements[0].attr('transform', 'translate(' + xScale(d.created) + ',' + yScale(d.value) + ')');
-            yLine.attr('transform', 'translate(' + xScale(d.created) + ',' + 0 + ')');
+            const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
+            circleElements[0].attr('transform', `translate(${xScale(d2.timestamp)},${yScale(d2.value)})`);
+            yLine.attr('transform', `translate(${xScale(d2.timestamp)}, 0)`);
             // lineElements[0].attr('transform', 'translate(' + 0 + ',' + yScale(d.value) + ')');
             // uncomment this line for update of horizontal line tooltip
-            timeText.text(new Date(d.created));
+            timeText.text(new Date(d2.timestamp));
 
             textElements[0]
-                .text(getFormattedText(d.value))
-                .attr('transform', 'translate(' + (xScale(d.created) + 10) + ',' + (yScale(d.value) - 10) + ')');
+                .text(d2.value)
+                .attr('transform', `translate(${(xScale(d2.timestamp) + 10)},${(yScale(d2.value) - 10)})`);
         }
 
         // Selection box
@@ -339,15 +334,13 @@ export default class dthree {
                 dragStart = d3.mouse(this)[0];
 
                 const x0 = xScale.invert(d3.mouse(this)[0]);
-                const i = bisectDate(data.readings, x0, 1);
-                const d0 = data.readings[i - 1];
-                const d1 = data.readings[i];
-                const d = x0 - d0.created > d1.created - x0 ? d1 : d0;
-                selectionBox.attr('transform', 'translate(' + xScale(d.created) + ',0)');
-                dragStartPos = xScale(d.created);
-            })
-            .call(drag);
-
-            */
+                const index = bisectDate(data.readings, x0, 1);
+                const d0 = data.readings[index - 1];
+                const d1 = data.readings[index];
+                const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
+                selectionBox.attr('transform', `translate(${xScale(d2.timestamp)},0)`);
+                dragStartPos = xScale(d2.timestamp);
+            });
+        // .call(drag);
     }
 }
