@@ -20,16 +20,15 @@ import * as d3 from 'd3';
 
 export default class dthree {
     constructor($scope) {
-        console.log('hi from dthree');
+        this.$scope = $scope;
     }
 
     $onInit() {
-        console.log('start');
         const data = this.generateGraphData();
         this.drawGraph(data);
     }
 
-    GenerateGraphData() {
+    generateGraphData() {
         const newData = {
             readings: [],
         };
@@ -55,7 +54,7 @@ export default class dthree {
         return newData;
     }
 
-    DrawGraph(data) {
+    drawGraph(data) {
         const container = $('#graph-container');
         container.html('');
 
@@ -170,7 +169,7 @@ export default class dthree {
 
         // Legend icon
         newChart.append('rect')
-            .attr('fill', colors[i])
+            .attr('fill', colors[0])
             .attr('x', width - 16)
             .attr('y', 0)
             .attr('width', 14)
