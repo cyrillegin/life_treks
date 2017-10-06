@@ -11,7 +11,9 @@ module.exports = {
             'angular-route',
             'jquery',
             'bootstrap',
-            './node_modules/bootstrap/dist/css/bootstrap.min.css'
+            './node_modules/bootstrap/dist/css/bootstrap.min.css',
+            'three',
+            'd3'
         ],
     },
     output: {

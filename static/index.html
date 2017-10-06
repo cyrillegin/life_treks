@@ -10,9 +10,26 @@
     <title>Life Treks</title>
     <base href="/" />
 
-    <!-- <script src="/node_modules/popper"></script> -->
     <script src="/dist/vendor.bundle.js"></script>
     <script src="/dist/bundle.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <script src="https://s3.amazonaws.com/stitch-sdks/js/library/stable/stitch.min.js"></script>
+    <script>
+  const client = new stitch.StitchClient('life-treks-jkixe');
+  const db = client.service('mongodb', 'mongodb-atlas').db('like-treks');
+  client.login().then(() =>
+    db.collection('blogs').updateOne({owner_id: client.authedId()}, {$set:{number:42}}, {upsert:true})
+  ).then(()=>
+    db.collection('blogs').find({owner_id: client.authedId()})
+  ).then(docs => {
+    console.log("Found docs", docs)
+    console.log("[MongoDB Stitch] Connected to Stitch")
+  }).catch(err => {
+    console.error(err)
+  });
+</script>
 
 </head>
 

@@ -34,42 +34,42 @@ export default class threejs {
                 function initRenderer() {
                     app.renderer = new THREE.WebGLRenderer({
                         antialias: true,
-                        alpha: true,
+                        // alpha: true,
                     });
-                    app.renderer.shadowMap.enabled = true;
-                    app.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                    // app.renderer.shadowMap.enabled = true;
+                    // app.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
                     app.renderer.gammaInput = true;
                     app.renderer.gammaOutput = true;
                     app.renderer.autoClear = false;
                     app.renderer.sortObjects = false;
-                    app.renderer.setSize(600, 600);
-                    app.renderer.setClearColor(0xffffff, 0);
+                    app.renderer.setSize(600, 300);
+                    app.renderer.setClearColor(0x000000, 0);
                     container.appendChild(app.renderer.domElement);
                     $(app.renderer.domElement).css('position', 'absolute');
                 }
 
                 // Create lights
                 function initLights() {
-                    app.sun = new THREE.SpotLight(0xffffff, 1);
-                    app.sun.position.set(-60, 60, 60);
+                    app.sun = new THREE.SpotLight(0xffffff, 100);
+                    app.sun.position.set(-6, 6, 6);
                     app.sun.angle = 1.1;
                     app.sun.decay = 0;
-                    app.sun.castShadow = true;
-
-                    app.sun.shadow.mapSize.width = 2048;
-                    app.sun.shadow.mapSize.height = 2048;
-                    app.sun.shadow.camera.near = 1;
-                    app.sun.shadow.camera.far = 80000;
+                    // app.sun.castShadow = true;
+                    //
+                    // app.sun.shadow.mapSize.width = 2048;
+                    // app.sun.shadow.mapSize.height = 2048;
+                    // app.sun.shadow.camera.near = 1;
+                    // app.sun.shadow.camera.far = 80000;
                     app.scene.add(app.sun);
-                    backlight = new THREE.AmbientLight(0xffffff, 0.3);
+                    backlight = new THREE.AmbientLight(0x00ffff, 10.3);
                     backlight.position.set(10, -10, -10);
                     app.scene.add(backlight);
                 }
 
                 // Create Camera and attach OrbitControls.js
                 function initCamera() {
-                    app.camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 2, 80000);
-                    app.camera.position.set(25, 15, 0);
+                    app.camera = new THREE.PerspectiveCamera(45, 600 / 300, 2, 80000);
+                    app.camera.position.set(10, 5, 0);
                     app.camera.lookAt(app.scene.position);
                     // app.cameraControls = new THREE.OrbitControls(app.camera, app.renderer.domElement);
                 }
@@ -81,10 +81,13 @@ export default class threejs {
                     }
                     if (app.displayedMesh === null) {
                         const loader = new THREE.JSONLoader();
-                        loader.load(('models/box.json'), (geometry, materials) => {
+                        loader.load(('models/arduino.json'), (geometry, materials) => {
+                            console.log(geometry);
+                            console.log(materials)
                             const mesh = new THREE.Mesh(geometry, materials);
-                            mesh.castShadow = true;
-                            mesh.receiveShadow = true;
+                            mesh.doubleSided = true;
+                            // mesh.castShadow = true;
+                            // mesh.receiveShadow = true;
                             mesh.position.set(0, 0, 0);
                             mesh.name = name;
                             app.meshes[name] = mesh;
