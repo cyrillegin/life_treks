@@ -5,7 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
     entry: {
-        app: './src/app.js',
+        app: './src/client/index.js',
         vendor: [
             'angular',
             'angular-route',
@@ -13,14 +13,19 @@ module.exports = {
             'bootstrap',
             './node_modules/bootstrap/dist/css/bootstrap.min.css',
             'three',
-            'd3'
+            'd3',
         ],
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'static/dist'),
+        path: path.resolve(__dirname, 'dist/server/public'),
+        publicPath: '/',
     },
-    devtool: 'eval-cheap-module-source-map',
+    devServer: {
+        host: '127.0.0.1',
+        port: 5000,
+    },
+    devtool: 'inline-source-map',
     module: {
         rules: [{
             test: /\.js$/,
@@ -44,7 +49,7 @@ module.exports = {
             }, {
                 loader: 'postcss-loader', // Run post css actions
                 options: {
-                    plugins: function () { // post css plugins, can be exported to postcss.config.js
+                    plugins() { // post css plugins, can be exported to postcss.config.js
                         return [
                             require('precss'),
                             require('autoprefixer'),
@@ -56,7 +61,7 @@ module.exports = {
             }],
         }, {
             test: /\.png$|\?|\.gif($|\?)/,
-            loader: 'url-loader?publicPath=/static/dist/&limit=100000',
+            loader: 'url-loader?publicPath=dist/&limit=100000',
         }, {
             test: /\.jpg$/,
             loader: 'file-loader',
@@ -66,7 +71,10 @@ module.exports = {
         }],
     },
     plugins: [
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': 'development',
+        }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',
             $: 'jquery',
@@ -85,7 +93,6 @@ module.exports = {
             '$': 'jquery',
             'jQuery': 'jquery',
             'window.jQuery': 'jquery',
-            'Popper': ['popper.js', 'default'],
             // In case you imported plugins individually, you must also require them here:
             'Util': 'exports-loader?Util!bootstrap/js/dist/util',
             'Dropdown': 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
