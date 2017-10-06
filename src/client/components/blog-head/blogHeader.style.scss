@@ -1,0 +1,11 @@
+$black: #000;
+
+.header {
+    border-bottom: 1px solid $black;
+}
+
+.date {
+    position: absolute;
+    right: 15px;
+    top: 18px;
+}

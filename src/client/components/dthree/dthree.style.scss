@@ -1,0 +1,12 @@
+$black: #000;
+
+.chart-axis {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: $black;
+    stroke-width: 1px;
+
+    line {
+        stroke-opacity: .2;
+    }
+}

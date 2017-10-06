@@ -1,0 +1,22 @@
+$shadow-one: rgba(0, 0, 0, .12);
+$shadow-two: rgba(0, 0, 0, .24);
+
+body {
+    font-family: 'Roboto', sans-serif;
+    text-align: justify;
+}
+.card {
+    box-shadow: 0 1px 3px $shadow-one, 0 1px 2px $shadow-two;
+    margin-bottom: 15px;
+    padding: 5px 15px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.selfie {
+    margin: 10px;
+    width: 98%;
+}
