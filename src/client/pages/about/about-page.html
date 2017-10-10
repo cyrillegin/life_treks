@@ -14,9 +14,9 @@
     </div>
 </div>
 
-<div class="under-construction">
-    <div ng-controller="demoController as mainCtrl">
-        <div class="container">
+<div ng-controller="demoController as mainCtrl">
+    <div class="container">
+        <div class="under-construction">
             <div class="card">
                 <div class="row">
                     <div class="col-md-8">
@@ -34,11 +34,31 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-12">
-                        This can have a contact me form.
-                    </div>
+        </div>
+        <div class="card">
+            <div class="row input-margin">
+                <div class="col-md-12">
+                    <h2>Contact Me </h2>
+                </div>
+            </div>
+            <div class="row input-margin">
+                <div class="col-md-12">
+                    Subject:
+                    <br />
+                    <input id="form-title" maxlength="15"/>
+                </div>
+            </div>
+            <div class="row input-margin">
+                <div class="col-md-12">
+                    Message:
+                    <textarea id="form-body" class="form-body"/>
+                </div>
+            </div>
+            <div class="row input-margin">
+                <div class="col-md-12">
+                    Your email:
+                    <br />
+                    <input id="form-from-email" />
                 </div>
             </div>
         </div>

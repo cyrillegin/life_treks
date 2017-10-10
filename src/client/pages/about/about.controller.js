@@ -1,3 +1,5 @@
+import './about-page.style.scss';
+
 export default class aboutController {
 
     constructor($scope) {
@@ -6,5 +8,8 @@ export default class aboutController {
 
     }
     $onInit() {
+        $('#form-submit').on('click', (event) => {
+            console.log('got a hit');
+        });
     }
 }
