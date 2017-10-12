@@ -25,9 +25,7 @@ export default class aboutController {
                 console.log('got error')
                 console.log(error)
             })
-
         });
-
     }
     $onInit() {
 

@@ -35,16 +35,15 @@ function sendEmail(emailContent) {
         },
     });
 
-    let message = 'That was easy!';
-    for (const index in emailContent) {
-        message += emailContent[index];
-    }
+    let message = emailContent.body;
+    message += '<br> emailer: ';
+    message += emailContent.email;
 
     const mailOptions = {
         from: process.env.EMAIL,
         to: process.env.EMAIL,
-        subject: 'Sending Email using Node.js',
-        text: message,
+        subject: emailContent.title,
+        html: message,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
