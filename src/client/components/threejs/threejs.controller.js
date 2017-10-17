@@ -83,7 +83,7 @@ export default class threejs {
                         const loader = new THREE.JSONLoader();
                         loader.load(('models/arduino.json'), (geometry, materials) => {
                             console.log(geometry);
-                            console.log(materials)
+                            console.log(materials);
                             const mesh = new THREE.Mesh(geometry, materials);
                             mesh.doubleSided = true;
                             // mesh.castShadow = true;
@@ -105,7 +105,7 @@ export default class threejs {
 
             render() {
                 if (app.loaded && app.displayedMesh) {
-                    app.displayedMesh.rotation.y += 0.001;
+                    app.displayedMesh.rotation.y += 0.001; // eslint-disable-line
                 }
 
                 if (!app.loaded && app.displayedMesh) {
