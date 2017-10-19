@@ -4,8 +4,11 @@ $black: #000;
     border-bottom: 1px solid $black;
 }
 
+.title {
+    float:left;
+}
+
 .date {
-    position: absolute;
-    right: 15px;
-    top: 18px;
+    float: right;
+    margin-top: 12px
 }
