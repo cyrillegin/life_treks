@@ -3,12 +3,10 @@ export default class blogController {
     constructor($scope) {
         'ngInject';
         this.$scope = $scope;
-        console.log('asdf');
 
     }
     $onInit() {
-        console.log('asdf');
-        const exampleBlog1 = {
+        const exampleBlog2 = {
             title: 'Hello World!',
             bodyText: `
             Welcome, my name is Cyrille Gindreau.
@@ -23,7 +21,7 @@ export default class blogController {
             timestamp: 'October 5, 2017',
             tags: ['helloworld', 'introduction', 'greeting'],
         };
-        const exampleBlog2 = {
+        const exampleBlog1 = {
             title: 'Front End Architecture',
             bodyText: `
                 I’d like to take a moment to discuss how the site works. From a user perspective,
