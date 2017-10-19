@@ -1,0 +1,32 @@
+$light-grey: #eee;
+
+.social-media-icons-footer {
+    float: right;
+    position: relative;
+
+    a {
+        font-size: 12pt;
+        margin-right: 10px;
+    }
+}
+
+.footer {
+    background-color: $light-grey;
+
+    a {
+        font-size: 10pt;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .footer-links {
+        height: 100%;
+    }
+
+    .center {
+        font-weight: bolder;
+        margin: 10px;
+        text-align: center;
+    }
+}

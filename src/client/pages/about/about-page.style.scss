@@ -1,4 +1,4 @@
-$red: #ff0;
+$red: #f00;
 $white: #fff;
 $button-blue: #2b98f0;
 $button-hover-blue: #3fa3f4;
@@ -18,6 +18,11 @@ $shadow: rgba(0, 0, 0, .3);
 
 h2 {
     margin-top: 0;
+}
+
+.resume {
+    height: 400px;
+    width: 100%;
 }
 
 .button {
