@@ -33,15 +33,27 @@ export default class aboutController {
                 $('#email-required').css('display', 'none');
             }
             if (errors) {
-                return;
+                // return;
             }
+            $('#contact-form').addClass('contact-form-closed');
             $http.post('/message', message).then((success) => {
                 console.log(success);
-                console.log('good');
+                $('#contact-form').html(`
+                    <div class="alert alert-success">
+                        Thanks for your email, I will try to respond as soon as possible.
+                    </div>
+                `);
+                $('#contact-form').removeClass('contact-form-open');
             })
                 .catch((error) => {
                     console.log('got error');
                     console.log(error);
+                    $('#contact-form').html(`
+                        <div class="alert alert-danger">
+                            Uh oh! Something went wrong :( Please try refresing your browser and try again.
+                        </div>
+                    `);
+                    $('#contact-form').removeClass('contact-form-open');
                 });
         });
     }
