@@ -1,10 +1,10 @@
 // import navController from './navbar.controller';
-import nav from './navbar.html';
-import './navbar.style.scss';
+import foot from './footer.html';
+import './footer.style.scss';
 import 'font-awesome/css/font-awesome.min.css';
 
 const navcomponent = {
-    template: nav,
+    template: foot,
     // controller: navController,
 };
 

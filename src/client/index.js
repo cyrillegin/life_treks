@@ -13,6 +13,7 @@ import demoController from './pages/demo/demo.controller';
 import aboutController from './pages/about/about.controller';
 // Component imports
 import navbar from './components/navbar/navbar.component';
+import footer from './components/footer/footer.component';
 import blogHeader from './components/blog-head/blogHeader.component';
 import blogBody from './components/blog-body/blogBody.component';
 import blogFooter from './components/blog-foot/blogFooter.component';
@@ -24,6 +25,7 @@ import './main.style.scss';
 
 angular.module('life_treks', ['ngRoute'])
     .component('navbar', navbar)
+    .component('footer', footer)
     .component('blogheader', blogHeader)
     .component('blogbody', blogBody)
     .component('blogfooter', blogFooter)
