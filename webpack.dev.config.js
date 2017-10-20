@@ -77,7 +77,7 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',
-            $: 'jquery',
+            $: 'jquery', // eslint-disable-line
             jquery: 'jquery',
         }),
         new webpack.LoaderOptionsPlugin({

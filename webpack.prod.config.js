@@ -4,19 +4,23 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // eslint-disable-lin
 
 module.exports = {
     entry: {
-        app: './src/app.js',
+        app: './src/client/index.js',
         vendor: [
             'angular',
             'angular-route',
             'd3',
             'jquery',
+            'bootstrap',
+            './node_modules/bootstrap/dist/css/bootstrap.min.css',
+            'three',
         ],
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'static/dist'),
+        path: path.resolve(__dirname, 'dist/server/public'),
+        publicPath: '/',
     },
-    devtool: false,
+    devtool: 'source-map',
     module: {
         rules: [{
             test: /\.js$/,
@@ -40,7 +44,7 @@ module.exports = {
             }, {
                 loader: 'postcss-loader', // Run post css actions
                 options: {
-                    plugins: function () { // post css plugins, can be exported to postcss.config.js
+                    plugins() { // post css plugins, can be exported to postcss.config.js
                         return [
                             require('precss'),
                             require('autoprefixer'),
@@ -69,7 +73,7 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',
-            $: 'jquery',
+            $: 'jquery', // eslint-disable-line
             jquery: 'jquery',
         }),
         new webpack.LoaderOptionsPlugin({
@@ -83,20 +87,20 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                dead_code: true,
-                drop_debugger: true,
+                dead_code: true, // eslint-disable-line
+                drop_debugger: true, // eslint-disable-line
                 conditionals: true,
                 comparisons: true,
                 booleans: true,
                 unused: true,
                 toplevel: true,
-                if_return: true,
-                join_vars: true,
+                if_return: true, // eslint-disable-line
+                join_vars: true, // eslint-disable-line
                 cascade: true,
-                collapse_vars: true,
-                reduce_vars: true,
+                collapse_vars: true, // eslint-disable-line
+                reduce_vars: true, // eslint-disable-line
                 warnings: false,
-                drop_console: true,
+                drop_console: true, // eslint-disable-line
                 passes: 2,
             },
             mangle: false,
