@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // eslint-disable-line
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line
 
 module.exports = {
     entry: {
@@ -14,6 +14,7 @@ module.exports = {
             './node_modules/bootstrap/dist/css/bootstrap.min.css',
             'three',
             'd3',
+            './node_modules/font-awesome/css/font-awesome.min.css',
         ],
     },
     output: {
@@ -77,7 +78,7 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery',
-            $: 'jquery',
+            $: 'jquery', // eslint-disable-line
             jquery: 'jquery',
         }),
         new webpack.LoaderOptionsPlugin({
