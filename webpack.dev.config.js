@@ -14,6 +14,7 @@ module.exports = {
             './node_modules/bootstrap/dist/css/bootstrap.min.css',
             'three',
             'd3',
+            './node_modules/font-awesome/css/font-awesome.min.css',
         ],
     },
     output: {
@@ -71,7 +72,7 @@ module.exports = {
         }],
     },
     plugins: [
-        // new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': 'development',
         }),

@@ -8,11 +8,12 @@ module.exports = {
         vendor: [
             'angular',
             'angular-route',
-            'd3',
             'jquery',
             'bootstrap',
             './node_modules/bootstrap/dist/css/bootstrap.min.css',
             'three',
+            'd3',
+            './node_modules/font-awesome/css/font-awesome.min.css',
         ],
     },
     output: {
