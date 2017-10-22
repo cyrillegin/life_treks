@@ -20,7 +20,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.post('/message', (req, res) => {
-    sendEmail(req.body);
+    try {
+        sendEmail(req.body);
+        res.send('success');
+    } catch (error) {
+        res.send(error);
+    }
 });
 
 
@@ -54,8 +59,10 @@ function sendEmail(emailContent) {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);
+            throw error;
         } else {
             console.log(`Email sent: ${ info.response}`);
+            return 'success';
         }
     });
 }
