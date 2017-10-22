@@ -37,7 +37,7 @@ export default class aboutController {
                 return;
             }
             const target = document.getElementById('spinner');
-            const spinner = new Spinner({ radius: 5, length: 5, lines: 10, width: 3}).spin(target);
+            const spinner = new Spinner({radius: 5, length: 5, lines: 10, width: 3}).spin(target);
 
             $http.post('/message', message).then((success) => {
                 console.log(success);
