@@ -1,4 +1,5 @@
 import './about-page.style.scss';
+import Spinner from 'spin';
 
 export default class aboutController {
 
@@ -33,9 +34,11 @@ export default class aboutController {
                 $('#email-required').css('display', 'none');
             }
             if (errors) {
-                // return;
+                return;
             }
-            $('#contact-form').addClass('contact-form-closed');
+            const target = document.getElementById('spinner');
+            const spinner = new Spinner({radius: 5, length: 5, lines: 10, width: 3}).spin(target);
+
             $http.post('/message', message).then((success) => {
                 console.log(success);
                 $('#contact-form').html(`
@@ -43,7 +46,9 @@ export default class aboutController {
                         Thanks for your email, I will try to respond as soon as possible.
                     </div>
                 `);
+                $('#contact-form').addClass('contact-form-closed');
                 $('#contact-form').removeClass('contact-form-open');
+                spinner.stop();
             })
                 .catch((error) => {
                     console.log('got error');
@@ -53,7 +58,9 @@ export default class aboutController {
                             Uh oh! Something went wrong :( Please try refresing your browser and try again.
                         </div>
                     `);
+                    $('#contact-form').addClass('contact-form-closed');
                     $('#contact-form').removeClass('contact-form-open');
+                    spinner.stop();
                 });
         });
     }

@@ -1,3 +1,8 @@
+<script>
+ga('set', 'page', '/about.html');
+ga('send', 'pageview');
+</script>
+
 <navbar></navbar>
 
 <div class="container">
@@ -41,50 +46,50 @@
             </div>
         </div>
         <div class="contact-form-open" id="contact-form">
-        <div class="card">
-            <div class="row input-margin">
-                <div class="col-md-12">
-                    <h2>Contact Me </h2>
-                </div>
-            </div>
-            <div class="row input-margin">
-                <div class="col-md-12">
-                    <div class="required" id="subject-required">
-                        * A subject is required.
+            <div class="card">
+                <div class="row input-margin">
+                    <div class="col-md-12">
+                        <h2>Contact Me </h2>
                     </div>
-                    Subject:
-                    <br />
-                    <input id="form-title" maxlength="15" />
                 </div>
-            </div>
-            <div class="row input-margin">
-                <div class="col-md-12">
-                    <div class="required" id="message-required">
-                        * A message is required.
+                <div class="row input-margin">
+                    <div class="col-md-12">
+                        <div class="required" id="subject-required">
+                            * A subject is required.
+                        </div>
+                        Subject:
+                        <br />
+                        <input id="form-title" maxlength="15" />
                     </div>
-                    Message:
-                    <textarea id="form-body" class="form-body" />
                 </div>
-            </div>
-            <div class="row input-margin">
-                <div class="col-md-12">
-                    <div class="required" id="email-required">
-                        * A valid email is required.
+                <div class="row input-margin">
+                    <div class="col-md-12">
+                        <div class="required" id="message-required">
+                            * A message is required.
+                        </div>
+                        Message:
+                        <textarea id="form-body" class="form-body" />
                     </div>
-                    Your email:
-                    <br />
-                    <input id="form-from-email" type="email" />
-
                 </div>
-            </div>
-            <div class="row input-margin">
-                <div class="col-md-12">
-                    <button type="button" class="btn button" id="form-submit">Submit</button>
+                <div class="row input-margin">
+                    <div class="col-md-12">
+                        <div class="required" id="email-required">
+                            * A valid email is required.
+                        </div>
+                        Your email:
+                        <br />
+                        <input id="form-from-email" type="email" />
+                    </div>
+                </div>
+                <div class="row input-margin">
+                    <div class="col-md-12">
+                        <button type="button" class="btn button" id="form-submit">Submit</button>
+                        <div class="email-spinner" id="spinner"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <footer></footer>
