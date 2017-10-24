@@ -1,4 +1,5 @@
 $black: #000;
+$light-grey: #ddd;
 
 .chart-axis {
     fill: none;
@@ -8,5 +9,19 @@ $black: #000;
 
     line {
         stroke-opacity: .2;
+    }
+}
+
+.tick {
+    line {
+        stroke: $light-grey;
+    }
+}
+
+.library-description {
+    padding: 10px;
+    margin: 10px;
+    ul {
+        margin-left: 7px;
     }
 }

@@ -24,28 +24,34 @@ export default class dthree {
     }
 
     $onInit() {
-        const data = this.generateGraphData();
+        const data = {
+            streams: [],
+        };
+        data.streams.push(this.generateGraphData(20));
+        data.streams.push(this.generateGraphData(40));
+        data.streams.push(this.generateGraphData(60));
+        data.streams.push(this.generateGraphData(80));
         this.drawGraph(data);
     }
 
-    generateGraphData() {
+    generateGraphData(start) {
         const newData = {
             readings: [],
         };
         let time = new Date().getTime();
         for (let index = 0; index < 100; index ++) {
-            let newValue = Math.random() * 100;
+            let newValue = start + Math.random() * 100;
             if (index > 0) {
                 // unsure if this is correctly working yet, awaiting rest of graph.
-                if (newValue > newData.readings[index - 1].value + 20) {
-                    newValue = newData.readings[index - 1].value + 20;
+                if (newValue > newData.readings[index - 1].value + 5) {
+                    newValue = newData.readings[index - 1].value + 5;
                 }
-                if (newValue < newData.readings[index - 1].value - 20) {
-                    newValue = newData.readings[index - 1].value - 20;
+                if (newValue < newData.readings[index - 1].value - 5) {
+                    newValue = newData.readings[index - 1].value - 5;
                 }
             }
             const newReading = {
-                value: Math.random() * 100,
+                value: newValue,
                 timestamp: time,
             };
             newData.readings.push(newReading);
@@ -69,26 +75,28 @@ export default class dthree {
         width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
 
-        let start = data.readings[0].timestamp;
-        let end = data.readings[0].timestamp;
-        const min = 0; // data.readings[0].value;
-        const max = 100; // data.readings[0].value;
+        let start = data.streams[0].readings[0].timestamp;
+        let end = data.streams[0].readings[0].timestamp;
+        let min = data.streams[0].readings[0].value;
+        let max = data.streams[0].readings[0].value;
 
         // Set min and max values
-        for (let index = 0; index < data.readings.length; index ++) {
-            // if (min > data.readings[i].value) {
-            //     min = data.readings[i].value;
-            // }
-            // if (max < data.readings[i].value) {
-            //     max = data.readings[i].value;
-            // }
-            if (start > data.readings[index].timestamp) {
-                start = data.readings[index].timestamp;
-            }
-            if (end < data.readings[index].timestamp) {
-                end = data.readings[index].timestamp;
-            }
-        }
+        data.streams.forEach((stream) => {
+            stream.readings.forEach((reading) => {
+                if (min > reading.value) {
+                    min = reading.value;
+                }
+                if (max < reading.value) {
+                    max = reading.value;
+                }
+                if (start > reading.timestamp) {
+                    start = reading.timestamp;
+                }
+                if (end < reading.timestamp) {
+                    end = reading.timestamp;
+                }
+            });
+        });
 
         const newChart = d3.select('#graph-container')
             .append('svg')
@@ -154,7 +162,7 @@ export default class dthree {
             .attr('class', 'chart-title-text')
             .attr('x', 0)
             .attr('y', 0)
-            .text('My Graph Title goes here');
+            .text('Dragonfly readings');
 
         // Legend
         const colors = ['#FFB90F', '#62f1ff', 'blue', 'red', 'green', 'yellow'];
@@ -181,14 +189,17 @@ export default class dthree {
                 // TODO: add linebreak behaivor
                 return true;
             })
+            .curve(d3.curveCardinal)
             .x((value) => xScale(value.timestamp))
             .y((value) => yScale(value.value));
 
-        newChart.append('path')
-            .attr('d', lineFunction(data.readings))
-            .attr('stroke', colors[0])
-            .attr('stroke-width', 2)
-            .attr('fill', 'none');
+        for (let index = 0; index < data.streams.length; index++) {
+            newChart.append('path')
+                .attr('d', lineFunction(data.streams[index].readings))
+                .attr('stroke', colors[index])
+                .attr('stroke-width', 2)
+                .attr('fill', 'none');
+        }
 
         // TOOL-TIPS
         // Tooltip container
