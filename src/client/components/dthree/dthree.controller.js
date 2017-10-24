@@ -58,6 +58,7 @@ export default class dthree {
             time -= 1000 * 60 * 5; // decrement by five minutes.
         }
         newData.name = 'myGraph';
+        newData.readings.reverse();
         return newData;
     }
 
@@ -158,35 +159,37 @@ export default class dthree {
             .attr('y1', margin.bottom)
             .attr('y2', height);
 
+        const fontSizeForLegend = 14;
         // Graph title
         newChart.append('text')
             .attr('class', 'chart-title-text')
             .attr('x', 0)
-            .attr('y', 0)
-            .text('Dragonfly readings');
+            .attr('y', fontSizeForLegend)
+            .text('Dragonfly Readings');
 
         // Legend
         const colors = ['#FFB90F', '#62f1ff', 'blue', 'red', 'green', 'yellow'];
-        const fontSizeForLegend = 14;
+        const textElements = [];
         for (let index = 0; index < data.streams.length; index ++) {
             let newX = 0;
             for (let itter = 0; itter < index; itter ++) {
-                newX += data.streams[itter].name.length;
+                newX += data.streams[itter].name.length + 2;
             }
             newX *= fontSizeForLegend;
             // Legend text
-            newChart.append('text')
+            const text = newChart.append('text')
                 .attr('class', 'chart-legend-text')
                 .style('text-anchor', 'end')
                 .attr('x', width - 18 - newX)
                 .attr('y', fontSizeForLegend)
                 .text(data.streams[index].name);
+            textElements.push(text);
 
             // Legend icon
             newChart.append('rect')
                 .attr('fill', colors[index])
                 .attr('x', width - fontSizeForLegend - newX)
-                .attr('y', 0)
+                .attr('y', 2)
                 .attr('width', fontSizeForLegend)
                 .attr('height', fontSizeForLegend);
         }
@@ -212,36 +215,19 @@ export default class dthree {
         // TOOL-TIPS
         // Tooltip container
         const circleElements = [];
-        const lineElements = [];
-        const textElements = [];
 
         const tooltip = newChart.append('g')
             .style('display', 'none');
 
         // Tooltip circle
-        const newCircle = tooltip.append('circle')
-            .attr('class', 'tooltip-circle')
-            .style('fill', 'none')
-            .style('stroke', 'blue')
-            .attr('r', 4);
-        circleElements.push(newCircle);
-
-        // Use if horizontal lines are desired, uncomment line in mousemove() to get correct positioning
-        const newLine = tooltip.append('line')
-            .attr('class', 'tooltip-line')
-            .style('stroke', 'blue')
-            .style('stroke-dasharray', '3,3')
-            .style('opacity', 0.5)
-            .attr('x1', 0)
-            .attr('x2', width);
-        lineElements.push(newLine);
-        // Tooltip text
-        const newText = tooltip.append('text')
-            .attr('width', 100 * 2)
-            .attr('height', 100 * 0.4)
-            .attr('fill', 'black');
-        textElements.push(newText);
-
+        data.streams.forEach((stream) => {
+            const newCircle = tooltip.append('circle')
+                .attr('class', 'tooltip-circle')
+                .style('fill', 'none')
+                .style('stroke', 'blue')
+                .attr('r', 4);
+            circleElements.push(newCircle);
+        });
 
         // Y-axis line for tooltip
         const yLine = tooltip.append('g')
@@ -254,13 +240,54 @@ export default class dthree {
             .attr('y2', height);
 
 
+        // Tooltip text
+        // for (let index = 0; index < data.streams.length; index ++) {
+        //     let newX = 0;
+        //     for (let itter = 0; itter < index; itter ++) {
+        //         newX += data.streams[itter].name.length;
+        //     }
+        //     newX *= fontSizeForLegend;
+        //     const newText = tooltip.append('text')
+        //         .style('fill', colors[index])
+        //         .attr('x', width - fontSizeForLegend - newX)
+        //         .attr('y', fontSizeForLegend);
+        //     textElements.push(newText);
+        // }
+
         // Date text
         const timeText = tooltip.append('text')
-            .attr('x', 0)
+            .attr('x', 12 * 'Dragonfly Readings'.length)
             .attr('y', margin.top - 5)
             .attr('width', 100)
             .attr('height', 100 * 0.4)
             .attr('fill', 'black');
+
+        // Tooltip helper
+        const bisectDate = d3.bisector((value) => value.timestamp).right;
+
+        function mousemove() {
+            const x0 = parseInt(Date.parse(xScale.invert(d3.mouse(this)[0]))); // jshint ignore:line
+
+            for (let stream = 0; stream < data.streams.length; stream ++) {
+                const index = bisectDate(data.streams[stream].readings, x0, 1);
+                const d0 = data.streams[stream].readings[index - 1];
+                const d1 = data.streams[stream].readings[index];
+                if (d1 === undefined) {
+                    return;
+                }
+                const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
+                circleElements[stream].attr('transform', `translate(${xScale(d2.timestamp)},${yScale(d2.value)})`);
+
+                yLine.attr('transform', `translate(${xScale(d2.timestamp)}, 0)`);
+                // lineElements[0].attr('transform', 'translate(' + 0 + ',' + yScale(d.value) + ')');
+                // uncomment this line for update of horizontal line tooltip
+                timeText.text(new Date(d2.timestamp));
+
+                textElements[stream]
+                    .text(`${data.streams[stream].name}  ${parseInt(d2.value)}`)
+                    .attr('fill', colors[stream]);
+            }
+        }
 
         // Drag behaivors for the selection box.
         // let dragStart = 0;
@@ -302,29 +329,6 @@ export default class dthree {
         //     });
         // Update loop for tooltips.
 
-        // Tooltip helper
-        const bisectDate = d3.bisector((value) => value.timestamp).right;
-
-        function mousemove() {
-            const x0 = xScale.invert(d3.mouse(this)[0]); // jshint ignore:line
-            const index = bisectDate(data.readings, x0, 1);
-            const d0 = data.readings[index - 1];
-            const d1 = data.readings[index];
-            if (d1 === undefined) {
-                return;
-            }
-            const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
-            circleElements[0].attr('transform', `translate(${xScale(d2.timestamp)},${yScale(d2.value)})`);
-            yLine.attr('transform', `translate(${xScale(d2.timestamp)}, 0)`);
-            // lineElements[0].attr('transform', 'translate(' + 0 + ',' + yScale(d.value) + ')');
-            // uncomment this line for update of horizontal line tooltip
-            timeText.text(new Date(d2.timestamp));
-
-            textElements[0]
-                .text(d2.value)
-                .attr('transform', `translate(${(xScale(d2.timestamp) + 10)},${(yScale(d2.value) - 10)})`);
-        }
-
         // Selection box
         const selectionBox = newChart.append('rect')
             .attr('fill', 'none')
@@ -345,6 +349,11 @@ export default class dthree {
             })
             .on('mouseout', () => {
                 tooltip.style('display', 'none');
+                for (let index = 0; index < data.streams.length; index++) {
+                    textElements[index]
+                        .text(`${data.streams[index].name}`)
+                        .attr('fill', 'black');
+                }
             })
             .on('mousemove', mousemove)
             .on('mousedown', () => {
