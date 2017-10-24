@@ -57,6 +57,7 @@ export default class dthree {
             newData.readings.push(newReading);
             time -= 1000 * 60 * 5; // decrement by five minutes.
         }
+        newData.name = 'myGraph';
         return newData;
     }
 
@@ -166,22 +167,29 @@ export default class dthree {
 
         // Legend
         const colors = ['#FFB90F', '#62f1ff', 'blue', 'red', 'green', 'yellow'];
+        const fontSizeForLegend = 14;
+        for (let index = 0; index < data.streams.length; index ++) {
+            let newX = 0;
+            for (let itter = 0; itter < index; itter ++) {
+                newX += data.streams[itter].name.length;
+            }
+            newX *= fontSizeForLegend;
+            // Legend text
+            newChart.append('text')
+                .attr('class', 'chart-legend-text')
+                .style('text-anchor', 'end')
+                .attr('x', width - 18 - newX)
+                .attr('y', fontSizeForLegend)
+                .text(data.streams[index].name);
 
-        // Legend text
-        newChart.append('text')
-            .attr('class', 'chart-legend-text')
-            .style('text-anchor', 'end')
-            .attr('x', width - 18)
-            .attr('y', 10)
-            .text('something');
-
-        // Legend icon
-        newChart.append('rect')
-            .attr('fill', colors[0])
-            .attr('x', width - 16)
-            .attr('y', 0)
-            .attr('width', 14)
-            .attr('height', 14);
+            // Legend icon
+            newChart.append('rect')
+                .attr('fill', colors[index])
+                .attr('x', width - fontSizeForLegend - newX)
+                .attr('y', 0)
+                .attr('width', fontSizeForLegend)
+                .attr('height', fontSizeForLegend);
+        }
 
         // Graph lines
         const lineFunction = d3.line()
