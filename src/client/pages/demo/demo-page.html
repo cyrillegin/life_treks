@@ -4,22 +4,47 @@
 </script>
 
 <navbar></navbar>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <img src="/images/construction.png" alt="Website under construction."/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            Image taken without permission from: <a href="http://www.hunter.cuny.edu/">http://www.hunter.cuny.edu/</a> If you own rights to this image, please email me at cyrillegin@gmail.com and I will remove it immediately.
-        </div>
-    </div>
-</div>
 
-<div class="under-construction">
-    <div ng-controller="demoController as mainCtrl">
-        <div class="container">
+<div ng-controller="demoController as mainCtrl">
+    <div class="container">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    <dthree></dthree>
+                </div>
+            </div>
+            <div class="row library-description">
+                <div class="col-md-12">
+                    <p>
+                        The is a demonstration of <a href="https://d3js.org/">D3.js</a>. D3 is graphing library for javascript.
+                        I've used D3 on many projects primarily for data visualization of sensors we poll. In the above example,
+                        What you're seeing is the last days' readings from my fish tank, beer fermentation fridge, and a couple
+                        other temperature sensors. I'm using another software I created,
+                        <a href="https://github.com/cyrillegin/dragonfly">Dragonfly</a>
+                        to collect and store the readings and then everyday I ship the results online.
+                    </p>
+                    <p>
+                        D3 is ment to be interactive, allowing for a more immersive expirence with the data you collect. So here's a list of some things
+                        you can do with this graph.
+                    </p>
+                    <ul>
+                        <li>
+                            Zoom in - click and drag on the graph.
+                        </li>
+                        <li>
+                            Zoom out - click the zoom out button.
+                        </li>
+                        <li>
+                            Focus graph - click on the graph line to auto format to that line.
+                        </li>
+                        <li>
+                            Input controls - Select the input button to bring up the custom controls panel.
+                        </li>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <div class="under-construction">
             <div class="card">
                 <div class="row">
                     <div class="col-md-12">
@@ -29,18 +54,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         This is a three js demo description
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-12">
-                        <dthree></dthree>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        This is a d3 demo description
                     </div>
                 </div>
             </div>
