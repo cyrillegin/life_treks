@@ -239,21 +239,6 @@ export default class dthree {
             .attr('y1', margin.bottom)
             .attr('y2', height);
 
-
-        // Tooltip text
-        // for (let index = 0; index < data.streams.length; index ++) {
-        //     let newX = 0;
-        //     for (let itter = 0; itter < index; itter ++) {
-        //         newX += data.streams[itter].name.length;
-        //     }
-        //     newX *= fontSizeForLegend;
-        //     const newText = tooltip.append('text')
-        //         .style('fill', colors[index])
-        //         .attr('x', width - fontSizeForLegend - newX)
-        //         .attr('y', fontSizeForLegend);
-        //     textElements.push(newText);
-        // }
-
         // Date text
         const timeText = tooltip.append('text')
             .attr('x', 12 * 'Dragonfly Readings'.length)
@@ -277,10 +262,7 @@ export default class dthree {
                 }
                 const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
                 circleElements[stream].attr('transform', `translate(${xScale(d2.timestamp)},${yScale(d2.value)})`);
-
                 yLine.attr('transform', `translate(${xScale(d2.timestamp)}, 0)`);
-                // lineElements[0].attr('transform', 'translate(' + 0 + ',' + yScale(d.value) + ')');
-                // uncomment this line for update of horizontal line tooltip
                 timeText.text(new Date(d2.timestamp));
 
                 textElements[stream]
@@ -290,43 +272,49 @@ export default class dthree {
         }
 
         // Drag behaivors for the selection box.
-        // let dragStart = 0;
-        // let dragStartPos = 0;
+        let dragStart = 0;
+        let dragStartPos = 0;
         // let dragEnd = 0;
-        // const drag = d3.drag()
-        //     .on('drag', function (d, i) {
-        //         const x0 = xScale.invert(d3.mouse(this)[0]);
-        //         i = bisectDate(data.readings, x0, 1);
-        //         const d0 = data.readings[i - 1];
-        //         const d1 = data.readings[i];
-        //         d = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
-        //
-        //         if (xScale(d.timestamp) > dragStartPos) {
-        //             selectionBox.attr('width', (xScale(d.timestamp) - dragStartPos));
-        //         } else {
-        //             selectionBox.attr('width', (dragStartPos - xScale(d.timestamp)));
-        //             selectionBox.attr('transform', 'translate(' + xScale(d.timestamp) + ',0)');
-        //         }
-        //     })
-        //     .on('end', function (d, i) {
-        //         dragEnd = d3.mouse(this)[0];
-        //         if (Math.abs(dragStart - dragEnd) < 10) {
-        //             return;
-        //         }
-        //
-        //         const x0 = xScale.invert(dragStart);
-        //         const x1 = xScale.invert(dragEnd);
-        //
-        //         scope.$apply(() => {
-        //             if (x1 > x0) {
-        //                 $location.search('start_date', x0.getTime());
-        //                 $location.search('end_date', x1.getTime());
-        //             } else {
-        //                 $location.search('start_date', x1.getTime());
-        //                 $location.search('end_date', x0.getTime());
-        //             }
-        //         });
-        //     });
+        const drag = d3.drag()
+            .on('drag', function () {
+                const x0 = parseInt(Date.parse(xScale.invert(d3.mouse(this)[0]))); // jshint ignore:line
+                const index = bisectDate(data.streams[0].readings, x0, 1);
+                console.log(x0);
+                const d0 = data.streams[0].readings[index - 1];
+                const d1 = data.streams[0].readings[index];
+                if (d1 === undefined) {
+                    return;
+                }
+                const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
+                console.log(d2);
+
+                if (xScale(d2.timestamp) > dragStartPos) {
+                    selectionBox.attr('width', (xScale(d2.timestamp) - dragStartPos));
+                } else {
+                    selectionBox.attr('width', (dragStartPos - xScale(d2.timestamp)));
+                    selectionBox.attr('transform', `translate(${xScale(d2.timestamp)},0)`);
+                }
+            });
+            // .on('end', (d, i) => {
+            //     return;
+            //     dragEnd = d3.mouse(this)[0];
+            //     if (Math.abs(dragStart - dragEnd) < 10) {
+            //         return;
+            //     }
+            //     const x0 = xScale.invert(dragStart);
+            //     const x1 = xScale.invert(dragEnd);
+            //     console.log('start: ' + x0.getTime())
+            //     console.log('end: ' + x1.getTime())
+            //     scope.$apply(() => {
+            //         if (x1 > x0) {
+            //             $location.search('start_date', x0.getTime());
+            //             $location.search('end_date', x1.getTime());
+            //         } else {
+            //             $location.search('start_date', x1.getTime());
+            //             $location.search('end_date', x0.getTime());
+            //         }
+            //     });
+            // });
         // Update loop for tooltips.
 
         // Selection box
@@ -358,16 +346,15 @@ export default class dthree {
             .on('mousemove', mousemove)
             .on('mousedown', () => {
                 selectionBox.attr('fill', '#b7ff64');
-                dragStart = d3.mouse(this)[0];
-
-                const x0 = xScale.invert(d3.mouse(this)[0]);
-                const index = bisectDate(data.readings, x0, 1);
-                const d0 = data.readings[index - 1];
-                const d1 = data.readings[index];
+                dragStart = d3.mouse(d3.event.currentTarget)[0];
+                const x0 = xScale.invert(dragStart);
+                const index = bisectDate(data.streams[0].readings, x0, 1);
+                const d0 = data.streams[0].readings[index - 1];
+                const d1 = data.streams[0].readings[index];
                 const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
                 selectionBox.attr('transform', `translate(${xScale(d2.timestamp)},0)`);
                 dragStartPos = xScale(d2.timestamp);
-            });
-        // .call(drag);
+            })
+            .call(drag);
     }
 }
