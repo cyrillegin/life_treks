@@ -19,8 +19,10 @@ import * as d3 from 'd3';
 */
 
 export default class dthree {
-    constructor($scope) {
+    constructor($scope, $location) {
+        'ngInject';
         this.$scope = $scope;
+        this.$location = $location;
     }
 
     $onInit() {
@@ -274,19 +276,18 @@ export default class dthree {
         // Drag behaivors for the selection box.
         let dragStart = 0;
         let dragStartPos = 0;
-        // let dragEnd = 0;
+        let dragEnd = 0;
+        const that = this;
         const drag = d3.drag()
             .on('drag', function () {
                 const x0 = parseInt(Date.parse(xScale.invert(d3.mouse(this)[0]))); // jshint ignore:line
                 const index = bisectDate(data.streams[0].readings, x0, 1);
-                console.log(x0);
                 const d0 = data.streams[0].readings[index - 1];
                 const d1 = data.streams[0].readings[index];
                 if (d1 === undefined) {
                     return;
                 }
                 const d2 = x0 - d0.timestamp > d1.timestamp - x0 ? d1 : d0;
-                console.log(d2);
 
                 if (xScale(d2.timestamp) > dragStartPos) {
                     selectionBox.attr('width', (xScale(d2.timestamp) - dragStartPos));
@@ -294,29 +295,25 @@ export default class dthree {
                     selectionBox.attr('width', (dragStartPos - xScale(d2.timestamp)));
                     selectionBox.attr('transform', `translate(${xScale(d2.timestamp)},0)`);
                 }
+            })
+            .on('end', function () {
+                dragEnd = d3.mouse(this)[0];
+                if (Math.abs(dragStart - dragEnd) < 10) {
+                    return;
+                }
+                const x0 = xScale.invert(dragStart);
+                const x1 = xScale.invert(dragEnd);
+                that.$scope.$apply(() => {
+                    if (x1 > x0) {
+                        that.$location.search('start_date', x0.getTime());
+                        that.$location.search('end_date', x1.getTime());
+                    } else {
+                        that.$location.search('start_date', x1.getTime());
+                        that.$location.search('end_date', x0.getTime());
+                    }
+                });
             });
-            // .on('end', (d, i) => {
-            //     return;
-            //     dragEnd = d3.mouse(this)[0];
-            //     if (Math.abs(dragStart - dragEnd) < 10) {
-            //         return;
-            //     }
-            //     const x0 = xScale.invert(dragStart);
-            //     const x1 = xScale.invert(dragEnd);
-            //     console.log('start: ' + x0.getTime())
-            //     console.log('end: ' + x1.getTime())
-            //     scope.$apply(() => {
-            //         if (x1 > x0) {
-            //             $location.search('start_date', x0.getTime());
-            //             $location.search('end_date', x1.getTime());
-            //         } else {
-            //             $location.search('start_date', x1.getTime());
-            //             $location.search('end_date', x0.getTime());
-            //         }
-            //     });
-            // });
         // Update loop for tooltips.
-
         // Selection box
         const selectionBox = newChart.append('rect')
             .attr('fill', 'none')
