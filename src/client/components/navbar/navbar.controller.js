@@ -1,5 +1,5 @@
 export default function navbar() {
-    const loc = location.hash.split('/')[1];
+    const loc = location.hash.split('/')[1].split('?')[0];
     switch (loc) {
         case 'about':
             $('#menu-about').addClass('active');
