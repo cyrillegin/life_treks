@@ -3,7 +3,6 @@ export default function navbar() {
     switch (loc) {
         case 'about':
             $('#menu-about').addClass('active');
-            console.log('about');
             break;
         case 'demo':
             $('#menu-demo').addClass('active');
