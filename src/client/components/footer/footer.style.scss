@@ -12,6 +12,9 @@ $light-grey: #eee;
 
 .footer {
     background-color: $light-grey;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
 
     a {
         font-size: 10pt;
