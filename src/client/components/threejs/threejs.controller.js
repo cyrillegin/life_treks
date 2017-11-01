@@ -82,8 +82,6 @@ export default class threejs {
                     if (app.displayedMesh === null) {
                         const loader = new THREE.JSONLoader();
                         loader.load(('models/arduino.json'), (geometry, materials) => {
-                            console.log(geometry);
-                            console.log(materials);
                             const mesh = new THREE.Mesh(geometry, materials);
                             mesh.doubleSided = true;
                             // mesh.castShadow = true;
