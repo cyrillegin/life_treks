@@ -15,6 +15,7 @@ module.exports = {
             'three',
             'd3',
             './node_modules/font-awesome/css/font-awesome.min.css',
+            'autotrack',
         ],
     },
     output: {

@@ -1,3 +1,5 @@
+import './demo.style.scss';
+
 export default class demoController {
 
     constructor($scope) {

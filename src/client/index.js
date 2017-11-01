@@ -3,6 +3,7 @@ import angularRoute from 'angular-route'; // eslint-disable-line
 // import 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'autotrack';
 // Page imports
 import blogPage from './pages/blog-roll/blog-page.html';
 import demoPage from './pages/demo/demo-page.html';
