@@ -1,7 +1,8 @@
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import nodemailer from 'nodemailer'; // eslint-disable-line
+import nodemailer from 'nodemailer';
+import connectMongo from 'connect-mongo'; // eslint-disable-line
 const dotenv = require('dotenv').config() // eslint-disable-line
 
 const app = express();
@@ -28,7 +29,36 @@ app.post('/message', (req, res) => {
     }
 });
 
+// mongo
+const MongoClient = require('mongodb').MongoClient;
 
+const url = 'mongodb://localhost:27017/test';
+let DB;
+MongoClient.connect(url, (err, db) => {
+    if (err) {
+        console.log('mongo error');
+        console.log(err);
+        exit();
+    }
+    console.log('Connected to mongo.');
+    DB = db;
+});
+
+app.get('/api/blogs', (req, res) => {
+    console.log('got get');
+    const result = getBlogs();
+    console.log(result);
+    res.send(result);
+});
+
+function getBlogs() {
+    'Trying to insert, validating.';
+    const result = DB.Blogs.find();
+    console.log(result);
+}
+
+
+// Email commands
 function sendEmail(emailContent) {
     console.log('email request:');
     console.log(emailContent);
