@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import nodemailer from 'nodemailer';
+import DB, {Blogs} from './db';
 import connectMongo from 'connect-mongo'; // eslint-disable-line
 const dotenv = require('dotenv').config() // eslint-disable-line
 
@@ -10,15 +11,14 @@ const port = process.env.PORT || '5000';
 
 app.use(express.static(path.join(process.env.PWD, 'dist/server/public')));
 
-
 app.get('*', (req, res) => {
     res.sendFile(path.join(process.env.PWD, 'dist/server/public/index.html'));
 });
 
-
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true}));
 
+DB.connect();
 
 app.post('/message', (req, res) => {
     try {
@@ -29,31 +29,17 @@ app.post('/message', (req, res) => {
     }
 });
 
-// mongo
-const MongoClient = require('mongodb').MongoClient;
-
-const url = 'mongodb://localhost:27017/test';
-let DB;
-MongoClient.connect(url, (err, db) => {
-    if (err) {
-        console.log('mongo error');
-        console.log(err);
-        exit();
-    }
-    console.log('Connected to mongo.');
-    DB = db;
-});
-
-app.get('/api/blogs', (req, res) => {
-    console.log('got get');
-    const result = getBlogs();
-    console.log(result);
-    res.send(result);
-});
+app.route('/api')
+    .post(() => {
+        console.log('got get');
+        const result = getBlogs();
+        console.log(result);
+        res.send(result);
+    });
 
 function getBlogs() {
     'Trying to insert, validating.';
-    const result = DB.Blogs.find();
+    const result = Blogs.find();
     console.log(result);
 }
 

@@ -1,11 +1,22 @@
 export default class blogController {
 
-    constructor($scope) {
+    constructor($scope, $http) {
         'ngInject';
         this.$scope = $scope;
-
+        this.$http = $http;
     }
+
     $onInit() {
+        console.log('trying')
+        this.$http.post('/api', {})
+            .then((success) => {
+                console.log('success')
+                console.log(success)
+            })
+            .catch((error) => {
+                console.log('error')
+                console.log(error)
+            })
         const exampleBlog2 = {
             title: 'Hello World!',
             bodyText: `
