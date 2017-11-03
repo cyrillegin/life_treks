@@ -1,3 +1,5 @@
+import MongoClient from 'mongodb';
+
 /*
 schema
 Blog: {
@@ -7,14 +9,14 @@ Blog: {
     tags: ["string"]
 }
 */
-import MongoClient from 'mongodb';
-let Blogs;
+
+let Blogs; //eslint-disable-line
 let db;
 let connecting = false;
 
 const connect = async function () {
     if (connecting) {
-        await new Promise((r) => setTimeout(r, 500));
+        await new Promise((res) => setTimeout(res, 500));
         return await connect();
     }
     if (db) {
@@ -33,7 +35,7 @@ const connect = async function () {
     Blogs = db.collection('blogs');
 
     await db.command({
-        collMod: 'blogs'
+        collMod: 'blogs',
     });
 
     await Blogs.createIndex({tags: 1}, {background: true}),

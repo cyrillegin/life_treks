@@ -29,22 +29,18 @@ app.post('/message', (req, res) => {
     }
 });
 
-app.post('/api', async (req, res) => {
-    console.log('got get');
+app.post('/blog', async (req, res) => {
+    console.log('Request to blogs');
     let result;
     try {
-        console.log('try')
         result = await Blogs.find().toArray();
-        console.log(result);
-        console.log('done')
         res.send(result);
     } catch (error) {
-        console.log('error querying db');
+        console.log('Error querying db');
         console.log(error);
         result = {Err: error};
         res.send(result);
     }
-
 });
 
 // Email commands
