@@ -1,7 +1,9 @@
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import nodemailer from 'nodemailer'; // eslint-disable-line
+import nodemailer from 'nodemailer';
+import DB, {Blogs} from './db';
+import connectMongo from 'connect-mongo'; // eslint-disable-line
 const dotenv = require('dotenv').config() // eslint-disable-line
 
 const app = express();
@@ -9,15 +11,14 @@ const port = process.env.PORT || '5000';
 
 app.use(express.static(path.join(process.env.PWD, 'dist/server/public')));
 
-
 app.get('*', (req, res) => {
     res.sendFile(path.join(process.env.PWD, 'dist/server/public/index.html'));
 });
 
-
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true}));
 
+DB.connect();
 
 app.post('/message', (req, res) => {
     try {
@@ -28,7 +29,21 @@ app.post('/message', (req, res) => {
     }
 });
 
+app.post('/blog', async (req, res) => {
+    console.log('Request to blogs');
+    let result;
+    try {
+        result = await Blogs.find().toArray();
+        res.send(result);
+    } catch (error) {
+        console.log('Error querying db');
+        console.log(error);
+        result = {Err: error};
+        res.send(result);
+    }
+});
 
+// Email commands
 function sendEmail(emailContent) {
     console.log('email request:');
     console.log(emailContent);
