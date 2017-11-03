@@ -29,20 +29,23 @@ app.post('/message', (req, res) => {
     }
 });
 
-app.route('/api')
-    .post(() => {
-        console.log('got get');
-        const result = getBlogs();
+app.post('/api', async (req, res) => {
+    console.log('got get');
+    let result;
+    try {
+        console.log('try')
+        result = await Blogs.find().toArray();
         console.log(result);
+        console.log('done')
         res.send(result);
-    });
+    } catch (error) {
+        console.log('error querying db');
+        console.log(error);
+        result = {Err: error};
+        res.send(result);
+    }
 
-function getBlogs() {
-    'Trying to insert, validating.';
-    const result = Blogs.find();
-    console.log(result);
-}
-
+});
 
 // Email commands
 function sendEmail(emailContent) {

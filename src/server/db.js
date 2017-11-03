@@ -36,7 +36,6 @@ const connect = async function () {
         collMod: 'blogs'
     });
 
-
     await Blogs.createIndex({tags: 1}, {background: true}),
 
     console.log('Connected');
