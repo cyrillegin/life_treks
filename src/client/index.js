@@ -8,10 +8,12 @@ import 'autotrack';
 import blogPage from './pages/blog-roll/blog-page.html';
 import demoPage from './pages/demo/demo-page.html';
 import aboutPage from './pages/about/about-page.html';
+import adminPage from './pages/admin/admin-page.html';
 // Controller imports
 import blogController from './pages/blog-roll/blog.controller';
 import demoController from './pages/demo/demo.controller';
 import aboutController from './pages/about/about.controller';
+import adminController from './pages/admin/admin.controller';
 // Component imports
 import navbar from './components/navbar/navbar.component';
 import footer from './components/footer/footer.component';
@@ -36,6 +38,7 @@ angular.module('life_treks', ['ngRoute'])
     .controller('blogController', blogController)
     .controller('demoController', demoController)
     .controller('aboutController', aboutController)
+    .controller('adminController', adminController)
     .config(
         ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
             $locationProvider.hashPrefix('');
@@ -48,6 +51,9 @@ angular.module('life_treks', ['ngRoute'])
                 })
                 .when('/about', {
                     template: aboutPage,
+                })
+                .when('/admin', {
+                    template: adminPage,
                 })
                 .otherwise({
                     redirectTo: '/',
