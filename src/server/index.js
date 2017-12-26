@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import nodemailer from 'nodemailer';
 import DB, {Blogs} from './db';
-import connectMongo from 'connect-mongo'; // eslint-disable-line
+// import connectMongo from 'connect-mongo'; // eslint-disable-line
 const dotenv = require('dotenv').config() // eslint-disable-line
 
 const app = express();

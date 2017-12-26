@@ -1,0 +1,15 @@
+{
+  "eslint": {
+    "run": false
+  },
+  "scsslint": {
+    "run": false
+  },
+  "htmlhint": {
+    "run": false
+  },
+  "sonarwhal": {
+    "run": false,
+    "uri": "localhost:5000"
+  }
+}
