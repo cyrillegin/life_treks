@@ -20,31 +20,34 @@
           "rules": {
             "link-name": {
               "enabled": false
+            },
+            "color-contrast" {
+              "enabled": false
             }
           }
         }],
-        "content-type": "error",
+        "content-type": "off",
         "disown-opener": "error",
         "highest-available-document-mode": [ "warning", {"requireMetaTag": true}],
-        "html-checker": "error",
-        "http-cache": "error",
-        "image-optimization-cloudinary": "error",
+        "html-checker": "off",
+        "http-cache": "off",
+        "image-optimization-cloudinary": "off",
         "manifest-app-name": "error",
         "manifest-exists": "error",
         "manifest-file-extension": "error",
         "manifest-is-valid": "error",
         "meta-charset-utf-8": "warning",
         "meta-viewport": "error",
-        "no-disallowed-headers": error,
+        "no-disallowed-headers": ["error", {"ignore": ["Server"]}],
         "no-friendly-error-pages": "error",
-        "no-html-only-headers": "error",
+        "no-html-only-headers": "off",
         "no-http-redirects": "error",
         "no-protocol-relative-urls": "error",
         "no-vulnerable-javascript-libraries": "error",
-        "ssllabs": "error",
+        "ssllabs": "off",
         "strict-transport-security": "error",
-        "validate-set-cookie-header": "error",
-        "x-content-type-options": "error"
+        "validate-set-cookie-header": "off",
+        "x-content-type-options": "off"
     },
     "rulesTimeout": 120000
 }
