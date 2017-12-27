@@ -9,6 +9,8 @@ const dotenv = require('dotenv').config() // eslint-disable-line
 const app = express();
 const port = process.env.PORT || '5000';
 
+app.disable('x-powered-by');
+
 app.use(express.static(path.join(process.env.PWD, 'dist/server/public')));
 
 app.get('*', (req, res) => {

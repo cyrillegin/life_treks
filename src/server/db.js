@@ -29,7 +29,6 @@ const connect = async function () {
     db = await MongoClient.connect(process.env.MONGO_URL);
 
     await db.createCollection('blogs'),
-    
 
     Blogs = db.collection('blogs');
 
