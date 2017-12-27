@@ -6,3 +6,5 @@ dist/
 
 mynotes
 .env
+
+*.pid

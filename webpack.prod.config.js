@@ -86,26 +86,26 @@ module.exports = {
             filename: 'vendor.bundle.js',
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                dead_code: true, // eslint-disable-line
-                drop_debugger: true, // eslint-disable-line
-                conditionals: true,
-                comparisons: true,
-                booleans: true,
-                unused: true,
-                toplevel: true,
-                if_return: true, // eslint-disable-line
-                join_vars: true, // eslint-disable-line
-                cascade: true,
-                collapse_vars: true, // eslint-disable-line
-                reduce_vars: true, // eslint-disable-line
-                warnings: false,
-                drop_console: true, // eslint-disable-line
-                passes: 2,
-            },
-            mangle: false,
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         dead_code: true, // eslint-disable-line
+        //         drop_debugger: true, // eslint-disable-line
+        //         conditionals: true,
+        //         comparisons: true,
+        //         booleans: true,
+        //         unused: true,
+        //         toplevel: true,
+        //         if_return: true, // eslint-disable-line
+        //         join_vars: true, // eslint-disable-line
+        //         cascade: true,
+        //         collapse_vars: true, // eslint-disable-line
+        //         reduce_vars: true, // eslint-disable-line
+        //         warnings: false,
+        //         drop_console: true, // eslint-disable-line
+        //         passes: 2,
+        //     },
+        //     mangle: false,
+        // }),
         new webpack.ProvidePlugin({
             '$': 'jquery',
             'jQuery': 'jquery',

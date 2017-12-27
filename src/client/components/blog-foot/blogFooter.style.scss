@@ -1,13 +1,17 @@
+@import './../../_constants.scss';
+
 .tag {
     display: inline;
     margin-bottom: 15em;
     margin-left: 1em;
     margin-right: 1em;
     margin-top: 15em;
+    
 }
 
 a {
     display: inline-block;
     margin-bottom: 5px;
     margin-top: 5px;
+    color: $blue;
 }
