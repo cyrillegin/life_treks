@@ -2,14 +2,28 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import nodemailer from 'nodemailer';
+import helmet from 'helmet';
 import DB, {Blogs} from './db';
 // import connectMongo from 'connect-mongo'; // eslint-disable-line
-const dotenv = require('dotenv').config() // eslint-disable-line
+const dotenv = require('dotenv').config(); // eslint-disable-line
 
 const app = express();
-const port = process.env.PORT || '5000';
+// Gotta be safe out there!
+app.use(helmet());
 
-app.disable('x-powered-by');
+// This will work once bootstrap has been removed.
+// app.use(helmet.contentSecurityPolicy({
+//     directives: {
+//         defaultSrc: [`'self'`],
+//         scriptSrc: [`'self'`,`'unsafe-inline'`, '*.google-analytics.com/'],
+//         styleSrc: [`'self'`, `'unsafe-inline'`, '*.googleapis.com/'],
+//         fontSrc: [`'self'`, '*.gstatic.com/'],
+//         imgSrc: [`'self'`, '*.google-analytics.com/'],
+//     },
+// }));
+app.use(helmet.hidePoweredBy());
+
+const port = process.env.PORT || '5000';
 
 app.use(express.static(path.join(process.env.PWD, 'dist/server/public')));
 

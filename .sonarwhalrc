@@ -42,7 +42,7 @@
         "no-vulnerable-javascript-libraries": "error",
         "ssllabs": "off",
         "strict-transport-security": "off",
-        "validate-set-cookie-header": "off",
+        "validate-set-cookie-header": "error",
         "x-content-type-options": "off"
     },
     "rulesTimeout": 120000
