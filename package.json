@@ -21,7 +21,7 @@
         "htmllint": "./node_modules/.bin/htmlhint --config .htmlhintrc src",
         "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q",
         "eslint": "./node_modules/.bin/eslint src",
-        "postinstall": "npm --prefix ./node_modules/node-sass/ run install && npm prune"
+        "postinstall": "npm --prefix ./node_modules/node-sass/ run install && npm prune",
     },
     "dependencies": {
         "@uirouter/angularjs": "1.0.12",
@@ -33,9 +33,8 @@
         "bootstrap": "3.3.7",
         "d3": "4.12.2",
         "font-awesome": "4.7.0",
-        "helmet": "^3.9.0",
+        "helmet": "3.9.0",
         "jquery": "3.2.1",
-        "mime": "^2.1.0",
         "mongodb": "2.2.3",
         "require": "2.4.20",
         "spin": "0.0.1",
