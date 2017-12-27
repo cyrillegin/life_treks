@@ -1,15 +1,18 @@
 {
   "eslint": {
-    "run": false
+    "run": true
   },
   "scsslint": {
-    "run": false
+    "run": true
   },
   "htmlhint": {
-    "run": false
+    "run": true
   },
   "sonarwhal": {
-    "run": false,
+    "run": true,
     "uri": "localhost:5000"
+  },
+  "flake8": {
+    "run": true
   }
 }
