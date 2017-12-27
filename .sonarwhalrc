@@ -18,12 +18,8 @@
         "apple-touch-icons": "error",
         "axe": ["error", {
           "rules": {
-            "link-name": {
-              "enabled": false
-            },
-            "color-contrast" {
-              "enabled": false
-            }
+            "link-name": {"enabled": false},
+            "color-contrast": {"enabled": false}
           }
         }],
         "content-type": "off",
@@ -45,7 +41,7 @@
         "no-protocol-relative-urls": "error",
         "no-vulnerable-javascript-libraries": "error",
         "ssllabs": "off",
-        "strict-transport-security": "error",
+        "strict-transport-security": "off",
         "validate-set-cookie-header": "off",
         "x-content-type-options": "off"
     },

@@ -10,7 +10,7 @@
   },
   "sonarwhal": {
     "run": true,
-    "uri": "localhost:5000"
+    "uri": "localhost:5000/#/about"
   },
   "flake8": {
     "run": false
