@@ -1,10 +1,22 @@
+# Node
 node_modules/
-dist/
+.env
+*.pid
+
+# Build files
+bundle.js
+vendor.bundle.js
+*.map
+dist/server/index.js
+dist/server/formatQuery.js
+dist/server/db.js
+
+# Python
 *.pyc
 
+# OSX
 .DS_Store
 
+# Misc
 mynotes
-.env
-
-*.pid
+autotrack/
