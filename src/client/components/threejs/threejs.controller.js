@@ -1,10 +1,10 @@
 import 'three';
 import 'three/examples/js/loaders/OBJLoader';
+import 'three/examples/js/controls/OrbitControls';
 
 export default class threejs {
 
     constructor($scope) {
-      console.log(THREE)
         const container = document.getElementById('renderer');
         const app = this.doThree();
         app.init(container);
@@ -26,6 +26,7 @@ export default class threejs {
             init(container) {
                 let backlight = null;
                 app.loaded = false;
+                app.container = container;
                 if (app.scene === null) {
                     app.scene = new THREE.Scene();
                     initRenderer();
@@ -73,7 +74,7 @@ export default class threejs {
                     app.camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 2, 80000);
                     app.camera.position.set(25, 15, 0);
                     app.camera.lookAt(app.scene.position);
-                    // app.cameraControls = new THREE.OrbitControls(app.camera, app.renderer.domElement);
+                    app.cameraControls = new THREE.OrbitControls(app.camera, app.renderer.domElement);
                 }
 
                 // Create meshes
@@ -82,34 +83,21 @@ export default class threejs {
                         app.scene.remove(app.displayedMesh);
                     }
                     if (app.displayedMesh === null) {
-                        // const loader = new THREE.JSONLoader();
-                        // loader.load(('models/test_syn.json'), (geometry, materials) => {
-                        //     const mesh = new THREE.Mesh(geometry, materials);
-                        //     mesh.doubleSided = true;
-                        //     // mesh.castShadow = true;
-                        //     // mesh.receiveShadow = true;
-                        //     mesh.position.set(0, 0, 0);
-                        //     mesh.name = name;
-                        //     app.meshes[name] = mesh;
-                        //     app.scene.add(mesh);
-                        //     app.displayedMesh = mesh;
-                        //     app.loaded = true;
-                        // });
-
                         const objLoader = new THREE.OBJLoader();
                         objLoader.load(
-                            'models/test.obj',
+                            'models/pi.obj',
                             (object) => {
                                 app.scene.add(object);
+                                app.displayedMesh = object;
                             },
                             // called when loading is in progresses
-                          	(xhr) => {
-                        		    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                            (xhr) => {
+                                console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
                             },
-                          	// called when loading has errors
-                          	(error) => {
-                        		console.log('An error happened');
-                        	},
+                            // called when loading has errors
+                            (error) => {
+                                console.log('An error happened');
+                            },
                         );
                     } else {
                         app.scene.add(app.meshes[name]);
@@ -127,9 +115,8 @@ export default class threejs {
                 if (!app.loaded && app.displayedMesh) {
                     app.sun.target = app.displayedMesh;
                     app.loaded = true;
-                    app.renderer.setSize(container.offsetWidth, container.offsetHeight);
+                    app.renderer.setSize(app.container.offsetWidth, app.container.offsetHeight);
                     app.hide = false;
-                    // curLoading = false;
                 }
                 if (app.renderer) {
                     app.renderer.render(app.scene, app.camera);
