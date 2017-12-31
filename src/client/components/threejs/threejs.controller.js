@@ -73,7 +73,7 @@ export default class threejs {
                 }
                 function initCamera() {
                     app.camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 2, 80000);
-                    app.camera.position.set(25, 15, 0);
+                    app.camera.position.set(0, 15, 15);
                     app.camera.lookAt(app.scene.position);
                     app.cameraControls = new THREE.OrbitControls(app.camera, app.renderer.domElement);
                     app.raycaster = new THREE.Raycaster();
@@ -89,19 +89,63 @@ export default class threejs {
                 // Create meshes
                 async function initMesh() {
                     const apartment = await app.loadMesh('models/apartment.obj');
+                    apartment.position.set(-8.6, 0, 7.2);
                     app.scene.add(apartment);
                     app.meshes.push(apartment);
 
-                    const home = new THREE.Vector3(8.7, 6.3, -7.2);
+                    const home = new THREE.Vector3(0, 6.3, 0);
 
-                    const ras1 = new THREE.Vector3(-13, 5, -7.2);
+                    const ras1 = new THREE.Vector3(-0.5, 3, 11.5);
                     buildArc(home, ras1);
 
-                    const ras2 = new THREE.Vector3(20, 3, -7.2);
+                    const ras2 = new THREE.Vector3(-0.5, 4, -21);
                     buildArc(home, ras2);
 
-                    const ras3 = new THREE.Vector3(20.4, 2.7, -25.4);
+                    const ras3 = new THREE.Vector3(-18, 2.7, 12);
                     buildArc(home, ras3);
+
+                    const group = new THREE.Group();
+                    app.scene.add(group);
+                    
+                    
+                    
+
+                    const squareShape = new THREE.Shape();
+                    squareShape.moveTo(-4, -2);
+                    squareShape.lineTo(4, -2);
+                    squareShape.lineTo(4, 2);
+                    squareShape.lineTo(-4, 2);
+                    squareShape.lineTo(-4, -2);
+
+
+                    const loader = new THREE.FontLoader();
+                    loader.load('fonts/gentilis_regular.typeface.json', (font) => {
+                        // console.log(font)
+                        // const geometry = new THREE.TextGeometry('Hello three.js!', {
+                        //     font: font,
+                        //     size: 80,
+                        //     height: 5,
+                        //     curveSegments: 12,
+                        //     bevelEnabled: true,
+                        //     bevelThickness: 10,
+                        //     bevelSize: 8,
+                        //     bevelSegments: 5
+                        // });
+                        // const mesh = new THREE.Mesh(geometry);
+                        // group.add(mesh);
+                        // app.billboard = group;
+                    });
+                    
+                    
+                    
+
+                    const geometry = new THREE.ShapeBufferGeometry(squareShape);
+                    const mesh = new THREE.Mesh(geometry);
+                      
+                  
+                       
+                       group.add(mesh);
+                       app.billboard = group;
                 }
 
                 function buildArc(start, end) {
@@ -111,7 +155,7 @@ export default class threejs {
                     const A = end.x - start.x;
                     const B = end.z - start.z;
                     const C = Math.sqrt(A ** 2 + B ** 2);
-                    let a = Math.asin(A / C);
+                    const a = Math.atan2(B, A);
 
                     const arc = new THREE.Path();
                     arc.moveTo(0, 0);
@@ -124,13 +168,13 @@ export default class threejs {
 
                     const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 0.1}));
                     particles.position.set(start.x, start.y, start.z);
-                    
-                    if (start.z > end.z) {
-                        a = -a + Math.PI;
-                    }
-                    console.log(a);
+
                     particles.rotation.set(0, a, 0);
                     particles.scale.set(1, 1, 1);
+
+                    // Calculate midpoint for attaching banner.
+                    const midpoint = new THREE.Vector3((start.x + end.x) / 2, (start.y + end.y) / 2 + 1, (start.z + end.z) / 2);
+                    particles.midpoint = midpoint;
 
                     group.add(particles);
                     app.arcs.push(particles);
@@ -146,29 +190,36 @@ export default class threejs {
                     app.hide = false;
                 }
 
-                // if (app.loaded) {
-                //     app.raycaster.setFromCamera(app.mouse, app.camera);
-                //     const intersects = app.raycaster.intersectObjects(app.arcs, true);
-                // 
-                //     if (intersects.length > 0) {
-                //         if (app.INTERSECTED !== intersects[0].object) {
-                //             if (app.INTERSECTED) {
-                //                 app.INTERSECTED.material.emissive.setHex(app.INTERSECTED.currentHex);
-                //             }
-                //             app.INTERSECTED = intersects[0].object;
-                //             console.log(app.INTERSECTED)
-                //             app.INTERSECTED.currentHex = app.INTERSECTED.material.color.getHex();
-                //             app.INTERSECTED.material.color.setHex(0xff0000);
-                //         }
-                //     } else {
-                //         if (app.INTERSECTED) {
-                //             app.INTERSECTED.material.color.setHex(app.INTERSECTED.currentHex);
-                //         }
-                //         app.INTERSECTED = null;
-                //     }
-                // }
+                if (app.loaded) {
+                    app.raycaster.setFromCamera(app.mouse, app.camera);
+                    const intersects = app.raycaster.intersectObjects(app.arcs, true);
+
+                    if (intersects.length > 0) {
+                        if (app.INTERSECTED !== intersects[0].object) {
+                            if (app.INTERSECTED) {
+                                app.INTERSECTED.material.color.setHex(app.INTERSECTED.currentHex);
+                            }
+                            app.INTERSECTED = intersects[0].object;
+                            app.INTERSECTED.currentHex = app.INTERSECTED.material.color.getHex();
+                            app.INTERSECTED.material.color.setHex(0xff0000);
+
+                            app.billboard.visible = true;
+                            console.log(app.billboard.position)
+                            app.billboard.position.set(intersects[0].object.midpoint.x, intersects[0].object.midpoint.y, -intersects[0].object.midpoint.z);
+                        }
+                    } else {
+                        if (app.INTERSECTED) {
+                            app.INTERSECTED.material.color.setHex(app.INTERSECTED.currentHex);
+                            app.billboard.visible = false;
+                        }
+                        app.INTERSECTED = null;
+                    }
+                }
 
                 if (app.renderer) {
+                    if (app.INTERSECTED) {
+                        app.billboard.lookAt(app.camera.position);
+                    }
                     app.renderer.render(app.scene, app.camera);
                     requestAnimationFrame(app.render);
                 }
