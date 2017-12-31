@@ -25,6 +25,10 @@ export default class threejs {
             container: null,
             loaded: false,
             loadMesh: this.loadMesh,
+            mouse: null,
+            raycaster: null,
+            INTERSECTED: null,
+            arcs: [],
             init(container) {
                 app.loaded = false;
                 app.container = container;
@@ -72,6 +76,14 @@ export default class threejs {
                     app.camera.position.set(25, 15, 0);
                     app.camera.lookAt(app.scene.position);
                     app.cameraControls = new THREE.OrbitControls(app.camera, app.renderer.domElement);
+                    app.raycaster = new THREE.Raycaster();
+                    app.mouse = new THREE.Vector2();
+                    function onDocumentMouseMove(event) {
+                        event.preventDefault();
+                        app.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                        app.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+                    }
+                    document.addEventListener('mousemove', onDocumentMouseMove, false);
                 }
 
                 // Create meshes
@@ -84,10 +96,10 @@ export default class threejs {
                     app.meshes.push(ras1);
                     app.scene.add(ras2);
                     app.meshes.push(ras2);
-                    buildArcs();
+                    buildArc();
                 }
 
-                function buildArcs() {
+                function buildArc() {
                     const loader = new THREE.TextureLoader();
                     const texture = loader.load('textures/UV_Grid_Sm.jpg');
 
@@ -99,27 +111,22 @@ export default class threejs {
                     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
                     texture.repeat.set(0.008, 0.008);
 
-                    function addLineShape(shape, color, x, y, z, rx, ry, rz, s) {
-                        // lines
-                        shape.autoClose = true;
-                        const spacedPoints = shape.getSpacedPoints(40);
-                        const geometrySpacedPoints = new THREE.BufferGeometry().setFromPoints(spacedPoints);
-
-                        const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: color, size: 1}));
-                        particles.position.set(x, y, z);
-                        particles.rotation.set(rx, ry, rz);
-                        particles.scale.set(s, s, s);
-                        group.add(particles);
-                    }
-
-                    var arc = new THREE.Path();
+                    const arc = new THREE.Path();
                     arc.moveTo(0, 0);
-                    // arc.quadraticCurveTo(60, 0, 0, 60);
                     arc.bezierCurveTo(10, 10, 20, 10, 30, 0);
-                    // arc.quadraticCurveTo(40, 80, 20, 60);
-                    // arc.quadraticCurveTo(5, 50, 20, 40);
 
-                    addLineShape(arc, 0x008000, 0, 0, 0, 0, Math.PI * 0.5, 0, 1);
+                    arc.autoClose = true;
+                    const spacedPoints = arc.getSpacedPoints(40);
+                    const geometrySpacedPoints = new THREE.BufferGeometry().setFromPoints(spacedPoints);
+
+                    const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 1}));
+                    particles.position.set(0, 0, 0);
+                    particles.rotation.set(0, Math.PI * 0.5, 0);
+                    particles.scale.set(1, 1, 1);
+
+                    group.add(particles);
+
+                    app.arcs.push(particles);
                 }
                 initMesh();
             },
@@ -131,6 +138,29 @@ export default class threejs {
                     app.renderer.setSize(app.container.offsetWidth, app.container.offsetHeight);
                     app.hide = false;
                 }
+
+                if (app.loaded) {
+                    app.raycaster.setFromCamera(app.mouse, app.camera);
+                    const intersects = app.raycaster.intersectObjects(app.arcs, true);
+
+                    if (intersects.length > 0) {
+                        if (app.INTERSECTED !== intersects[0].object) {
+                            if (app.INTERSECTED) {
+                                app.INTERSECTED.material.emissive.setHex(app.INTERSECTED.currentHex);
+                            }
+                            app.INTERSECTED = intersects[0].object;
+                            console.log(app.INTERSECTED)
+                            app.INTERSECTED.currentHex = app.INTERSECTED.material.color.getHex();
+                            app.INTERSECTED.material.color.setHex(0xff0000);
+                        }
+                    } else {
+                        if (app.INTERSECTED) {
+                            app.INTERSECTED.material.color.setHex(app.INTERSECTED.currentHex);
+                        }
+                        app.INTERSECTED = null;
+                    }
+                }
+
                 if (app.renderer) {
                     app.renderer.render(app.scene, app.camera);
                     requestAnimationFrame(app.render);
