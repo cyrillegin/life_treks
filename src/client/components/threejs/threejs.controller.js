@@ -4,15 +4,14 @@ import 'three/examples/js/controls/OrbitControls';
 
 export default class threejs {
 
-    constructor($scope) {
+    constructor() {
         const container = document.getElementById('renderer');
-        console.log(container)
-        const app = this.doThree();
+        const app = this.createApp();
         app.init(container);
         app.render();
     }
 
-    doThree() {
+    createApp() {
         const app = {
             meshes: [],
             currentScene: null,
@@ -79,23 +78,53 @@ export default class threejs {
                 async function initMesh() {
                     const ras1 = await app.loadMesh('models/pi.obj');
                     const ras2 = ras1.clone();
-                    ras1.position.z = -15;
-                    ras2.position.z = 15;
+                    ras1.position.z = -15; // eslint-disable-line
+                    ras2.position.z = 15; // eslint-disable-line
                     app.scene.add(ras1);
                     app.meshes.push(ras1);
                     app.scene.add(ras2);
                     app.meshes.push(ras2);
+                    buildArcs();
+                }
+
+                function buildArcs() {
+                    const loader = new THREE.TextureLoader();
+                    const texture = loader.load('textures/UV_Grid_Sm.jpg');
+
+                    const group = new THREE.Group();
+                    group.position.z = 15;
+                    app.scene.add(group);
+
+                    // it's necessary to apply these settings in order to correctly display the texture on a shape geometry
+                    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.set(0.008, 0.008);
+
+                    function addLineShape(shape, color, x, y, z, rx, ry, rz, s) {
+                        // lines
+                        shape.autoClose = true;
+                        const spacedPoints = shape.getSpacedPoints(40);
+                        const geometrySpacedPoints = new THREE.BufferGeometry().setFromPoints(spacedPoints);
+
+                        const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: color, size: 1}));
+                        particles.position.set(x, y, z);
+                        particles.rotation.set(rx, ry, rz);
+                        particles.scale.set(s, s, s);
+                        group.add(particles);
+                    }
+
+                    var arc = new THREE.Path();
+                    arc.moveTo(0, 0);
+                    // arc.quadraticCurveTo(60, 0, 0, 60);
+                    arc.bezierCurveTo(10, 10, 20, 10, 30, 0);
+                    // arc.quadraticCurveTo(40, 80, 20, 60);
+                    // arc.quadraticCurveTo(5, 50, 20, 40);
+
+                    addLineShape(arc, 0x008000, 0, 0, 0, 0, Math.PI * 0.5, 0, 1);
                 }
                 initMesh();
             },
 
             render() {
-                if (app.loaded) {
-                    app.meshes.forEach((mesh) => {
-                        mesh.rotation.y += 0.001; // eslint-disable-line
-                    });
-                }
-
                 if (!app.loaded && app.meshes.length > 0) {
                     app.sun.target = app.meshes[0];
                     app.loaded = true;
