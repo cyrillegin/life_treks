@@ -88,50 +88,51 @@ export default class threejs {
 
                 // Create meshes
                 async function initMesh() {
-                    const ras1 = await app.loadMesh('models/apartment.obj');
-                    // const ras2 = ras1.clone();
-                    // ras1.position.z = -15; // eslint-disable-line
-                    // ras2.position.z = 15; // eslint-disable-line
-                    app.scene.add(ras1);
-                    app.meshes.push(ras1);
-                    // app.scene.add(ras2);
-                    // app.meshes.push(ras2);
-                    buildArc();
+                    const apartment = await app.loadMesh('models/apartment.obj');
+                    app.scene.add(apartment);
+                    app.meshes.push(apartment);
+
+                    const home = new THREE.Vector3(8.7, 6.3, -7.2);
+
+                    const ras1 = new THREE.Vector3(-13, 5, -7.2);
+                    buildArc(home, ras1);
+
+                    const ras2 = new THREE.Vector3(20, 3, -7.2);
+                    buildArc(home, ras2);
+
+                    const ras3 = new THREE.Vector3(20.4, 2.7, -25.4);
+                    buildArc(home, ras3);
                 }
 
-                function buildArc() {
-                    // start position as a world vector
-                    const start = new THREE.Vector3(8.5, 15, 0);
-                    // end position as a world vector.
-                    const end = new THREE.Vector3(22, 1.2, 0);
+                function buildArc(start, end) {
+                    const group = new THREE.Group();
+                    app.scene.add(group);
 
-                    const A = Math.abs(start.x - end.x);
-                    const B = Math.abs(start.y - end.y);
+                    const A = end.x - start.x;
+                    const B = end.z - start.z;
                     const C = Math.sqrt(A ** 2 + B ** 2);
+                    let a = Math.asin(A / C);
 
-                    const a = Math.asin(A / C);
-                    const b = Math.asin(B / C);
-
-
-                    const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 0.3}));
-                    particles.position.set(start.x, start.y, start.z);
-                    console.log("a:" + a)
-                    particles.rotation.set(0, a, 0);
-                    particles.scale.set(1, 1, 1);
-                    
                     const arc = new THREE.Path();
                     arc.moveTo(0, 0);
-                    console.log("C: " + C)
-                    arc.bezierCurveTo(7.3, 7, 14.6, 7, C, end.y - start.y);
+                    const third = C / 3;
+                    arc.bezierCurveTo(third, third / 2, third * 2, third, C, end.y - start.y);
 
                     arc.autoClose = true;
-                    const spacedPoints = arc.getSpacedPoints(100);
+                    const spacedPoints = arc.getSpacedPoints(C * 10);
                     const geometrySpacedPoints = new THREE.BufferGeometry().setFromPoints(spacedPoints);
+
+                    const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 0.1}));
+                    particles.position.set(start.x, start.y, start.z);
                     
-                    
-                    const group = new THREE.Group();
+                    if (start.z > end.z) {
+                        a = -a + Math.PI;
+                    }
+                    console.log(a);
+                    particles.rotation.set(0, a, 0);
+                    particles.scale.set(1, 1, 1);
+
                     group.add(particles);
-                    app.scene.add(group);
                     app.arcs.push(particles);
                 }
                 initMesh();
