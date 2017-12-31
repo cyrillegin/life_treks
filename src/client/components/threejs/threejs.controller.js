@@ -88,44 +88,50 @@ export default class threejs {
 
                 // Create meshes
                 async function initMesh() {
-                    const ras1 = await app.loadMesh('models/pi.obj');
-                    const ras2 = ras1.clone();
-                    ras1.position.z = -15; // eslint-disable-line
-                    ras2.position.z = 15; // eslint-disable-line
+                    const ras1 = await app.loadMesh('models/apartment.obj');
+                    // const ras2 = ras1.clone();
+                    // ras1.position.z = -15; // eslint-disable-line
+                    // ras2.position.z = 15; // eslint-disable-line
                     app.scene.add(ras1);
                     app.meshes.push(ras1);
-                    app.scene.add(ras2);
-                    app.meshes.push(ras2);
+                    // app.scene.add(ras2);
+                    // app.meshes.push(ras2);
                     buildArc();
                 }
 
                 function buildArc() {
-                    const loader = new THREE.TextureLoader();
-                    const texture = loader.load('textures/UV_Grid_Sm.jpg');
+                    // start position as a world vector
+                    const start = new THREE.Vector3(8.5, 15, 0);
+                    // end position as a world vector.
+                    const end = new THREE.Vector3(22, 1.2, 0);
 
-                    const group = new THREE.Group();
-                    group.position.z = 15;
-                    app.scene.add(group);
+                    const A = Math.abs(start.x - end.x);
+                    const B = Math.abs(start.y - end.y);
+                    const C = Math.sqrt(A ** 2 + B ** 2);
 
-                    // it's necessary to apply these settings in order to correctly display the texture on a shape geometry
-                    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                    texture.repeat.set(0.008, 0.008);
+                    const a = Math.asin(A / C);
+                    const b = Math.asin(B / C);
 
+
+                    const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 0.3}));
+                    particles.position.set(start.x, start.y, start.z);
+                    console.log("a:" + a)
+                    particles.rotation.set(0, a, 0);
+                    particles.scale.set(1, 1, 1);
+                    
                     const arc = new THREE.Path();
                     arc.moveTo(0, 0);
-                    arc.bezierCurveTo(10, 10, 20, 10, 30, 0);
+                    console.log("C: " + C)
+                    arc.bezierCurveTo(7.3, 7, 14.6, 7, C, end.y - start.y);
 
                     arc.autoClose = true;
-                    const spacedPoints = arc.getSpacedPoints(40);
+                    const spacedPoints = arc.getSpacedPoints(100);
                     const geometrySpacedPoints = new THREE.BufferGeometry().setFromPoints(spacedPoints);
-
-                    const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 1}));
-                    particles.position.set(0, 0, 0);
-                    particles.rotation.set(0, Math.PI * 0.5, 0);
-                    particles.scale.set(1, 1, 1);
-
+                    
+                    
+                    const group = new THREE.Group();
                     group.add(particles);
-
+                    app.scene.add(group);
                     app.arcs.push(particles);
                 }
                 initMesh();
@@ -139,27 +145,27 @@ export default class threejs {
                     app.hide = false;
                 }
 
-                if (app.loaded) {
-                    app.raycaster.setFromCamera(app.mouse, app.camera);
-                    const intersects = app.raycaster.intersectObjects(app.arcs, true);
-
-                    if (intersects.length > 0) {
-                        if (app.INTERSECTED !== intersects[0].object) {
-                            if (app.INTERSECTED) {
-                                app.INTERSECTED.material.emissive.setHex(app.INTERSECTED.currentHex);
-                            }
-                            app.INTERSECTED = intersects[0].object;
-                            console.log(app.INTERSECTED)
-                            app.INTERSECTED.currentHex = app.INTERSECTED.material.color.getHex();
-                            app.INTERSECTED.material.color.setHex(0xff0000);
-                        }
-                    } else {
-                        if (app.INTERSECTED) {
-                            app.INTERSECTED.material.color.setHex(app.INTERSECTED.currentHex);
-                        }
-                        app.INTERSECTED = null;
-                    }
-                }
+                // if (app.loaded) {
+                //     app.raycaster.setFromCamera(app.mouse, app.camera);
+                //     const intersects = app.raycaster.intersectObjects(app.arcs, true);
+                // 
+                //     if (intersects.length > 0) {
+                //         if (app.INTERSECTED !== intersects[0].object) {
+                //             if (app.INTERSECTED) {
+                //                 app.INTERSECTED.material.emissive.setHex(app.INTERSECTED.currentHex);
+                //             }
+                //             app.INTERSECTED = intersects[0].object;
+                //             console.log(app.INTERSECTED)
+                //             app.INTERSECTED.currentHex = app.INTERSECTED.material.color.getHex();
+                //             app.INTERSECTED.material.color.setHex(0xff0000);
+                //         }
+                //     } else {
+                //         if (app.INTERSECTED) {
+                //             app.INTERSECTED.material.color.setHex(app.INTERSECTED.currentHex);
+                //         }
+                //         app.INTERSECTED = null;
+                //     }
+                // }
 
                 if (app.renderer) {
                     app.renderer.render(app.scene, app.camera);
