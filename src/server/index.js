@@ -59,6 +59,10 @@ app.post('/blog', async (req, res) => {
     }
 });
 
+app.post('readings', async (req, res) => {
+    console.log('getting readings');
+});
+
 // Email commands
 function sendEmail(emailContent) {
     console.log('email request:');
