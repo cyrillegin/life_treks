@@ -13,10 +13,9 @@ export default class threejs {
         this.$http = $http;
         this.$scope = $scope;
     }
-    
+
     $onInit() {
-      console.log('initing')
-      console.log(this)
+        console.log('initing');
     }
 
     createApp() {

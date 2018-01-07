@@ -28,6 +28,7 @@
         "autotrack": "2.4.1",
         "bootstrap": "3.3.7",
         "d3": "4.12.2",
+        
         "font-awesome": "4.7.0",
         "helmet": "3.9.0",
         "jquery": "3.2.1",
@@ -49,6 +50,7 @@
         "code-assess": "0.2.6",
         "concurrently": "3.5.1",
         "dotenv": "4.0.0",
+        "eslint-plugin-import": "2.8.0",
         "exports-loader": "0.6.4",
         "express": "4.16.2",
         "express-session": "1.15.6",
