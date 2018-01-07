@@ -4,11 +4,19 @@ import 'three/examples/js/controls/OrbitControls';
 
 export default class threejs {
 
-    constructor() {
+    constructor($scope, $http) {
+        'ngInject';
         const container = document.getElementById('renderer');
         const app = this.createApp();
         app.init(container);
         app.render();
+        this.$http = $http;
+        this.$scope = $scope;
+    }
+    
+    $onInit() {
+      console.log('initing')
+      console.log(this)
     }
 
     createApp() {
@@ -25,6 +33,7 @@ export default class threejs {
             container: null,
             loaded: false,
             loadMesh: this.loadMesh,
+            getReadings: this.getReadings,
             mouse: null,
             raycaster: null,
             INTERSECTED: null,
@@ -57,7 +66,7 @@ export default class threejs {
                 }
                 function initLights() {
                     app.sun = new THREE.SpotLight(0xffffff, 1);
-                    app.sun.position.set(-60, 60, 60);
+                    app.sun.position.set(40, 20, 40);
                     app.sun.angle = 1.1;
                     app.sun.decay = 0;
                     app.sun.castShadow = true;
@@ -73,9 +82,10 @@ export default class threejs {
                 }
                 function initCamera() {
                     app.camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 2, 80000);
-                    app.camera.position.set(0, 15, 15);
+                    app.camera.position.set(-20, 15, 20);
                     app.camera.lookAt(app.scene.position);
                     app.cameraControls = new THREE.OrbitControls(app.camera, app.renderer.domElement);
+                    app.cameraControls.maxPolarAngle = Math.PI / 2.5;
                     app.raycaster = new THREE.Raycaster();
                     app.mouse = new THREE.Vector2();
                     function onDocumentMouseMove(event) {
@@ -106,46 +116,40 @@ export default class threejs {
 
                     const group = new THREE.Group();
                     app.scene.add(group);
-                    
-                    
-                    
 
-                    const squareShape = new THREE.Shape();
-                    squareShape.moveTo(-4, -2);
-                    squareShape.lineTo(4, -2);
-                    squareShape.lineTo(4, 2);
-                    squareShape.lineTo(-4, 2);
-                    squareShape.lineTo(-4, -2);
+                    // TODO: This needs to be implemented once dragonfly is accessable.
+                    // const squareShape = new THREE.Shape();
+                    // squareShape.moveTo(-4, -2);
+                    // squareShape.lineTo(4, -2);
+                    // squareShape.lineTo(4, 2);
+                    // squareShape.lineTo(-4, 2);
+                    // squareShape.lineTo(-4, -2);
+
+                    // const loader = new THREE.FontLoader();
+                    // loader.load('fonts/helvetikar_bold.typeface.json', (font) => {
+                    //     console.log(font)
+                    //     const geometry = new THREE.TextGeometry('Hello three.js!', {
+                    //         font: font,
+                    //         size: 80,
+                    //         height: 5,
+                    //         curveSegments: 12,
+                    //         bevelEnabled: true,
+                    //         bevelThickness: 10,
+                    //         bevelSize: 8,
+                    //         bevelSegments: 5
+                    //     });
+                    //     const mesh = new THREE.Mesh(geometry);
+                    //     group.add(mesh);
+                    //     app.billboard = group;
+                    // });
 
 
-                    const loader = new THREE.FontLoader();
-                    loader.load('fonts/gentilis_regular.typeface.json', (font) => {
-                        // console.log(font)
-                        // const geometry = new THREE.TextGeometry('Hello three.js!', {
-                        //     font: font,
-                        //     size: 80,
-                        //     height: 5,
-                        //     curveSegments: 12,
-                        //     bevelEnabled: true,
-                        //     bevelThickness: 10,
-                        //     bevelSize: 8,
-                        //     bevelSegments: 5
-                        // });
-                        // const mesh = new THREE.Mesh(geometry);
-                        // group.add(mesh);
-                        // app.billboard = group;
-                    });
-                    
-                    
-                    
+                    // const geometry = new THREE.ShapeBufferGeometry(squareShape);
+                    // const mesh = new THREE.Mesh(geometry);
 
-                    const geometry = new THREE.ShapeBufferGeometry(squareShape);
-                    const mesh = new THREE.Mesh(geometry);
-                      
-                  
-                       
-                       group.add(mesh);
-                       app.billboard = group;
+                    // app.getReadings();
+                    // group.add(mesh);
+                    // app.billboard = group;
                 }
 
                 function buildArc(start, end) {
@@ -163,10 +167,10 @@ export default class threejs {
                     arc.bezierCurveTo(third, third / 2, third * 2, third, C, end.y - start.y);
 
                     arc.autoClose = true;
-                    const spacedPoints = arc.getSpacedPoints(C * 10);
+                    const spacedPoints = arc.getSpacedPoints(C * 6);
                     const geometrySpacedPoints = new THREE.BufferGeometry().setFromPoints(spacedPoints);
 
-                    const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 0.1}));
+                    const particles = new THREE.Points(geometrySpacedPoints, new THREE.PointsMaterial({color: 0x008000, size: 0.2}));
                     particles.position.set(start.x, start.y, start.z);
 
                     particles.rotation.set(0, a, 0);
@@ -202,15 +206,13 @@ export default class threejs {
                             app.INTERSECTED = intersects[0].object;
                             app.INTERSECTED.currentHex = app.INTERSECTED.material.color.getHex();
                             app.INTERSECTED.material.color.setHex(0xff0000);
-
-                            app.billboard.visible = true;
-                            console.log(app.billboard.position)
-                            app.billboard.position.set(intersects[0].object.midpoint.x, intersects[0].object.midpoint.y, -intersects[0].object.midpoint.z);
+                            // app.billboard.visible = true;
+                            // app.billboard.position.set(intersects[0].object.midpoint.x, intersects[0].object.midpoint.y, -intersects[0].object.midpoint.z);
                         }
                     } else {
                         if (app.INTERSECTED) {
                             app.INTERSECTED.material.color.setHex(app.INTERSECTED.currentHex);
-                            app.billboard.visible = false;
+                            // app.billboard.visible = false;
                         }
                         app.INTERSECTED = null;
                     }
@@ -218,7 +220,7 @@ export default class threejs {
 
                 if (app.renderer) {
                     if (app.INTERSECTED) {
-                        app.billboard.lookAt(app.camera.position);
+                        // app.billboard.lookAt(app.camera.position);
                     }
                     app.renderer.render(app.scene, app.camera);
                     requestAnimationFrame(app.render);
@@ -253,5 +255,17 @@ export default class threejs {
                 },
             );
         });
+    }
+
+    getReadings(station) {
+        this.$http.post('/readings', {})
+            .then((success) => {
+                console.log('success');
+                console.log(success);
+            })
+            .catch((error) => {
+                console.log('error');
+                console.log(error);
+            });
     }
 }
