@@ -81,6 +81,7 @@ module.exports = {
             jQuery: 'jquery',
             $: 'jquery', // eslint-disable-line
             jquery: 'jquery',
+            THREE: 'three',
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,

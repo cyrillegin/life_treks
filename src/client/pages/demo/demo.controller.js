@@ -1,3 +1,4 @@
+// import * as THREE from 'three';
 import './demo.style.scss';
 
 export default class demoController {
@@ -6,6 +7,7 @@ export default class demoController {
         'ngInject';
         this.$scope = $scope;
 
+        global.THREE = THREE;
     }
     $onInit() {
     }
