@@ -101,7 +101,6 @@
     "newline-per-chained-call": "error",
     "comma-style": "error",
     "radix": ["error", "as-needed"],
-    "id-length": "error",
     "camelcase": "error",
     "new-cap": "error",
     "no-underscore-dangle": "error",
