@@ -7,15 +7,15 @@ export default class blogController {
     }
 
     $onInit() {
-        this.$http.post('/blog', {})
-            .then((success) => {
-                console.log('success');
-                console.log(success);
-            })
-            .catch((error) => {
-                console.log('error');
-                console.log(error);
-            });
+        // this.$http.post('/blog', {})
+        //     .then((success) => {
+        //         console.log('success');
+        //         console.log(success);
+        //     })
+        //     .catch((error) => {
+        //         console.log('error');
+        //         console.log(error);
+        //     });
         const exampleBlog2 = {
             title: 'Hello World!',
             bodyText: `

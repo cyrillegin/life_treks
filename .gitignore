@@ -10,6 +10,7 @@ vendor.bundle.js
 dist/server/index.js
 dist/server/formatQuery.js
 dist/server/db.js
+dist/server/api/
 
 # Python
 *.pyc
