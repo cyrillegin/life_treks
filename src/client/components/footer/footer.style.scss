@@ -1,4 +1,4 @@
-$light-grey: #eee;
+@import './../../constants';
 
 .social-media-icons-footer {
     float: right;
@@ -16,7 +16,6 @@ $light-grey: #eee;
     margin-top: 100px;
     position: fixed;
     width: 100%;
-
 
     a {
         font-size: 10pt;
