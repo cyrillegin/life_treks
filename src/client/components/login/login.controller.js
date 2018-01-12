@@ -17,7 +17,7 @@ export default class login {
             $('#user-warning').html('');
 
             if (! reg.test(this.$scope.password)) {
-                $('#incorrect-warning').html('* Password must be alphanumeric.');
+                $('#incorrect-warning').html('* Incorrect username / password combination.');
                 return;
             }
             $('#incorrect-warning').html('');
@@ -25,6 +25,7 @@ export default class login {
             this.$http.post('/login', {un: this.$scope.username, pw: this.$scope.password})
                 .then((success) => {
                     console.log('got success');
+                    console.log(success);
                 })
                 .catch((error) => {
                     console.log('got error');
