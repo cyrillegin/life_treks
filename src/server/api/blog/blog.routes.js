@@ -1,4 +1,4 @@
-import blog from '../controllers/blog.controller';
+import blog from './blog.controller';
 
 export default function (app) {
 

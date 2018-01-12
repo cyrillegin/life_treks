@@ -13,7 +13,6 @@ import adminPage from './pages/admin/admin-page.html';
 import blogController from './pages/blog-roll/blog.controller';
 import demoController from './pages/demo/demo.controller';
 import aboutController from './pages/about/about.controller';
-import adminController from './pages/admin/admin.controller';
 // Component imports
 import navbar from './components/navbar/navbar.component';
 import footer from './components/footer/footer.component';
@@ -23,6 +22,7 @@ import blogFooter from './components/blog-foot/blogFooter.component';
 import blogNav from './components/blog-nav/blogNav.component';
 import dthree from './components/dthree/dthree.component';
 import threejs from './components/threejs/threejs.component';
+import login from './components/login/login.component';
 // Style
 import './main.style.scss';
 
@@ -35,10 +35,10 @@ angular.module('life_treks', ['ngRoute'])
     .component('blognav', blogNav)
     .component('threejs', threejs)
     .component('dthree', dthree)
+    .component('login', login)
     .controller('blogController', blogController)
     .controller('demoController', demoController)
     .controller('aboutController', aboutController)
-    .controller('adminController', adminController)
     .config(
         ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
             $locationProvider.hashPrefix('');

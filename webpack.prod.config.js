@@ -107,6 +107,7 @@ module.exports = {
         //     },
         //     mangle: false,
         // }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.ProvidePlugin({
             '$': 'jquery',
             'jQuery': 'jquery',
