@@ -19,12 +19,12 @@ export default function sanitzieBlog(blog) {
     return {
         title: blog.blogTitle,
         body: blog.blogTitle,
-        tags: tags,
+        tags,
     };
 }
 
 function assert(condition, message) {
     if (!condition) {
-        throw message || "Assertion failed";
+        throw message || 'Assertion failed';
     }
 }
