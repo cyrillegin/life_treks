@@ -3,9 +3,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
-import Blog from './api/models/blog.model'; // eslint-disable-line
-import blogRoutes from './api/routes/blog.routes';
-import mailRoutes from './api/routes/mail.routes';
+import Blog from './api/blog/blog.model'; // eslint-disable-line
+import User from './api/login/login.model'; //eslint-disable-line
+import blogRoutes from './api/blog/blog.routes';
+import mailRoutes from './api/mail/mail.routes';
+import loginRoutes from './api/login/login.routes';// eslint-disable-line
+const dotenv = require('dotenv').config();// eslint-disable-line
 
 const app = express();
 
@@ -32,7 +35,7 @@ const port = process.env.PORT || 3000;
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Tododb');
+mongoose.connect(process.env.MONGO_URL);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -40,6 +43,7 @@ app.use(bodyParser.json());
 
 blogRoutes(app);
 mailRoutes(app);
+loginRoutes(app);
 
 app.use((req, res) => {
     res.status(404).send({url: `${req.originalUrl } not found`});
