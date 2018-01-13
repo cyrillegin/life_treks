@@ -19,37 +19,44 @@ exports.attemptLogin = function (req, res) {
                     console.log('an error occured.');
                     console.log(err);
                     res.send('error');
+                    return;
                 }
                 console.log('User inserted.');
                 console.log(user);
                 res.send('success');
+                return;
             });
         } catch (e) {
             console.log('error inserting into database.');
             console.log(e);
             res.send('error');
+            return;
         }
-    }
-    // Else try logging in.
-    try {
-        const userToFind = {
-            username: req.body.username,
-            password: req.body.password,
-        };
-        User.find(userToFind, (err, user) => {
-            if (err) {
-                console.log('an error has occured');
-                console.log(err);
-                res.send('error');
-            }
-            console.log('found something');
-            console.log(user);
-            res.send(user);
-        });
-    } catch (e) {
-        console.log('an error occured');
-        console.log(e);
-        res.send('error');
+    } else {
+        // Else try logging in.
+        try {
+            const userToFind = {
+                username: req.body.username,
+                password: req.body.password,
+            };
+            User.find(userToFind, (err, user) => {
+                if (err) {
+                    console.log('an error has occured');
+                    console.log(err);
+                    res.send('error');
+                    return;
+                }
+                console.log('found something');
+                console.log(user);
+                res.send(user);
+                return;
+            });
+        } catch (e) {
+            console.log('an error occured');
+            console.log(e);
+            res.send('error');
+            return;
+        }
     }
 };
 
@@ -59,10 +66,12 @@ exports.getUsers = function (req, res) {
         User.find({}, (err, user) => {
             console.log('success');
             res.send(user);
+            return;
         });
     } catch (e) {
         console.log('there was an error.');
         console.log(e);
         res.send('error');
+        return;
     }
 };

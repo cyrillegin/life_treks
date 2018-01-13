@@ -3,6 +3,6 @@ export default class body {
         this.$scope = $scope;
     }
     $onInit() {
-        this.$scope.content = this.data.bodyText;
+        this.$scope.content = this.data.body;
     }
 }
