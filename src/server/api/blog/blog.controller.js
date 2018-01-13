@@ -3,22 +3,20 @@ import sanitizeBlog from './../../../modules/validators/blog';
 
 const Blog = mongoose.model('Blogs');
 
-exports.listAllBlogs = function (req, res) {
-    Blog.find({}, (err, blog) => {
-        if (err) {
-            res.send(err);
-        }
-        console.log('got blog')
-        console.log(blog)
-        res.json(blog);
-    });
+exports.listAllBlogs = async function (req, res) {
+    const result = await Blog.find({})
+        .sort({created: -1})
+        .limit(10);
+    res.json(result);
 };
 
 exports.createBlog = function (req, res) {
     const entry = sanitizeBlog(req.body);
+    entry.created = new Date();
     const newBlog = new Blog(entry);
     console.log('saving blog:')
     console.log(entry)
+    
     newBlog.save((err, blog) => {
         if (err) {
             res.send(err);
