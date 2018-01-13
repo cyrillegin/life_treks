@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const User = mongoose.model('User');
 
 exports.attemptLogin = function (req, res) {
-    console.log('Post request to attempt Login.')
+    console.log('Post request to attempt Login.');
     console.log(req.body);
     // Use this to create new users.
     if (req.body.new !== undefined) {
@@ -32,10 +32,11 @@ exports.attemptLogin = function (req, res) {
     }
     // Else try logging in.
     try {
-        User.find({
+        const userToFind = {
             username: req.body.username,
             password: req.body.password,
-        }, (err, user) => {
+        };
+        User.find(userToFind, (err, user) => {
             if (err) {
                 console.log('an error has occured');
                 console.log(err);

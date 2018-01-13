@@ -1,13 +1,16 @@
 export default class login {
-    constructor($scope, $http) {
+    constructor($scope, $http, $timeout, $compile) {
         'ngInject';
 
         this.$scope = $scope;
         this.$http = $http;
+        this.$timeout = $timeout;
+        this.$compile = $compile;
     }
 
     $onInit() {
-        $('#login-btn').on('click', (e) => {
+        const that = this;
+        this.$scope.submitLogin = () => {
             const reg = RegExp(/^[a-zA-Z0-9]+$/);
 
             if (! reg.test(this.$scope.username)) {
@@ -22,15 +25,24 @@ export default class login {
             }
             $('#incorrect-warning').html('');
 
-            this.$http.post('/login', {un: this.$scope.username, pw: this.$scope.password})
+            that.$http.post('/login', {username: this.$scope.username, password: this.$scope.password})
                 .then((success) => {
                     console.log('got success');
                     console.log(success);
+                    if (success.data.length < 1) {
+                        $('#incorrect-warning').html('* Incorrect username / password combination.');
+                        return;
+                    }
+                    $('#myCard').addClass('flip');
                 })
                 .catch((error) => {
                     console.log('got error');
                     console.log(error);
                 });
-        });
+        };
+
+        this.$scope.submitBlog = () => {
+            console.log('subbmitting blog');
+        };
     }
 }
