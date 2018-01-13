@@ -13,7 +13,6 @@ export default class blogController {
     }
 
     loadBlogs(count) {
-        console.log(this.$location.url())
         this.$http.get(`/blogs${this.$location.url()}`)
             .then((success) => {
                 this.$scope.blogs = success.data;

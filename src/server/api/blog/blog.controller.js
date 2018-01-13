@@ -53,7 +53,7 @@ exports.createBlog = function (req, res) {
 
 exports.buildTree = async function (req, res) {
     console.log('Building tree');
-    const result = await Blog.find();
+    const result = await Blog.find().sort({created: -1});
     const payload = {
         dates: {},
         tags: {},

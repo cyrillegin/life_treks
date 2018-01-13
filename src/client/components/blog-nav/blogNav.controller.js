@@ -20,7 +20,7 @@ export default class blogNav {
                 this.$scope.tree = success.data;
                 this.$timeout(() => {
                     this.setListeners(success.data);
-                    this.setDefaults();
+                    this.setDefaults(Object.keys(success.data.dates)[0]);
                 });
             })
             .catch((error) => {
@@ -49,13 +49,16 @@ export default class blogNav {
             });
         });
     }
-    
-    setDefaults() {
-        this.$scope.showMonth = "April"
-        this.$scope.showTag = 'tags'
-        console.log(this)
+
+    setDefaults(currentMonth) {
         const search = this.$location.search();
-        console.log(search)
-        
+        if (search.tag !== undefined) {
+            this.$scope.showTag = search.tag;
+        } else if (search.blog === undefined) {
+            this.$scope.showMonth = currentMonth;
+        }
+        if (search.date !== undefined) {
+            this.$scope.showMonth = search.date;
+        }
     }
 }
