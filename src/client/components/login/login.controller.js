@@ -42,7 +42,43 @@ export default class login {
         };
 
         this.$scope.submitBlog = () => {
-            console.log('subbmitting blog');
+            console.log('submitting blog');
+            const reg = RegExp(/^[a-zA-Z0-9 ]+$/);
+
+            if (this.$scope.blogTitle === undefined || ! reg.test(this.$scope.blogTitle) || this.$scope.blogTitle.length < 5) {
+                $('#blog-title-warning').html('* Pass the regex.');
+                return;
+            }
+            $('#blog-title-warning').html('');
+
+            if (this.$scope.blogBody === undefined || ! reg.test(this.$scope.blogBody) || this.$scope.blogBody.length < 5) {
+                $('#blog-body-warning').html('* Pass the regex.');
+                return;
+            }
+            $('#blog-body-warning').html('');
+
+            if (this.$scope.blogTags === undefined || ! reg.test(this.$scope.blogTags) || this.$scope.blogTags.length < 5) {
+                $('#blog-tags-warning').html('* Pass the regex.');
+                return;
+            }
+            $('#blog-tags-warning').html('');
+            console.log('passed sanitation');
+
+            const params = {
+                blogTitle: this.$scope.blogTitle,
+                blogBody: this.$scope.blogBody,
+                blogTags: this.$scope.blogTags,
+            };
+
+            that.$http.post('/blogs', params)
+                .then((success) => {
+                    console.log('success');
+                    console.log(success);
+                })
+                .catch((error) => {
+                    console.log('there was an error posting');
+                    console.log(error);
+                });
         };
     }
 }

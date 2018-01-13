@@ -37,14 +37,17 @@
                     <p>
                         <h4>Title</h4>
                         <input type="text" ng-model="blogTitle" class="form-control" placeholder="Blog Title" aria-label="Blog title" />
+                        <div class="warning" id="blog-title-warning"> </div>
                     </p>
                     <p>
                         <h4>Body</h4>
                         <textarea type="text" ng-model="blogBody" class="form-control" placeholder="Body" aria-label="Blog body" rows="10"></textarea>
+                        <div class="warning" id="blog-body-warning"> </div>
                     </p>
                     <p>
                         <h4>Tags</h4>
                         <input type="text" ng-model="blogTags" class="form-control" placeholder="Tags" aria-label="Blog tags" />
+                        <div class="warning" id="blog-tags-warning"> </div>
                     </p>
                     <p>
                         <button class="button" ng-click="submitBlog()">Submit</button>

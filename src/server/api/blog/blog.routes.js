@@ -6,8 +6,8 @@ export default function (app) {
         .get(blog.listAllBlogs)
         .post(blog.createBlog);
 
-    app.route('/blogs/:blogId')
-        .get(blog.readBlog)
-        .put(blog.updateBlog)
-        .delete(blog.deleteBlog);
+    // app.route('/blogs/:blogId')
+    //     .get(blog.readBlog)
+    //     .put(blog.updateBlog)
+    //     .delete(blog.deleteBlog);
 }
