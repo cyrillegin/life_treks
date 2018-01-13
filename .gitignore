@@ -11,6 +11,7 @@ dist/server/index.js
 dist/server/formatQuery.js
 dist/server/db.js
 dist/server/api/
+dist/modules/
 
 # Python
 *.pyc

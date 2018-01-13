@@ -1,8 +1,56 @@
-<ul data-toggle="collapse" data-target="#demo">
-    <span class="glyphicon glyphicon-menu-right"> </span> October
+<div class="blog-roll">
+    <p>
+        <div class="title">
+            Blog Roll
+        </div>
+    </p>
+    <br />
+    <hr />
 
-    <div id="demo" class="collapse date-list">
-        <li>Hello World</li>
-        <li>Front End Architecture</li>
-    </div>
-</ul>
+    <p>
+        <h4>Dates</h4>
+    </p>
+
+    
+    <ul class="nav-main" ng-repeat="(month, blogs) in tree.dates">
+        <li class="nav-main-item">
+            <i class="fa fa-angle-right" id="{{month}}-icon" aria-hidden="true"></i>{{month}}
+            <div ng-show="month == showMonth" id="{{month}}-showing">
+                <ul class="nav-sub-main" >
+                    <li class="nav-sub-item">
+                        <a href="/#/?date={{month}}">Show all from {{month}}</a>
+                    </li>
+                    <div ng-repeat="blog in blogs">
+                        <li class="nav-sub-item">
+                            <a href="/#/?blog={{blog.id}}">{{blog.name}}</a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+    <hr />
+
+    <p>
+        <h4>Tags</h4>
+    </p>
+
+    <ul class="nav-main" ng-repeat="(tag, blogs) in tree.tags">
+        <li class="nav-main-item">
+            <i class="fa fa-angle-right" id="{{tag}}-icon" aria-hidden="true"></i>{{tag}}
+            <div ng-show="tag == showTag" id="{{tag}}-showing">
+                <ul class="nav-sub-main" >
+                    <li class="nav-sub-item">
+                        <a href="/#/?tag={{tag}}">Show all from {{tag}}</a>
+                    </li>
+                    <div ng-repeat="blog in blogs">
+                        <li class="nav-sub-item">
+                            <a href="/#/?blog={{blog.id}}">{{blog.name}}</a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,9 +1,10 @@
 export default class blogController {
 
-    constructor($scope, $http) {
+    constructor($scope, $http, $location) {
         'ngInject';
         this.$scope = $scope;
         this.$http = $http;
+        this.$location = $location;
     }
 
     $onInit() {
@@ -12,10 +13,8 @@ export default class blogController {
     }
 
     loadBlogs(count) {
-        this.$http.get('/blogs')
+        this.$http.get(`/blogs${this.$location.url()}`)
             .then((success) => {
-                console.log('got success');
-                console.log(success);
                 this.$scope.blogs = success.data;
             })
             .catch((error) => {
