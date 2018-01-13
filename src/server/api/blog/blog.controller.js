@@ -14,9 +14,7 @@ exports.createBlog = function (req, res) {
     const entry = sanitizeBlog(req.body);
     entry.created = new Date();
     const newBlog = new Blog(entry);
-    console.log('saving blog:')
-    console.log(entry)
-    
+
     newBlog.save((err, blog) => {
         if (err) {
             res.send(err);
@@ -25,32 +23,3 @@ exports.createBlog = function (req, res) {
         }
     });
 };
-
-// exports.readBlog = function (req, res) {
-//     Blog.findById(req.params.blogId, (err, blog) => {
-//         if (err) {
-//             res.send(err);
-//         }
-//         res.json(blog);
-//     });
-// };
-
-// exports.updateBlog = function (req, res) {
-//     Blog.findOneAndUpdate({_id: req.params.blogId}, req.body, {new: true}, (err, blog) => {
-//         if (err) {
-//             res.send(err);
-//         }
-//         res.json(blog);
-//     });
-// };
-
-// exports.deleteBlog = function (req, res) {
-//     Blog.remove({
-//         _id: req.params.blogId,
-//     }, (err, blog) => {
-//         if (err) {
-//             res.send(err);
-//         }
-//         res.json({message: 'Blog successfully deleted'});
-//     });
-// };
