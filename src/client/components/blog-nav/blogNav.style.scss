@@ -1,18 +1,32 @@
 @import './../../constants';
 
-.glyphicon {
-    font-size: 10px;
+p {
+    margin-bottom: 10px;
+    width: 100%;
 }
 
-.date-list {
-    margin-left: 30px;
+.nav-main {
+    padding-left: 0
 }
 
-.blog-nav-title {
-    border-bottom: 1px solid $black;
+.nav-main-item {
+    display: inline-block;
 }
 
-ul {
-    margin-top: 10px;
-    padding-left: 10px;
+.nav-sub-main {
+    padding-left: 20px;
+}
+
+.nav-sub-item {
+    display: inline-block;
+}
+
+i {
+    font-size: 16px;
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.nav-open-section {
+    transform: rotateZ(90deg);
 }
