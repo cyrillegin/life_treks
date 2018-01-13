@@ -1,6 +1,6 @@
 export default function sanitzieBlog(blog) {
     console.log('Sanitizing inputs.');
-    const reg = RegExp(/^[a-zA-Z0-9 ]+$/);
+    const reg = RegExp(/^[a-zA-Z0-9 .,!?'\-"]+$/);
     let tags;
     try {
         assert(reg.test(blog.blogTitle));
@@ -18,7 +18,7 @@ export default function sanitzieBlog(blog) {
     console.log(blog);
     return {
         title: blog.blogTitle,
-        body: blog.blogTitle,
+        body: blog.blogBody,
         tags,
     };
 }

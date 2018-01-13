@@ -8,6 +8,8 @@ exports.listAllBlogs = function (req, res) {
         if (err) {
             res.send(err);
         }
+        console.log('got blog')
+        console.log(blog)
         res.json(blog);
     });
 };
@@ -15,9 +17,9 @@ exports.listAllBlogs = function (req, res) {
 exports.createBlog = function (req, res) {
     const entry = sanitizeBlog(req.body);
     const newBlog = new Blog(entry);
+    console.log('saving blog:')
+    console.log(entry)
     newBlog.save((err, blog) => {
-        console.log(err);
-        console.log(blog);
         if (err) {
             res.send(err);
         } else {

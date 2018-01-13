@@ -43,7 +43,7 @@ export default class login {
 
         this.$scope.submitBlog = () => {
             console.log('submitting blog');
-            const reg = RegExp(/^[a-zA-Z0-9 ]+$/);
+            const reg = RegExp(/^[a-zA-Z0-9 .,!?'\-"]+$/);
 
             if (this.$scope.blogTitle === undefined || ! reg.test(this.$scope.blogTitle) || this.$scope.blogTitle.length < 5) {
                 $('#blog-title-warning').html('* Pass the regex.');
