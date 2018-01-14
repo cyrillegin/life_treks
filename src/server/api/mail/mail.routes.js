@@ -1,4 +1,4 @@
-import mail from '../controllers/mail.controller';
+import mail from './mail.controller';
 
 export default function (app) {
 

@@ -19,7 +19,9 @@
         "axe": ["error", {
           "rules": {
             "link-name": {"enabled": false},
-            "color-contrast": {"enabled": false}
+            "color-contrast": {"enabled": false},
+            "list": {"enabled": false},
+            "listitem": {"enabled": false}
           }
         }],
         "content-type": "off",

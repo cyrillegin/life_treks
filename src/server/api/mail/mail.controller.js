@@ -1,5 +1,4 @@
-import nodemailer from 'nodemailer';
-
+import nodemailer from 'nodemailer'; // eslint-disable-line
 const dotenv = require('dotenv').config(); // eslint-disable-line
 
 exports.sendMail = function (req, res) {
