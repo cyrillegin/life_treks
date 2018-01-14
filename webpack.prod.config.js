@@ -29,6 +29,7 @@ module.exports = {
             loader: 'babel-loader',
             options: {
                 presets: ['es2015'],
+                plugins: ['angularjs-annotate'],
             },
         }, {
             test: /\.html$/,
@@ -86,8 +87,10 @@ module.exports = {
             name: 'vendor',
             filename: 'vendor.bundle.js',
         }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.NamedModulesPlugin(),
         // new webpack.optimize.UglifyJsPlugin({
+        //     exclude: /\/server/,
         //     compress: {
         //         dead_code: true, // eslint-disable-line
         //         drop_debugger: true, // eslint-disable-line
@@ -107,6 +110,7 @@ module.exports = {
         //     },
         //     mangle: false,
         // }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.ProvidePlugin({
             '$': 'jquery',
             'jQuery': 'jquery',

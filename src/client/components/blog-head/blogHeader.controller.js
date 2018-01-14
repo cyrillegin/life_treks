@@ -4,6 +4,6 @@ export default class header {
     }
     $onInit() {
         this.$scope.title = this.data.title;
-        this.$scope.date = this.data.timestamp;
+        this.$scope.date = new Date(this.data.created).toDateString();
     }
 }
