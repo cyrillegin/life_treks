@@ -96,11 +96,12 @@ export default class threejs {
                 }
 
                 // Create meshes
-                async function initMesh() {
-                    const apartment = await app.loadMesh('models/apartment.obj');
-                    apartment.position.set(-8.6, 0, 7.2);
-                    app.scene.add(apartment);
-                    app.meshes.push(apartment);
+                function initMesh() {
+                    app.loadMesh('models/apartment.obj').then((apartment) => {
+                        apartment.position.set(-8.6, 0, 7.2);
+                        app.scene.add(apartment);
+                        app.meshes.push(apartment);
+                    });
 
                     const home = new THREE.Vector3(0, 6.3, 0);
 
