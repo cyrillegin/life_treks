@@ -29,8 +29,6 @@ export default class boatParametersService {
         return new Promise((res, rej) => {
             this.loadBoat('/demo/boat')
                 .done((data) => {
-                    console.log('resp')
-                    console.log(data)
                     this.data = data;
                     this.boatLoaded = true;
                     res(data);
