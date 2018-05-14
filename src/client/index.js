@@ -23,6 +23,7 @@ import blogNav from './components/blog-nav/blogNav.component';
 import dthree from './components/dthree/dthree.component';
 import threejs from './components/threejs/threejs.component';
 import login from './components/login/login.component';
+import boatDemo from './components/boatDemo/boatDemo.component';
 // Style
 import './main.style.scss';
 
@@ -36,6 +37,7 @@ angular.module('life_treks', ['ngRoute'])
     .component('threejs', threejs)
     .component('dthree', dthree)
     .component('login', login)
+    .component('boatdemo', boatDemo)
     .controller('blogController', blogController)
     .controller('demoController', demoController)
     .controller('aboutController', aboutController)

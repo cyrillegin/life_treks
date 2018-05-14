@@ -14,10 +14,6 @@ export default class threejs {
         this.$scope = $scope;
     }
 
-    $onInit() {
-        console.log('initing');
-    }
-
     createApp() {
         const app = {
             meshes: [],
@@ -246,7 +242,7 @@ export default class threejs {
                 },
                 // called when loading is in progresses
                 (xhr) => {
-                    console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
+                    // console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
                 },
                 // called when loading has errors
                 (error) => {
@@ -260,8 +256,8 @@ export default class threejs {
     getReadings(station) {
         this.$http.post('/readings', {})
             .then((success) => {
-                console.log('success');
-                console.log(success);
+                // console.log('success');
+                // console.log(success);
             })
             .catch((error) => {
                 console.log('error');
