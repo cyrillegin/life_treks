@@ -3,10 +3,5 @@ export default class boatDemo {
         'ngInject';
         this.$scope = $scope;
         this.$location = $location;
-        console.log('construct')
-    }
-
-    $onInit() {
-        console.log('here in controller');
     }
 }
