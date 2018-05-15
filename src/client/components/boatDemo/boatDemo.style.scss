@@ -1,15 +1,16 @@
+@import './../../constants';
 
 .three-container {
-    background: #cfcfcf;
+    background: $grey;
     display: inline-block;
-    width: 100%;
     height: 600px;
+    width: 100%;
 }
 
 .mui-button {
-    background: #fff;
+    background: $white;
     border: 0;
-    color: #000;
+    color: $black;
     font-family: monospace;
     font-size: 12pt;
     height: 50px;
@@ -18,7 +19,7 @@
     width: 45%;
 
     &:hover {
-        box-shadow: 0 0 12px 0 rgba(0, 0, 0, .3);
+        box-shadow: 0 0 12px 0 $shadow;
         cursor: pointer;
         transform: scale(.97);
     }

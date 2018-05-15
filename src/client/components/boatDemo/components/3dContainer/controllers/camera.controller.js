@@ -53,14 +53,14 @@ export default class CameraController {
     //         this.tweenCamera(app, to);
     //     });
     // }
-    // 
+    //
     // tweenCamera(app, to) {
     //     const from = {
     //         x: app.camera.position.x,
     //         y: app.camera.position.y,
     //         z: app.camera.position.z,
     //     };
-    // 
+    //
     //     new TWEEN.Tween(from)
     //         .to(to, 600)
     //         .easing(TWEEN.Easing.Linear.None)

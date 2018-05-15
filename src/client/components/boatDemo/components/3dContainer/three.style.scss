@@ -9,11 +9,11 @@ table {
 }
 
 .menu-container {
-    opacity: 0;
-    transition: 1s;
     display: inline-block;
-    text-align: center;
     margin: 20px;
+    opacity: 0;
+    text-align: center;
+    transition: 1s;
 }
 
 .menu-container-active {
@@ -22,14 +22,14 @@ table {
 
 .wire-frame-toggle {
     display: inline-block;
-    line-height: 4;
     height: 32px;
+    line-height: 4;
     width: 200px;
 }
 
 .vertex-toggle {
-    line-height: 4;
     display: inline-block;
     height: 32px;
+    line-height: 4;
     width: 200px;
 }

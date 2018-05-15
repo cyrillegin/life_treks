@@ -1,9 +1,10 @@
+@import './../../../../constants';
 
 .controls-section {
-  width: 49%;
-  display: inline-block;
-  vertical-align: top;
-  padding: 20px;
+    display: inline-block;
+    padding: 20px;
+    vertical-align: top;
+    width: 49%;
 }
 
 .controls-input {
@@ -19,9 +20,9 @@
     display: inline-block;
     margin-bottom: 8px;
     width: auto;
-    
+
     i {
-        border: solid #000;
+        border: solid $black;
         border-width: 0 3px 3px 0;
         display: inline-block;
         padding: 3px;
@@ -31,7 +32,7 @@
     .down {
         transform: rotate(45deg);
     }
-    
+
     .controls-icon-hidden {
         transform: rotate(-45deg);
     }

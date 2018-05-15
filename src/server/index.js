@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/demo/boat', (req, res) => {
-    console.log('ask')
     res.sendFile(path.join(process.env.PWD, 'dist/server/public/boatDemo/boat1.json'));
 });
 

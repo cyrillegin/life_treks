@@ -1,5 +1,4 @@
-$shadow-one: rgba(0, 0, 0, .12);
-$shadow-two: rgba(0, 0, 0, .24);
+@import './constants';
 
 body {
     font-family: 'Roboto', sans-serif;
