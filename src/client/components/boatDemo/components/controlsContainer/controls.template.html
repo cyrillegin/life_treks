@@ -1,7 +1,3 @@
-<div class="controls-heading">
-    <h1>Controls</h1>
-</div>
-<hr />
 <div class="controls-section">
     <h3 class="controls-section-heading"> Base controls </h3>
 
@@ -20,11 +16,9 @@
         <input aria-label="height-control" type="number" class="controls-number-input" ng-model="data.height" ng-change="changeValue('height')" /> in.
         <input aria-label="height-control-range" type="range" class="controls-slide-input" ng-model="data.height" ng-change="changeValue('height')" />
     </div>
-</div>
 
-<hr />
+    <hr />
 
-<div class="controls-section">
     <h3 class="controls-section-heading"> Frames </h3>
     <div class="controls-group">
         <div class="controls-group">
@@ -43,12 +37,11 @@
     </div>
 </div>
 
-<hr />
-
-<input type="checkbox" aria-label="collinear-beam-control" name="collinearBeam" ng-mousedown="co($event)" id="collinearBeam" /> Collinear Beam Control Points <br />
-<input type="checkbox" aria-label="collinear-chine-control" name="collinearChine" ng-mousedown="co($event)" id="collinearChine" /> Collinear Chine Control Points <br />
-<input type="checkbox" aria-label="collinear-keel-control" name="collinearKeel" ng-mousedown="co($event)" id="collinearKeel" /> Collinear Keel Control Points <br />
 <div class="controls-section">
+
+    <input type="checkbox" aria-label="collinear-beam-control" name="collinearBeam" ng-mousedown="co($event)" id="collinearBeam" /> Collinear Beam Control Points <br />
+    <input type="checkbox" aria-label="collinear-chine-control" name="collinearChine" ng-mousedown="co($event)" id="collinearChine" /> Collinear Chine Control Points <br />
+    <input type="checkbox" aria-label="collinear-keel-control" name="collinearKeel" ng-mousedown="co($event)" id="collinearKeel" /> Collinear Keel Control Points <br />
     <div class="controls-input">
         <div ng-repeat="(key, value) in data">
             <div ng-if="key != 'width' && key != 'height' && key != 'length' && value.controlable == true">
@@ -141,16 +134,21 @@
 
 <hr />
 
-<button class="mui-button" id="save-json" ng-click="SaveJson()">Save JSON</button>
-
-<button class="mui-button" id="load-json" ng-click="LoadJson()">Load JSON</button>
-
-<button class="mui-button" id="save-obj">Save OBJ</button>
-
-<button class="mui-button" id="save-stl">Save STL</button>
-
-<button class="mui-button" id="save-png">Save PNG</button>
-
-<!-- <button class="mui-button" id="save-pdf">Save PDF</button> -->
+<div class="controls-buttons">
+    <div class="row">
+        <div class="col-md-3">
+            <button class="mui-button" id="save-json" ng-click="SaveJson()">Save JSON</button>
+        </div>
+        <div class="col-md-3">
+            <button class="mui-button" id="load-json" ng-click="LoadJson()">Load JSON</button>
+        </div>
+        <div class="col-md-3">
+            <button class="mui-button" id="save-obj">Save OBJ</button>
+        </div>
+        <div class="col-md-3">
+            <button class="mui-button" id="save-stl">Save STL</button>
+        </div>
+    </div>
+</div>
 
 <input type="file" class="hidden" id="json-file-input" />

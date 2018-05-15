@@ -1,40 +1,19 @@
-// @import './../../constants';
-// 
-// .side-bar {
-//     color: $dark-grey;
-//     grid-column: 1 / 2;
-// }
-// 
-// table {
-//     padding: 5px;
-//     width: 100%;
-// }
-// 
-// .table-label {
-//     width: 20%;
-// }
-// 
-// .table-input {
-//     width: 60%;
-// }
-// 
-// .table-number {
-//     width: 8%;
-// }
-// 
+table {
+    padding: 5px;
+    width: 100%;
+}
+
 .canvas {
     height: 600px;
     width: 100%;
 }
 
 .menu-container {
-    display: inline-block;
-    left: 56px;
     opacity: 0;
-    position: absolute;
-    top: 120px;
     transition: 1s;
-    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin: 20px;
 }
 
 .menu-container-active {
@@ -43,42 +22,14 @@
 
 .wire-frame-toggle {
     display: inline-block;
+    line-height: 4;
     height: 32px;
     width: 200px;
 }
 
 .vertex-toggle {
+    line-height: 4;
     display: inline-block;
     height: 32px;
     width: 200px;
-}
-
-.camera-controls {
-    background: linear-gradient(to bottom, #cfcfcf, #666);
-    border-radius: 20px;
-    box-shadow: inset 0 0 20px 0 rgba(0, 0, 0, .5);
-    display: inline-block;
-    height: 24px;
-    margin-right: 7%;
-    padding: 5px;
-}
-
-.camera-control {
-    color: #212121;
-    cursor: pointer;
-    display: inline-block;
-    font: 18px 'monospace';
-    font-weight: 500;
-    margin-left: 20px;
-    margin-right: 9px;
-    text-shadow: 0 1px 1px #666;
-}
-
-.camera-control-divider {
-    background: linear-gradient(90deg, #666 0, #000 50%, #666 90%);
-    display: inline-block;
-    height: 34px;
-    position: absolute;
-    top: 0;
-    width: 3px;
 }
