@@ -37,19 +37,27 @@
     </div>
 </div>
 
-<div class="controls-section">
-
-    <input type="checkbox" aria-label="collinear-beam-control" name="collinearBeam" ng-mousedown="co($event)" id="collinearBeam" /> Collinear Beam Control Points <br />
-    <input type="checkbox" aria-label="collinear-chine-control" name="collinearChine" ng-mousedown="co($event)" id="collinearChine" /> Collinear Chine Control Points <br />
-    <input type="checkbox" aria-label="collinear-keel-control" name="collinearKeel" ng-mousedown="co($event)" id="collinearKeel" /> Collinear Keel Control Points <br />
+<div class="controls-section text-align-right">
+    <h3 class="controls-section-heading">Control points</h3>
+    <div class="row">
+      <div class="col-md-4">
+    <input type="checkbox" aria-label="collinear-beam-control" name="collinearBeam" ng-mousedown="co($event)" id="collinearBeam" />Beam <br />
+  </div>
+  <div class="col-md-4">
+    <input type="checkbox" aria-label="collinear-chine-control" name="collinearChine" ng-mousedown="co($event)" id="collinearChine" />Chine<br />
+  </div>
+  <div class="col-md-4">
+    <input type="checkbox" aria-label="collinear-keel-control" name="collinearKeel" ng-mousedown="co($event)" id="collinearKeel" />Keel<br />
+  </div>
+</div>
     <div class="controls-input">
         <div ng-repeat="(key, value) in data">
             <div ng-if="key != 'width' && key != 'height' && key != 'length' && value.controlable == true">
                 <div class="controls-label" ng-click="openMenu(key)">
-                    <i class="down" id="{{key}}-menu-icon" /> {{key}}
+                    {{key}} <i id="{{key}}-menu-icon" /> 
                 </div>
 
-                <div class="controls-group" id="{{key}}-menu">
+                <div class="controls-group controls-section-hidden" id="{{key}}-menu">
                     <table ng-mouseover="hover(key)" ng-mouseleave="unhover(key)">
                         <thead>
                             <tr>

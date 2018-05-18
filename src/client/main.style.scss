@@ -5,6 +5,11 @@ body {
     text-align: justify;
 }
 
+table {
+    padding: 5px;
+    width: 100%;
+}
+
 .card {
     box-shadow: 0 1px 3px $shadow-one, 0 1px 2px $shadow-two;
     margin-bottom: 15px;
@@ -23,4 +28,26 @@ body {
 
 .container {
     padding-bottom: 58px;
+}
+
+.mui-button {
+    background: $white;
+    border: 0;
+    color: $black;
+    font-family: monospace;
+    font-size: 12pt;
+    height: 50px;
+    margin-left: 20%;
+    transition: .3s;
+    width: 45%;
+
+    &:hover {
+        box-shadow: 0 0 12px 0 $shadow;
+        cursor: pointer;
+        transform: scale(.97);
+    }
+}
+
+.hidden {
+    display: none;
 }

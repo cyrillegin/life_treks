@@ -7,20 +7,90 @@
     width: 100%;
 }
 
-.mui-button {
-    background: $white;
-    border: 0;
-    color: $black;
-    font-family: monospace;
-    font-size: 12pt;
-    height: 50px;
-    margin-left: 20%;
-    transition: .3s;
-    width: 45%;
-
-    &:hover {
-        box-shadow: 0 0 12px 0 $shadow;
-        cursor: pointer;
-        transform: scale(.97);
+.controls-section {
+    display: inline-block;
+    padding: 20px;
+    vertical-align: top;
+    width: 49%;
+    
+    input {
+      margin-right: 10px;
     }
+}
+
+.controls-input {
+    padding: 8px;
+}
+
+.controls-section-hidden {
+    display: none;
+}
+
+.controls-label {
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 8px;
+    width: auto;
+
+    i {
+        border: solid $black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transition: .2s;
+        transform: rotate(135deg);
+        margin-left: 5px;
+    }
+
+    .down {
+        transform: rotate(45deg);
+    }
+}
+
+.controls-number-input {
+    width: 60px;
+}
+
+.controls-slide-input {
+    vertical-align: middle;
+    width: 220px;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.canvas {
+    height: 600px;
+    width: 100%;
+}
+
+.menu-container {
+    display: inline-block;
+    margin: 20px;
+    opacity: 0;
+    text-align: center;
+    transition: 1s;
+}
+
+.menu-container-active {
+    opacity: 1;
+}
+
+.wire-frame-toggle {
+    display: inline-block;
+    height: 32px;
+    line-height: 4;
+    width: 200px;
+}
+
+.vertex-toggle {
+    display: inline-block;
+    height: 32px;
+    line-height: 4;
+    width: 200px;
 }
