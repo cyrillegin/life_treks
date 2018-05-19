@@ -12,9 +12,9 @@
     padding: 20px;
     vertical-align: top;
     width: 49%;
-    
+
     input {
-      margin-right: 10px;
+        margin-right: 10px;
     }
 }
 
@@ -36,10 +36,10 @@
         border: solid $black;
         border-width: 0 3px 3px 0;
         display: inline-block;
-        padding: 3px;
-        transition: .2s;
-        transform: rotate(135deg);
         margin-left: 5px;
+        padding: 3px;
+        transform: rotate(135deg);
+        transition: .2s;
     }
 
     .down {
@@ -57,11 +57,11 @@
 }
 
 .text-align-right {
-  text-align: right;
+    text-align: right;
 }
 
 .text-align-center {
-  text-align: center;
+    text-align: center;
 }
 
 .canvas {
@@ -71,24 +71,18 @@
 
 .menu-container {
     display: inline-block;
-    margin: 20px;
+    margin: 20px 20px 20px -20px;
     opacity: 0;
     text-align: center;
     transition: 1s;
+    width: 100%;
 }
 
 .menu-container-active {
     opacity: 1;
 }
 
-.wire-frame-toggle {
-    display: inline-block;
-    height: 32px;
-    line-height: 4;
-    width: 200px;
-}
-
-.vertex-toggle {
+.checkbox-toggle {
     display: inline-block;
     height: 32px;
     line-height: 4;

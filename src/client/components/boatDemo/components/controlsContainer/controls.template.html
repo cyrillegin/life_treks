@@ -1,5 +1,5 @@
 <div class="controls-section">
-    <h3 class="controls-section-heading"> Base controls </h3>
+    <h3> Base controls </h3>
 
     <div class="controls-group">
         <div for="width-control" class="controls-label">Width</div>
@@ -19,7 +19,7 @@
 
     <hr />
 
-    <h3 class="controls-section-heading"> Frames </h3>
+    <h3> Frames </h3>
     <div class="controls-group">
         <div class="controls-group">
             <label class="controls-label">Number of Frames</label>
@@ -38,7 +38,7 @@
 </div>
 
 <div class="controls-section text-align-right">
-    <h3 class="controls-section-heading">Control points</h3>
+    <h3>Control points</h3>
     <div class="row">
       <div class="col-md-4">
     <input type="checkbox" aria-label="collinear-beam-control" name="collinearBeam" ng-mousedown="co($event)" id="collinearBeam" />Beam <br />
@@ -142,20 +142,18 @@
 
 <hr />
 
-<div class="controls-buttons">
-    <div class="row">
-        <div class="col-md-3">
-            <button class="mui-button" id="save-json" ng-click="SaveJson()">Save JSON</button>
-        </div>
-        <div class="col-md-3">
-            <button class="mui-button" id="load-json" ng-click="LoadJson()">Load JSON</button>
-        </div>
-        <div class="col-md-3">
-            <button class="mui-button" id="save-obj">Save OBJ</button>
-        </div>
-        <div class="col-md-3">
-            <button class="mui-button" id="save-stl">Save STL</button>
-        </div>
+<div class="row">
+    <div class="col-md-3">
+        <button class="mui-button" id="save-json" ng-click="SaveJson()">Save JSON</button>
+    </div>
+    <div class="col-md-3">
+        <button class="mui-button" id="load-json" ng-click="LoadJson()">Load JSON</button>
+    </div>
+    <div class="col-md-3">
+        <button class="mui-button" id="save-obj">Save OBJ</button>
+    </div>
+    <div class="col-md-3">
+        <button class="mui-button" id="save-stl">Save STL</button>
     </div>
 </div>
 

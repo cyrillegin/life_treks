@@ -37,9 +37,8 @@ table {
     font-family: monospace;
     font-size: 12pt;
     height: 50px;
-    margin-left: 20%;
     transition: .3s;
-    width: 45%;
+    width: 100%;
 
     &:hover {
         box-shadow: 0 0 12px 0 $shadow;
