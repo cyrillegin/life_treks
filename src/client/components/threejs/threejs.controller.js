@@ -6,12 +6,16 @@ export default class threejs {
 
     constructor($scope, $http) {
         'ngInject';
+
+        this.$http = $http;
+        this.$scope = $scope;
+    }
+
+    $onInit() {
         const container = document.getElementById('renderer');
         const app = this.createApp();
         app.init(container);
         app.render();
-        this.$http = $http;
-        this.$scope = $scope;
     }
 
     createApp() {
