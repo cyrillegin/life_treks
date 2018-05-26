@@ -46,7 +46,7 @@
         "babel-plugin-angularjs-annotate": "0.9.0",
         "babel-preset-env": "1.7.0",
         "body-parser": "1.18.3",
-        "code-assess": "0.2.9",
+        "code-assess": "0.2.10",
         "concurrently": "3.5.1",
         "css-loader": "0.28.11",
         "dotenv": "5.0.1",
