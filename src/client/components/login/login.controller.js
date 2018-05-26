@@ -1,11 +1,9 @@
 export default class login {
-    constructor($scope, $http, $timeout, $compile) {
+    constructor($scope, $http) {
         'ngInject';
 
         this.$scope = $scope;
         this.$http = $http;
-        this.$timeout = $timeout;
-        this.$compile = $compile;
     }
 
     $onInit() {

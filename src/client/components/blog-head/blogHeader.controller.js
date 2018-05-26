@@ -1,5 +1,6 @@
 export default class header {
     constructor($scope) {
+        'ngInject';
         this.$scope = $scope;
     }
     $onInit() {

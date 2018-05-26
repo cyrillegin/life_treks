@@ -23,6 +23,13 @@ import blogNav from './components/blog-nav/blogNav.component';
 import dthree from './components/dthree/dthree.component';
 import threejs from './components/threejs/threejs.component';
 import login from './components/login/login.component';
+import boatDemo from './components/boatDemo/boatDemo.component';
+// Boat demo imports
+import threecomponent from './components/boatDemo/components/3dContainer/three.component';
+// import blueprintcomponent from './components/2dContainer/blueprint.component';
+import controlscomponent from './components/boatDemo/components/controlsContainer/controls.component';
+import boatParametersService from './components/boatDemo/services/boatParameters.service';
+import manipulateService from './components/boatDemo/services/manipulate.service';
 // Style
 import './main.style.scss';
 
@@ -36,9 +43,17 @@ angular.module('life_treks', ['ngRoute'])
     .component('threejs', threejs)
     .component('dthree', dthree)
     .component('login', login)
+    .component('boatdemo', boatDemo)
     .controller('blogController', blogController)
     .controller('demoController', demoController)
     .controller('aboutController', aboutController)
+    // Boat demo imports
+    .component('threecomponent', threecomponent)
+    // .component('blueprintcomponent', blueprintcomponent)
+    .component('controlscomponent', controlscomponent)
+    .service('boatParametersService', boatParametersService)
+    .service('manipulateService', manipulateService)
+    // Config
     .config(
         ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
             $locationProvider.hashPrefix('');

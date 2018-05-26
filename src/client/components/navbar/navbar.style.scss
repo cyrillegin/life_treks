@@ -9,3 +9,8 @@
         margin-right: 15px;
     }
 }
+
+// This allows screen readers to see where the page content actually starts.
+.start-of-content {
+    display: none;
+}

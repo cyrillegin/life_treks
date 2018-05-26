@@ -1,6 +1,8 @@
 export default class blogNav {
 
     constructor($scope, $http, $timeout, $location) {
+        'ngInject';
+
         this.$http = $http;
         this.$scope = $scope;
         this.$timeout = $timeout;

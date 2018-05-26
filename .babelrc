@@ -1,13 +1,4 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions", "safari >= 7"],
-        "plugins": ["angularjs-annotate"],
-        "uglyfy": true,
-        "forceAllTransforms": true,
-        "minify": true
-      }
-    }]
-  ]
+  "presets": ["babel-preset-env"],
+  "plugins": ["angularjs-annotate"]
 }
