@@ -121,8 +121,6 @@ module.exports = {
                 },
             },
             exclude: /\/server/,
-
-            // mangle: false,
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.ProvidePlugin({

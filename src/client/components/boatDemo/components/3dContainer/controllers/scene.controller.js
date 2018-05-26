@@ -10,7 +10,7 @@
 
 */
 import 'three';
-// import TWEEN from '@tweenjs/tween.js';
+import TWEEN from '@tweenjs/tween.js';
 
 function initScene(container) {
     const app = {
@@ -49,7 +49,7 @@ function initRenderer(app) {
             return;
         }
         app.renderer.render(app.scene, app.camera);
-        // TWEEN.update();
+        TWEEN.update();
         requestAnimationFrame(app.render);
     };
     return app;
