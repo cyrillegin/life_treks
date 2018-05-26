@@ -1,0 +1,160 @@
+<div class="controls-section">
+    <h3> Base controls </h3>
+
+    <div class="controls-group">
+        <div for="width-control" class="controls-label">Width</div>
+        <input aria-label="width-control" type="number" class="controls-number-input" ng-model="data.width" ng-change="changeValue('width')" /> in.
+        <input aria-label="width-control-range" type="range" class="controls-slide-input" ng-model="data.width" ng-change="changeValue('width')" />
+    </div>
+    <div class="controls-group">
+        <div for="length-control" class="controls-label">Length</div>
+        <input aria-label="length-control" type="number" class="controls-number-input" ng-model="data.length" ng-change="changeValue('length')" /> in.
+        <input aria-label="length-control-range" type="range" class="controls-slide-input" ng-model="data.length" ng-change="changeValue('length')" />
+    </div>
+    <div class="controls-group">
+        <div for="height-control" class="controls-label">Height</div>
+        <input aria-label="height-control" type="number" class="controls-number-input" ng-model="data.height" ng-change="changeValue('height')" /> in.
+        <input aria-label="height-control-range" type="range" class="controls-slide-input" ng-model="data.height" ng-change="changeValue('height')" />
+    </div>
+
+    <hr />
+
+    <h3> Frames </h3>
+    <div class="controls-group">
+        <div class="controls-group">
+            <label class="controls-label">Number of Frames</label>
+            <input aria-label="frame-count" type="number" class="controls-number-input" ng-model="frameCount" ng-change="changeValue('frameCount')" />
+            <input aria-label="frame-count-range" type="range" min="0" max="15" class="controls-slide-input" ng-model="frameCount" ng-change="changeValue('frameCount')" />
+        </div>
+        <h4>Distance from back</h4>
+        <div ng-repeat="frame in data.frames">
+            <div class="controls-group">
+                <div class="controls-label">frame</div>
+                <input aria-label="frame-distance-{{$index}}" type="number" max="{{data.length*2}}" class="controls-number-input" ng-model="frame.distanceFromBack" ng-change="changeValue('$index-distanceFromBack')" /> in.
+                <input aria-label="frame-distance-range-{{$index}}" max="{{data.length*2}}" type="range" class="controls-slide-input" ng-model="frame.distanceFromBack" ng-change="changeValue('$index-distanceFromBack')" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="controls-section text-align-right">
+    <h3>Control points</h3>
+    <div class="row">
+      <div class="col-md-4">
+    <input type="checkbox" aria-label="collinear-beam-control" name="collinearBeam" ng-mousedown="co($event)" id="collinearBeam" />Beam <br />
+  </div>
+  <div class="col-md-4">
+    <input type="checkbox" aria-label="collinear-chine-control" name="collinearChine" ng-mousedown="co($event)" id="collinearChine" />Chine<br />
+  </div>
+  <div class="col-md-4">
+    <input type="checkbox" aria-label="collinear-keel-control" name="collinearKeel" ng-mousedown="co($event)" id="collinearKeel" />Keel<br />
+  </div>
+</div>
+    <div class="controls-input">
+        <div ng-repeat="(key, value) in data">
+            <div ng-if="key != 'width' && key != 'height' && key != 'length' && value.controlable == true">
+                <div class="controls-label" ng-click="openMenu(key)">
+                    {{key}} <i id="{{key}}-menu-icon" /> 
+                </div>
+
+                <div class="controls-group controls-section-hidden" id="{{key}}-menu">
+                    <table ng-mouseover="hover(key)" ng-mouseleave="unhover(key)">
+                        <thead>
+                            <tr>
+                                <td>
+                                    Position
+                                </td>
+                                <td>
+                                    x
+                                </td>
+                                <td>
+                                    y
+                                </td>
+                                <td>
+                                    z
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Start
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-start-x" type="number" class="controls-number-input" ng-model="value.start[0]" ng-change="changeValue('{{key}}-start-x')" ng-mousedown="mDown($event, {key}, 'start', 0)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-start-y" type="number" class="controls-number-input" ng-model="value.start[1]" ng-change="changeValue('{{key}}-start-y')" ng-mousedown="mDown($event, {key}, 'start', 1)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-start-z" type="number" class="controls-number-input" ng-model="value.start[2]" ng-change="changeValue('{{key}}-start-z')" ng-mousedown="mDown($event, {key}, 'start', 2)" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Control
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-start-control-x" type="number" class="controls-number-input" ng-model="value.startControl[0]" ng-change="changeValue('{{key}}-startControl-x')" ng-mousedown="mDown($event, {key}, 'startControl', 0)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-start-control-y" type="number" class="controls-number-input" ng-model="value.startControl[1]" ng-change="changeValue('{{key}}-startControl-y')" ng-mousedown="mDown($event, {key}, 'startControl', 1)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-start-control-z" type="number" class="controls-number-input" ng-model="value.startControl[2]" ng-change="changeValue('{{key}}-startControl-z')" ng-mousedown="mDown($event, {key}, 'startControl', 2)" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    End
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-end-x" type="number" class="controls-number-input" ng-model="value.end[0]" ng-change="changeValue('{{key}}-end-x')"  ng-mousedown="mDown($event, {key}, 'end', 0)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-end-y" type="number" class="controls-number-input" ng-model="value.end[1]" ng-change="changeValue('{{key}}-end-y')" ng-mousedown="mDown($event, {key}, 'end', 1)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-end-z" type="number" class="controls-number-input" ng-model="value.end[2]" ng-change="changeValue('{{key}}-end-z')" ng-mousedown="mDown($event, {key}, 'end', 2)" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Control
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-end-control-x" type="number" class="controls-number-input" ng-model="value.endControl[0]" ng-change="changeValue('{{key}}-endControl-x')" ng-mousedown="mDown($event, {key}, 'endControl', 0)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-end-control-y" type="number" class="controls-number-input" ng-model="value.endControl[1]" ng-change="changeValue('{{key}}-endControl-y')" ng-mousedown="mDown($event, {key}, 'endControl', 1)" />
+                                </td>
+                                <td>
+                                    <input aria-label="{{key}}-end-control-z" type="number" class="controls-number-input" ng-model="value.endControl[2]" ng-change="changeValue('{{key}}-endControl-z')"  ng-mousedown="mDown($event, {key}, 'endControl', 2)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3">
+        <button class="mui-button" id="save-json" ng-click="SaveJson()">Save JSON</button>
+    </div>
+    <div class="col-md-3">
+        <button class="mui-button" id="load-json" ng-click="LoadJson()">Load JSON</button>
+    </div>
+    <div class="col-md-3">
+        <button class="mui-button" id="save-obj">Save OBJ</button>
+    </div>
+    <div class="col-md-3">
+        <button class="mui-button" id="save-stl">Save STL</button>
+    </div>
+</div>
+
+<input type="file" class="hidden" id="json-file-input" />
