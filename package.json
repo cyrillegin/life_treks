@@ -27,12 +27,12 @@
         "angular-route": "1.6.8",
         "autotrack": "2.4.1",
         "bootstrap": "3.3.7",
-        "d3": "4.12.2",
+        "d3": "5.4.0",
         "font-awesome": "4.7.0",
         "helmet": "3.12.1",
         "jquery": "3.3.1",
         "mongodb": "3.0.1",
-        "mongoose": "4.13.9",
+        "mongoose": "5.1.2",
         "require": "2.4.20",
         "spin": "0.0.1",
         "three": "0.92.0"
@@ -71,6 +71,6 @@
         "url-loader": "1.0.1",
         "webpack": "3.10.0",
         "webpack-bundle-analyzer": "2.13.1",
-        "webpack-dev-server": "2.10.1"
+        "webpack-dev-server": "3.1.4"
     }
 }
