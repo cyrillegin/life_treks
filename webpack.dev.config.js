@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // eslint-disable-line
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line
 
 module.exports = {
     entry: {
@@ -11,11 +11,17 @@ module.exports = {
             'angular-route',
             'jquery',
             'bootstrap',
-            './node_modules/bootstrap/dist/css/bootstrap.min.css',
             'three',
             'd3',
-            './node_modules/font-awesome/css/font-awesome.min.css',
             'autotrack',
+            './node_modules/font-awesome/css/font-awesome.min.css',
+            './node_modules/bootstrap/dist/css/bootstrap.min.css',
+            './node_modules/spin/spin.js',
+            './node_modules/three/examples/js/loaders/OBJLoader.js',
+            './node_modules/three/examples/js/loaders/MTLLoader.js',
+            './node_modules/three/examples/js/exporters/OBJExporter.js',
+            './node_modules/three/examples/js/exporters/STLExporter.js',
+            './node_modules/three/examples/js/controls/OrbitControls.js',
         ],
     },
     output: {

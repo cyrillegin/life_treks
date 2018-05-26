@@ -11,12 +11,12 @@
     },
     "scripts": {
         "assess": "babel-node node_modules/.bin/code-assess src",
-        "start": "npm run build-server && concurrently --kill-others 'npm run build-client' 'npm run start-server'",
-        "build-server": "babel src --out-dir dist --copy-files --ignore src/client/",
-        "build-client": "webpack --progress --watch --config ./webpack.dev.config.js",
-        "start-server": "nodemon --ignore /client/ --exec babel-node src/server",
-        "startProd": "npm run build-prod && npm run start-server",
-        "build-prod": "webpack --progress --config ./webpack.prod.config.js",
+        "start": "npm run buildServer && concurrently --kill-others 'npm run buildClient' 'npm run startServer'",
+        "buildServer": "babel src --out-dir dist --copy-files --ignore src/client/",
+        "buildClient": "webpack --progress --watch --config ./webpack.dev.config.js",
+        "startServer": "nodemon --ignore /client/ --exec babel-node src/server",
+        "startProd": "npm run buildProd && npm run startServer",
+        "buildProd": "webpack --progress --config ./webpack.prod.config.js",
         "postinstall": "npm --prefix ./node_modules/node-sass/ run install && npm prune"
     },
     "dependencies": {
