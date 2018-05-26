@@ -1,0 +1,90 @@
+@import './../../constants';
+
+.three-container {
+    background: $grey;
+    display: inline-block;
+    height: 600px;
+    width: 100%;
+}
+
+.controls-section {
+    display: inline-block;
+    padding: 20px;
+    vertical-align: top;
+    width: 49%;
+
+    input {
+        margin-right: 10px;
+    }
+}
+
+.controls-input {
+    padding: 8px;
+}
+
+.controls-section-hidden {
+    display: none;
+}
+
+.controls-label {
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 8px;
+    width: auto;
+
+    i {
+        border: solid $black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        margin-left: 5px;
+        padding: 3px;
+        transform: rotate(135deg);
+        transition: .2s;
+    }
+
+    .down {
+        transform: rotate(45deg);
+    }
+}
+
+.controls-number-input {
+    width: 60px;
+}
+
+.controls-slide-input {
+    vertical-align: middle;
+    width: 220px;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.canvas {
+    height: 600px;
+    width: 100%;
+}
+
+.menu-container {
+    display: inline-block;
+    margin: 20px 20px 20px -20px;
+    opacity: 0;
+    text-align: center;
+    transition: 1s;
+    width: 100%;
+}
+
+.menu-container-active {
+    opacity: 1;
+}
+
+.checkbox-toggle {
+    display: inline-block;
+    height: 32px;
+    line-height: 4;
+    width: 200px;
+}

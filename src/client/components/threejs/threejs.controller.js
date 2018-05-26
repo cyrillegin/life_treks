@@ -6,16 +6,16 @@ export default class threejs {
 
     constructor($scope, $http) {
         'ngInject';
-        const container = document.getElementById('renderer');
-        const app = this.createApp();
-        app.init(container);
-        app.render();
+
         this.$http = $http;
         this.$scope = $scope;
     }
 
     $onInit() {
-        console.log('initing');
+        const container = document.getElementById('renderer');
+        const app = this.createApp();
+        app.init(container);
+        app.render();
     }
 
     createApp() {
@@ -87,12 +87,12 @@ export default class threejs {
                     app.cameraControls.maxPolarAngle = Math.PI / 2.5;
                     app.raycaster = new THREE.Raycaster();
                     app.mouse = new THREE.Vector2();
-                    function onDocumentMouseMove(event) {
-                        event.preventDefault();
-                        app.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-                        app.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-                    }
-                    document.addEventListener('mousemove', onDocumentMouseMove, false);
+                    // function onDocumentMouseMove(event) {
+                    //     event.preventDefault();
+                    //     app.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                    //     app.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+                    // }
+                    // document.addEventListener('mousemove', onDocumentMouseMove, false);
                 }
 
                 // Create meshes
@@ -246,7 +246,7 @@ export default class threejs {
                 },
                 // called when loading is in progresses
                 (xhr) => {
-                    console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
+                    // console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
                 },
                 // called when loading has errors
                 (error) => {
@@ -260,8 +260,8 @@ export default class threejs {
     getReadings(station) {
         this.$http.post('/readings', {})
             .then((success) => {
-                console.log('success');
-                console.log(success);
+                // console.log('success');
+                // console.log(success);
             })
             .catch((error) => {
                 console.log('error');
