@@ -1,3 +1,3 @@
 export default function foot() {
-    console.log('foot');
+    // console.log('foot');
 }

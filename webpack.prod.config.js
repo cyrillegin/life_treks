@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // eslint-disable-line
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -10,10 +10,17 @@ module.exports = {
             'angular-route',
             'jquery',
             'bootstrap',
-            './node_modules/bootstrap/dist/css/bootstrap.min.css',
             'three',
             'd3',
+            'autotrack',
             './node_modules/font-awesome/css/font-awesome.min.css',
+            './node_modules/bootstrap/dist/css/bootstrap.min.css',
+            './node_modules/spin/spin.js',
+            './node_modules/three/examples/js/loaders/OBJLoader.js',
+            './node_modules/three/examples/js/loaders/MTLLoader.js',
+            './node_modules/three/examples/js/exporters/OBJExporter.js',
+            './node_modules/three/examples/js/exporters/STLExporter.js',
+            './node_modules/three/examples/js/controls/OrbitControls.js',
         ],
     },
     output: {
@@ -28,7 +35,7 @@ module.exports = {
             exclude: /node_modules/,
             loader: 'babel-loader',
             options: {
-                presets: ['es2015'],
+                presets: ['babel-preset-env'],
                 plugins: ['angularjs-annotate'],
             },
         }, {
@@ -89,27 +96,32 @@ module.exports = {
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.NamedModulesPlugin(),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     exclude: /\/server/,
-        //     compress: {
-        //         dead_code: true, // eslint-disable-line
-        //         drop_debugger: true, // eslint-disable-line
-        //         conditionals: true,
-        //         comparisons: true,
-        //         booleans: true,
-        //         unused: true,
-        //         toplevel: true,
-        //         if_return: true, // eslint-disable-line
-        //         join_vars: true, // eslint-disable-line
-        //         cascade: true,
-        //         collapse_vars: true, // eslint-disable-line
-        //         reduce_vars: true, // eslint-disable-line
-        //         warnings: false,
-        //         drop_console: true, // eslint-disable-line
-        //         passes: 2,
-        //     },
-        //     mangle: false,
-        // }),
+        new UglifyJSPlugin({
+            uglifyOptions: {
+                topLevel: true,
+                keep_classnames: false, // eslint-disable-line
+                compress: {
+                    keep_fargs: false, // eslint-disable-line
+                    keep_fnames: false, // eslint-disable-line
+                    toplevel: true,
+                    unsafe: true,
+                    unsafe_arrows: true, // eslint-disable-line
+                    unsafe_methods: true, // eslint-disable-line
+                    unsafe_Function: true, // eslint-disable-line
+                    unsafe_math: true, // eslint-disable-line
+                    unsafe_proto: true, // eslint-disable-line
+                    unsafe_regexp: true, // eslint-disable-line
+                    unsafe_undefined: true, // eslint-disable-line
+                    drop_console: true, // eslint-disable-line
+                    passes: 2,
+                },
+                mangle: {
+                    eval: true,
+                    toplevel: true,
+                },
+            },
+            exclude: /\/server/,
+        }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.ProvidePlugin({
             '$': 'jquery',

@@ -1,5 +1,6 @@
 export default class body {
     constructor($scope) {
+        'ngInject';
         this.$scope = $scope;
     }
     $onInit() {

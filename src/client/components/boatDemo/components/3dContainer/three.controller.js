@@ -42,7 +42,7 @@ export default class ThreeContainer {
         this.curveController = new CurvesController();
 
 
-        this.boatParametersService.getBoat()
+        this.boatParametersService.getBoat(true)
             .then((data) => {
                 this.app = this.curveController.initCurves(this.app, data);
                 this.curveController.updateFrames(this.app, data);
