@@ -83,12 +83,12 @@ export default class threejs {
                     app.cameraControls.maxPolarAngle = Math.PI / 2.5;
                     app.raycaster = new THREE.Raycaster();
                     app.mouse = new THREE.Vector2();
-                    function onDocumentMouseMove(event) {
-                        event.preventDefault();
-                        app.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-                        app.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-                    }
-                    document.addEventListener('mousemove', onDocumentMouseMove, false);
+                    // function onDocumentMouseMove(event) {
+                    //     event.preventDefault();
+                    //     app.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                    //     app.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+                    // }
+                    // document.addEventListener('mousemove', onDocumentMouseMove, false);
                 }
 
                 // Create meshes

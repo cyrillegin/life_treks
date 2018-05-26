@@ -26,6 +26,7 @@ export default class controlsContainer {
             this.$scope.$watchCollection(
                 () => this.boatParametersService.checkUpdate(), // what we're watching.
                 (newVal, oldVal, scope) => { // what we do if there's been a change.
+                    console.log('update');
                     this.$scope.data = this.boatParametersService.getBoat();
                 });
             this.$scope.changeValue = (control) => {
