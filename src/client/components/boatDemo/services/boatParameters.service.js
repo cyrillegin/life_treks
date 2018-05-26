@@ -22,10 +22,14 @@ export default class boatParametersService {
         return this.updateKey;
     }
 
-    getBoat() {
-        if (this.boatLoaded === true) {
+    getBoat(requiresPromise) {
+        // On load, threeController expects to be loading a boat from the server
+        // however when this application is run in a spa, the boat is already loaded
+        // when this function is called
+        if (this.boatLoaded === true && !requiresPromise) {
             return this.data;
         }
+
         return new Promise((res, rej) => {
             this.loadBoat('/demo/boat')
                 .done((data) => {
