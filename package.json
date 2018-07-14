@@ -71,6 +71,7 @@
         "url-loader": "1.0.1",
         "webpack": "3.10.0",
         "webpack-bundle-analyzer": "2.13.1",
-        "webpack-dev-server": "3.1.4"
+        "webpack-dev-server": "3.1.4",
+        "webpack-jarvis": "0.3.2"
     }
 }
