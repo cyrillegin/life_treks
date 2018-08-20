@@ -1,112 +1,48 @@
+/* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // eslint-disable-line
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line
 
 module.exports = {
-    entry: {
-        app: './src/client/index.js',
-        vendor: [
-            'angular',
-            'angular-route',
-            'jquery',
-            'bootstrap',
-            'three',
-            'd3',
-            'autotrack',
-            './node_modules/font-awesome/css/font-awesome.min.css',
-            './node_modules/bootstrap/dist/css/bootstrap.min.css',
-            './node_modules/spin/spin.js',
-            './node_modules/three/examples/js/loaders/OBJLoader.js',
-            './node_modules/three/examples/js/loaders/MTLLoader.js',
-            './node_modules/three/examples/js/exporters/OBJExporter.js',
-            './node_modules/three/examples/js/exporters/STLExporter.js',
-            './node_modules/three/examples/js/controls/OrbitControls.js',
+  devtool: 'inline-source-map',
+  entry: './src/client/index.js',
+  mode: 'development',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist/'),
+    publicPath: '/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: [
+          path.resolve(__dirname, 'src'),
         ],
-    },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist/server/public'),
-        publicPath: '/',
-    },
-    devServer: {
-        host: '127.0.0.1',
-        port: 5000,
-    },
-    devtool: 'inline-source-map',
-    module: {
-        rules: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            options: {
-                presets: ['babel-preset-env'],
-                plugins: ['angularjs-annotate'],
-            },
-        }, {
-            test: /\.html$/,
-            loader: 'html-loader',
-        }, {
-            test: /\.css$/,
-            loader: 'style-loader!css-loader',
-        }, {
-            test: /\.scss$/,
-            use: [{
-                loader: 'style-loader',
-            }, {
-                loader: 'css-loader',
-            }, {
-                loader: 'postcss-loader', // Run post css actions
-                options: {
-                    plugins() { // post css plugins, can be exported to postcss.config.js
-                        return [
-                            require('precss'),
-                            require('autoprefixer'),
-                        ];
-                    },
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              'react',
+              ['env', {
+                targets: {
+                  browsers: ['> 5%'],
+                  forceAllTransforms: true,
                 },
-            }, {
-                loader: 'sass-loader',
-            }],
-        }, {
-            test: /\.png$|\?|\.gif($|\?)/,
-            loader: 'url-loader?publicPath=dist/&limit=100000',
-        }, {
-            test: /\.jpg$/,
-            loader: 'file-loader',
-        }, {
-            test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-            loader: 'url-loader',
-        }],
-    },
-    plugins: [
-        // new BundleAnalyzerPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': 'development',
-        }),
-        new webpack.ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery', // eslint-disable-line
-            jquery: 'jquery',
-            THREE: 'three',
-        }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false,
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'vendor.bundle.js',
-        }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.NamedModulesPlugin(),
-        new webpack.ProvidePlugin({
-            '$': 'jquery',
-            'jQuery': 'jquery',
-            'window.jQuery': 'jquery',
-            // In case you imported plugins individually, you must also require them here:
-            'Util': 'exports-loader?Util!bootstrap/js/dist/util',
-            'Dropdown': 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
-        }),
+              }],
+            ],
+            plugins: [
+              'transform-class-properties',
+              'transform-object-rest-spread',
+              'transform-runtime',
+            ],
+          },
+        },
+      },
     ],
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    }),
+  ],
 };

@@ -1,24 +1,18 @@
-# Node
-node_modules/
-.env
-*.pid
-
-# Build files
-bundle.js
-vendor.bundle.js
-*.map
-dist/server/index.js
-dist/server/formatQuery.js
-dist/server/db.js
-dist/server/api/
-dist/modules/
+# OSX
+*.DS_Store
 
 # Python
 *.pyc
 
-# OSX
-.DS_Store
+# Config
+config.py
+
+# Node
+node_modules/
+
+# Builds
+bundle.js
+bundle.js.map
 
 # Misc
-mynotes
-autotrack/
+old/
