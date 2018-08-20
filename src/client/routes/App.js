@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-// import PropTypes from 'prop-types';
-import HomeContainer from './../pages/Home/HomeContainer';
+import BoatContainer from './../pages/Boat/BoatContainer';
+import DragonflyContainer from './../pages/Dragonfly/DragonflyContainer';
+import VisualizationContainer from './../pages/Visualization/VisualizationContainer';
 // Nav
 import NavBar from './../components/NavBar/NavBar';
 
@@ -12,8 +13,10 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <NavBar user={{auth: 'none'}} />
-          <Route exact path="/" component={HomeContainer} />
+          <NavBar />
+          <Route exact path="/boat" component={BoatContainer} />
+          <Route exact path="/dragonfly" component={DragonflyContainer} />
+          <Route exact path="/visualization" component={VisualizationContainer} />
         </div>
       </Router>
     );

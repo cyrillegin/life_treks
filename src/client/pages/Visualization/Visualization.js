@@ -7,25 +7,19 @@ const styles = theme => ({
 
 });
 
-export class HomePage extends Component {
+export class VisualizationPage extends Component {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
   }
 
-  state = {
-    devices: [],
-  }
-
   render() {
-    // const {classes} = this.props;
-
     return (
-      <div className={this.props.classes.appOffset}>
-        Hello world
+      <div>
+        Hello visual
       </div>
     );
   }
 }
 
-export default withStyles(styles)(HomePage);
+export default withStyles(styles)(VisualizationPage);

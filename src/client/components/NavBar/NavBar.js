@@ -9,23 +9,42 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@material-ui/core/Paper';
+import {withRouter} from 'react-router-dom';
 
 const styles = {
   root: {
-    position: 'sticky',
     width: '100%',
     top: 0,
   },
-  flex: {
-    flex: 1,
+  title: {
+    textAlign: 'center',
+  },
+  menuGroup: {
+    textAlign: 'center',
+    paddingBottom: '20px',
+    paddingTop: '32px',
+  },
+  menuItem: {
+    textDecoration: 'none',
+    margin: '36px',
+    color: '#000',
+    fontSize: '1.4em',
+  },
+  selectedMenuItem: {
+    textDecoration: 'none',
+    margin: '36px',
+    color: '#000',
+    fontSize: '1.4em',
+    borderBottom: '1px solid #07c300',
   },
 };
 
 export class NavBar extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    user: PropTypes.shape({
-      auth: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
     }).isRequired,
   };
 
@@ -42,50 +61,40 @@ export class NavBar extends Component {
   };
 
   render() {
-    const {classes} = this.props;
-    const {anchorEl} = this.state;
-    const open = Boolean(anchorEl);
-
+    let currentPage = this.props.location.pathname;
+    if (currentPage === '/') {
+      currentPage = '/boat';
+    }
     return (
-      <AppBar position="static" className={classes.root}>
-        <Toolbar>
-          <Typography variant="title" color="inherit" className={classes.flex}>
+      <div>
+        <Typography variant="headline" color="inherit" className={this.props.classes.title}>
             Cyrille Gindreau
-          </Typography>
-          <IconButton
-            aria-owns={open ? 'menu-appbar' : null}
-            aria-haspopup="true"
-            onClick={this.handleMenu}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={open}
-            onClose={this.handleClose}
-          >
+        </Typography>
 
-            <Link to="/">
-              <MenuItem selected={false}>
-                  Home
-              </MenuItem>
-            </Link>
+        <div className={this.props.classes.menuGroup}>
 
-          </Menu>
-        </Toolbar>
-      </AppBar>
+          <Link to="/boat" className={currentPage === '/boat' ?
+            this.props.classes.selectedMenuItem :
+            this.props.classes.menuItem}>
+              Boat Builder
+          </Link>
+
+          <Link to="/dragonfly" className={currentPage === '/dragonfly' ?
+            this.props.classes.selectedMenuItem :
+            this.props.classes.menuItem}>
+              Dragonfly
+          </Link>
+
+          <Link to="/visualization" className={currentPage === '/visualization' ?
+            this.props.classes.selectedMenuItem :
+            this.props.classes.menuItem}>
+              Data Visualization
+          </Link>
+        </div>
+
+      </div>
     );
   }
 }
 
-export default withStyles(styles)(NavBar);
+export default withRouter(withStyles(styles)(NavBar));

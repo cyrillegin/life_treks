@@ -1,5 +1,5 @@
 import {compose, mapProps} from 'recompose';
-import Home from './Home';
+import Visualization from './Visualization';
 
 export default compose(
   mapProps((ownProps) => {
@@ -7,4 +7,4 @@ export default compose(
       ...ownProps,
     };
   }),
-)(Home);
+)(Visualization);
