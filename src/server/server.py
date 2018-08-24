@@ -4,6 +4,7 @@ import os
 import sys
 import logging
 from cherrypy.lib.static import serve_file
+import json
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 STATIC = os.path.join(PATH, '../../dist')
@@ -31,6 +32,18 @@ class Root(object):
     @cherrypy.expose
     def default(self, *args, **kwargs):
         return serve_file(os.path.join(STATIC, 'index.html'))
+    # 
+    # @cherrypy.expose
+    # def boats(self, *args, **kwargs):
+    #     try:
+    #         data = json.loads(cherrypy.request.body.read().decode('utf-8'))
+    #     except ValueError:
+    #         logging.error('Json data could not be read.')
+    #         return json.dumps({"error": "Data could not be read."}).encode('utf-8')
+    # 
+    #     if data['model'] == 'default':
+    #         print 'get default'
+    #     return json.dumps('success')
 
 
 def RunServer():

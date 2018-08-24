@@ -5,6 +5,9 @@ export default compose(
   mapProps((ownProps) => {
     return {
       ...ownProps,
+      getBoat: (model) => {
+        return fetch('/models/testBoat.json');
+      },
     };
   }),
 )(Boat);
