@@ -98,7 +98,7 @@ export class BoatPage extends Component {
         }
         if (e.target.value === 'verticies') {
           this.app.displayVerticies = !this.app.displayVerticies;
-          const boat = this.props.getBoat()
+          this.props.getBoat()
             .then((res) => res.json())
             .then((data) => {
               Object.keys(data).forEach((key) => {

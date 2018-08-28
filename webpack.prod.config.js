@@ -48,5 +48,8 @@ module.exports = {
       minimize: true,
       debug: false,
     }),
+    new webpack.ProvidePlugin({
+      'THREE': 'three',
+    }),
   ],
 };
