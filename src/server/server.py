@@ -34,7 +34,7 @@ class Root(object):
     @cherrypy.expose
     def default(self, *args, **kwargs):
         return serve_file(os.path.join(STATIC, 'index.html'))
-    
+
     @cherrypy.expose
     def crypto(self, *args, **kwargs):
         try:
@@ -42,14 +42,10 @@ class Root(object):
         except ValueError:
             logging.error('Json data could not be read.')
             return json.dumps({"error": "Data could not be read."}).encode('utf-8')
-    
+
         newReading = None
         try:
             response = requests.get('https://api.coinmarketcap.com/v1/ticker/').json()
-            # print response
-            print 'data'
-            print data['details']
-            print 'done'
             for i in response:
                 if i['id'] == data['details']['meta']:
                     newReading = {
@@ -71,7 +67,7 @@ class Root(object):
         if newReading is None:
             logging.error('Couldnt find sensor in api')
             return json.dumps({'error': 'Couldnt find sensor in api'})
-        
+
         return json.dumps(newReading)
 
 
