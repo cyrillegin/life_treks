@@ -27,6 +27,8 @@
     "eslint": "5.4.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-react": "7.11.1",
+    "css-loader": "0.28.11",
+    "style-loader": "0.21.0",
     "jest": "23.5.0",
     "webpack": "4.16.5",
     "webpack-cli": "3.1.0"
