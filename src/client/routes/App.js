@@ -9,6 +9,11 @@ import NavBar from './../components/NavBar/NavBar';
 export default class App extends Component {
   static propTypes = {};
 
+  componentDidMount() {
+    // hide the preloader.
+    document.querySelector('.loader').style.visibility = 'hidden';
+  }
+
   render() {
     return (
       <Router>
