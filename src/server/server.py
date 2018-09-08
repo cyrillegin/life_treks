@@ -20,10 +20,15 @@ BUILD_DATE = 1534782958.84
 def get_cp_config():
     config = {
         '/': {
+            # 'tools.gzip.on': True,
+            'tools.gzip.mime_types': ['text/*', 'application/*'],
             'tools.staticdir.on': True,
             'tools.staticdir.dir': STATIC,
             'tools.staticdir.index': 'index.html',
-            'tools.sessions.on': True
+            'tools.sessions.on': True,
+            'tools.expires.on'    : True,
+            'tools.expires.secs'  : 60 * 60 * 24, # expire in a day
+            "tools.gzip.debug": True, 
         },
     }
     return config

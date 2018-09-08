@@ -1,6 +1,8 @@
 /* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -10,6 +12,11 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/',
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJSPlugin(),
+    ],
   },
   module: {
     rules: [
@@ -21,11 +28,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: ['babel-preset-env', 'babel-preset-react'],
             plugins: [
               'transform-class-properties',
               'transform-object-rest-spread',
-              '@babel/transform-runtime',
               'babel-plugin-transform-react-remove-prop-types',
             ],
           },
@@ -46,6 +52,13 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       'THREE': 'three',
+    }),
+    new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
     }),
   ],
 };

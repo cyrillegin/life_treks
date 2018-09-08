@@ -1,6 +1,7 @@
 /* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -21,11 +22,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: ['babel-preset-env', 'babel-preset-react'],
             plugins: [
               'transform-class-properties',
               'transform-object-rest-spread',
-              '@babel/transform-runtime',
               'babel-plugin-transform-react-remove-prop-types',
             ],
           },
@@ -43,6 +43,12 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       'THREE': 'three',
+    }),
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
     }),
   ],
 };

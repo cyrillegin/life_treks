@@ -12,6 +12,7 @@ node_modules/
 
 # Builds
 bundle.js
+bundle.js.gz
 bundle.js.map
 
 # Misc
