@@ -21,19 +21,12 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              'react',
-              ['env', {
-                targets: {
-                  browsers: ['> 5%'],
-                  forceAllTransforms: true,
-                },
-              }],
-            ],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: [
               'transform-class-properties',
               'transform-object-rest-spread',
-              'transform-runtime',
+              '@babel/transform-runtime',
+              'babel-plugin-transform-react-remove-prop-types',
             ],
           },
         },
