@@ -59,19 +59,11 @@ export class VisualizationPage extends Component {
       count: 0,
     },
     equation: 'x ^ 2',
-    points: [
-      {x: 0, y: 0},
-      {x: 1, y: 1},
-      {x: 2, y: 2},
-      {x: 3, y: 3},
-      {x: 4, y: 4},
-      {x: 5, y: 5},
-      {x: 6, y: 4},
-      {x: 7, y: 3},
-      {x: 8, y: 2},
-      {x: 9, y: 1},
-      {x: 10, y: 0},
-    ],
+    points: [],
+    xMin: -10,
+    xMax: 10,
+    yMin: 0,
+    yMax: 20,
   }
 
   parseEquation() {
@@ -121,9 +113,8 @@ export class VisualizationPage extends Component {
           }
       }
     }
-    console.log(tree);
     const newSet = [];
-    for (let i = -5; i <= 5; i++) {
+    for (let i = this.state.xMin; i <= this.state.xMax; i++) {
       newSet.push({
         x: i,
         y: this.getValue(tree, i),
@@ -133,7 +124,6 @@ export class VisualizationPage extends Component {
     this.setState({
       points: newSet,
     });
-    console.log(newSet);
   }
 
   getValue(tree, value) {
@@ -156,22 +146,36 @@ export class VisualizationPage extends Component {
       case '/':
         return this.getValue(tree.left, value) / this.getValue(tree.right, value);
       case '^':
-        console.log(tree);
         return Math.pow(this.getValue(tree.left, value), this.getValue(tree.right, value));
     }
-    console.log('nope');
-    console.log(tree);
+  }
+
+  componentDidMount() {
+    this.parseEquation();
   }
 
   render() {
+
     const submitEquation = () => {
       this.parseEquation();
     };
 
-    const handleInput = e => event => {
+    const handleEqInput = e => event => {
       this.setState({
         equation: event.target.value,
       });
+    };
+
+    const handleRangeInput = e => event => {
+      let value = 0;
+      if (!isNaN(parseInt(event.target.value))) {
+        value = parseInt(event.target.value);
+      }
+
+      this.setState({
+        [e]: value,
+      }, this.parseEquation);
+
     };
 
     return (
@@ -182,6 +186,12 @@ export class VisualizationPage extends Component {
           </Typography>
           <Graph
             points={this.state.points}
+            ranges={{
+              xMin: this.state.xMin,
+              xMax: this.state.xMax,
+              yMin: this.state.yMin,
+              yMax: this.state.yMax,
+            }}
           />
           <div className={this.props.classes.extras}>
             <div className={this.props.classes.statsContianer}>
@@ -212,7 +222,20 @@ export class VisualizationPage extends Component {
             </div>
             <div className={this.props.classes.inputContainer}>
               Enter your equation:
-              <input type="text" onChange={handleInput('name')} />
+              <input type="text" onChange={handleEqInput('name')} />
+              <br />
+              X Minimum:
+              <input type="text" onChange={handleRangeInput('xMin')} />
+              <br />
+              X Maximum
+              <input type="text" onChange={handleRangeInput('xMax')} />
+              <br />
+              Y Minimum
+              <input type="text" onChange={handleRangeInput('yMin')} />
+              <br />
+              Y Maximum
+              <input type="text" onChange={handleRangeInput('yMax')} />
+              <br />
               <button onClick={submitEquation}>
                 Submit
               </button>

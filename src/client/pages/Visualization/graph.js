@@ -23,6 +23,12 @@ export class Graph extends Component {
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired,
     })).isRequired,
+    ranges: PropTypes.shape({
+      xMin: PropTypes.number.isRequired,
+      xMax: PropTypes.number.isRequired,
+      yMin: PropTypes.number.isRequired,
+      yMax: PropTypes.number.isRequired,
+    }).isRequired,
   }
 
   state = {
@@ -30,6 +36,10 @@ export class Graph extends Component {
   }
 
   drawGraph() {
+    console.log(this.props);
+    if (this.props.points.length === 0) {
+      return;
+    }
     // Initialization.
     const container = document.querySelector('#graph-container');
     container.innerHTML = '';
@@ -56,42 +66,21 @@ export class Graph extends Component {
       .classed('svg-content-responsive', true);
 
 
-    let start = this.props.points[0].x;
-    let end = this.props.points[0].x;
-    let min = this.props.points[0].y;
-    let max = this.props.points[0].y;
-
-    // Set min and max values
-    for (let i = 0; i < this.props.points.length; i ++) {
-      if (min > this.props.points[i].y) {
-        min = this.props.points[i].y;
-      }
-      if (max < this.props.points[i].y) {
-        max = this.props.points[i].y;
-      }
-      if (start > this.props.points[i].x) {
-        start = this.props.points[i].x;
-      }
-      if (end < this.props.points[i].x) {
-        end = this.props.points[i].x;
-      }
-    }
-
     const xScale = d3.scaleLinear()
-      .domain([start, end]) // input
+      .domain([this.props.ranges.xMin, this.props.ranges.xMax]) // input
       .range([0, width]); // output
 
     const yScale = d3.scaleLinear()
-      .domain([min, max]) // input
+      .domain([this.props.ranges.yMin, this.props.ranges.yMax]) // input
       .range([height - margin.bottom, margin.top]); // output
 
 
     // Y Axis
-    function getTic() {
+    function getTic(yMin, yMax) {
       const Ticks = [];
-      const ratio = (max - min) / 6;
+      const ratio = (yMax - yMin) / 6;
       for (let q = 0; q < 7; q ++) {
-        Ticks.push(min + (ratio * q));
+        Ticks.push(yMin + (ratio * q));
       }
       return Ticks;
     }
@@ -99,7 +88,7 @@ export class Graph extends Component {
     const yAxis = d3.axisLeft(yScale)
       .tickSizeInner(- width)
       .tickSizeOuter(0)
-      .tickValues(getTic());
+      .tickValues(getTic(this.props.ranges.yMax, this.props.ranges.yMin));
 
     newChart.append('g')
       .attr('class', 'chart-axis-shape')
@@ -137,6 +126,12 @@ export class Graph extends Component {
 
     // Graph lines
     const lineFunction = d3.line()
+      .defined((d) => {
+        return d.x <= this.props.ranges.xMax &&
+          d.x >= this.props.ranges.xMin &&
+          d.y >= this.props.ranges.yMin &&
+          d.y <= this.props.ranges.yMax;
+      })
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y));
 
@@ -154,11 +149,6 @@ export class Graph extends Component {
       mounted: true,
     });
   }
-
-  // static getDerivedStateFromProps(props, state) {
-  //   console.log('render');
-  //   console.log(this.props);
-  // }
 
   render() {
     if (this.state.mounted) {
