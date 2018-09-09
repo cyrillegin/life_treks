@@ -36,7 +36,6 @@ export class Graph extends Component {
   }
 
   drawGraph() {
-    console.log(this.props);
     if (this.props.points.length === 0) {
       return;
     }

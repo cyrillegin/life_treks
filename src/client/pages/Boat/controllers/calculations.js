@@ -66,32 +66,6 @@ export function casteljauPoint(curve, t) {
   return new THREE.Vector3(Px, Py, Pz);
 }
 
-// 2D implementation of casteljau's algorithm
-export function casteljauPoint2D(curve, t) {
-  // Step 1
-  const Ax = ((1 - t) * curve.points[0].x) + (t * curve.points[1].x);
-  const Ay = ((1 - t) * curve.points[0].y) + (t * curve.points[1].y);
-  const Bx = ((1 - t) * curve.points[1].x) + (t * curve.points[2].x);
-  const By = ((1 - t) * curve.points[1].y) + (t * curve.points[2].y);
-  const Cx = ((1 - t) * curve.points[2].x) + (t * curve.points[3].x);
-  const Cy = ((1 - t) * curve.points[2].y) + (t * curve.points[3].y);
-
-  // Step 2
-  const Dx = ((1 - t) * Ax) + (t * Bx);
-  const Dy = ((1 - t) * Ay) + (t * By);
-  const Ex = ((1 - t) * Bx) + (t * Cx);
-  const Ey = ((1 - t) * By) + (t * Cy);
-
-  // Step 3
-  const Px = ((1 - t) * Dx) + (t * Ex);
-  const Py = ((1 - t) * Dy) + (t * Ey);
-
-  return new THREE.Vector2(
-    Number(Math.abs(Px).toFixed(1)),
-    Number(Math.abs(Py).toFixed(1)),
-  );
-}
-
 // Inverse of casteljau's algorithem, takes in a curve and a distance from the back
 // of the boat and Returns the t value for use in the casteljauPoint function.
 export function casteljauFromY(curve, distFromBack) {
@@ -154,10 +128,5 @@ export function findLocation(boat, frame) {
   const locationC = casteljauPoint(keelCurve, t3);
   return {locationA, locationB, locationC};
 }
-
-export function conver3dTo2dCoordinates() {}
-
-// es6 modules like having a default.
-// export default applyOffsets;
 
 export default {casteljauFromY, casteljauPoint, applyOffsets};

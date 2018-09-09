@@ -127,20 +127,11 @@ export class DragonflyPage extends Component {
           meta: this.state.meta,
         },
       ).then((data) => {
-        const newState = {
+        this.setState({
           dialogIsOpen: true,
-        };
-        if (data.sensor) {
-          this.setState({
-            dialogMessage: `${this.state.name} returned a value of ${data.reading.value} and can be added.`,
-            dialogTitle: 'Test successful.',
-            testResult: data,
-          });
-        } else {
-          newState.dialogMessage = `Sensor couldn't be added: ${data.error}`;
-          newState.dialogTitle = 'Test Failed.';
-        }
-        this.setState(newState);
+          dialogMessage: data,
+          dialogTitle: 'Test Result',
+        });
       });
     };
 
@@ -312,7 +303,21 @@ export class DragonflyPage extends Component {
         </div>
 
         <div className={this.props.classes.descriptionContainer}>
-          We can have a description here and there will be a bunch of text and blah blah blah blah blahb labh
+          Dragonfly is all purpose sensor poller designed to be an easy interface for using raspberry pis.
+          Upon hooking up a sensor to a raspberry pi, the user can then link a poller to it and add
+          polling details like poll rate, coefficients, a station name and description. If the user
+          has many pis running at the same time, multiple dragonfly instances can be linked to
+          each other or forward all of their data to a central server. Once a sensor has been hooked up,
+          actions can then be added to to the poller like sending an email or slack or turning on another
+          sensor
+          <br />
+          The example above allows you to see some of the plugins available. The only one functioning is
+          the cryptopoller. In the metadata field, you can add the name of your favorite cryptocurrency
+          and it will respond with its current price in US dollars.
+          <br />
+          You can see in the picture on the right an example of what dragonfly would look like with multiple
+          sensors hooked up.
+
         </div>
         <div className={this.props.classes.imageContainer}>
           <img className={this.props.classes.image} src="/screenshots/home.png" />

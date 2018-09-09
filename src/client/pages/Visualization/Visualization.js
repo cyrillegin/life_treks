@@ -17,29 +17,26 @@ const styles = theme => ({
     marginLeft: '8px',
     textAlign: 'left',
   },
-  spinner: {
-    margin: 'auto',
-  },
-  timeControls: {
-    textAlign: 'right',
-    flexGrow: '1',
-    display: 'inline-block',
-    margin: '10px',
-  },
-  textField: {
-    margin: '12px',
-  },
   statsContianer: {
     flexGrow: 1,
   },
   inputContainer: {
     flexGrow: 1,
   },
+  descriptionContainer: {
+    flexGrow: 1,
+    maxWidth: '50%',
+    marginRight: '20px',
+  },
   extras: {
     display: 'flex',
+    textAlign: 'left',
   },
   list: {
     listStyleType: 'none',
+  },
+  errorMessage: {
+    color: 'red',
   },
 });
 
@@ -51,22 +48,43 @@ export class VisualizationPage extends Component {
 
   state = {
     readings: [],
-    stats: {
-      min: 0,
-      max: 0,
-      avg: 0,
-      last: 0,
-      count: 0,
-    },
     equation: 'x ^ 2',
     points: [],
     xMin: -10,
     xMax: 10,
     yMin: 0,
     yMax: 20,
+    resoultion: 1,
+    hasError: false,
+  }
+
+  checkInputs() {
+    let err = false;
+    if (isNaN(parseFloat(this.state.xMin))) {
+      err = true;
+    }
+    if (isNaN(parseFloat(this.state.xMax))) {
+      err = true;
+    }
+    if (isNaN(parseFloat(this.state.yMin))) {
+      err = true;
+    }
+    if (isNaN(parseFloat(this.state.yMax))) {
+      err = true;
+    }
+    if (isNaN(parseFloat(this.state.resoultion))) {
+      err = true;
+    }
+    this.setState({
+      hasError: err,
+    });
+    return !err;
   }
 
   parseEquation() {
+    if (!this.checkInputs()) {
+      return;
+    }
     const arr = this.state.equation.split(' ').join('');
     let tree = {
       left: null,
@@ -114,10 +132,20 @@ export class VisualizationPage extends Component {
       }
     }
     const newSet = [];
-    for (let i = this.state.xMin; i <= this.state.xMax; i++) {
-      newSet.push({
-        x: i,
-        y: this.getValue(tree, i),
+    try {
+      for (
+        let i = parseFloat(this.state.xMin);
+        i <= parseFloat(this.state.xMax);
+        i += parseFloat(this.state.resoultion)
+      ) {
+        newSet.push({
+          x: i,
+          y: this.getValue(tree, i),
+        });
+      }
+    } catch (e) {
+      this.setState({
+        hasError: true,
       });
     }
 
@@ -155,27 +183,18 @@ export class VisualizationPage extends Component {
   }
 
   render() {
-
-    const submitEquation = () => {
-      this.parseEquation();
-    };
-
     const handleEqInput = e => event => {
       this.setState({
         equation: event.target.value,
-      });
+      }, this.parseEquation);
     };
 
     const handleRangeInput = e => event => {
-      let value = 0;
-      if (!isNaN(parseInt(event.target.value))) {
-        value = parseInt(event.target.value);
-      }
+
 
       this.setState({
-        [e]: value,
+        [e]: event.target.value,
       }, this.parseEquation);
-
     };
 
     return (
@@ -193,53 +212,76 @@ export class VisualizationPage extends Component {
               yMax: this.state.yMax,
             }}
           />
+          {this.state.hasError &&
+            <div className={this.props.classes.errorMessage}>
+              Could not understand input parameters.
+            </div>
+          }
           <div className={this.props.classes.extras}>
-            <div className={this.props.classes.statsContianer}>
+            <div className={this.props.classes.inputContainer}>
               <table>
                 <tbody>
                   <tr>
-                    <td>Min: </td>
-                    <td>{this.state.stats.min}</td>
+                    <td>
+                    Enter your equation:
+                    </td>
+                    <td>
+                      <input type="text" value={this.state.equation} onChange={handleEqInput('name')} />
+                    </td>
                   </tr>
                   <tr>
-                    <td>Max:</td>
-                    <td>{this.state.stats.max}</td>
+                    <td>
+                    X Minimum:
+                    </td>
+                    <td>
+                      <input type="text" value={this.state.xMin} onChange={handleRangeInput('xMin')} />
+                    </td>
                   </tr>
                   <tr>
-                    <td>Avg:</td>
-                    <td>{this.state.stats.avg}</td>
+                    <td>
+                    X Maximum
+                    </td>
+                    <td>
+                      <input type="text" value={this.state.xMax} onChange={handleRangeInput('xMax')} />
+                    </td>
                   </tr>
                   <tr>
-                    <td>Last:</td>
-                    <td> {this.state.stats.last}</td>
+                    <td>
+                    Y Minimum
+                    </td>
+                    <td>
+                      <input type="text" value={this.state.yMin} onChange={handleRangeInput('yMin')} />
+                    </td>
                   </tr>
                   <tr>
-                    <td>Count:</td>
-                    <td> {this.state.stats.count}</td>
+                    <td>
+                    Y Maximum
+                    </td>
+                    <td>
+                      <input type="text" value={this.state.yMax} onChange={handleRangeInput('yMax')} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    Resoultion
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        value={this.state.resoultion}
+                        onChange={handleRangeInput('resoultion')}
+                      />
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div className={this.props.classes.inputContainer}>
-              Enter your equation:
-              <input type="text" onChange={handleEqInput('name')} />
-              <br />
-              X Minimum:
-              <input type="text" onChange={handleRangeInput('xMin')} />
-              <br />
-              X Maximum
-              <input type="text" onChange={handleRangeInput('xMax')} />
-              <br />
-              Y Minimum
-              <input type="text" onChange={handleRangeInput('yMin')} />
-              <br />
-              Y Maximum
-              <input type="text" onChange={handleRangeInput('yMax')} />
-              <br />
-              <button onClick={submitEquation}>
-                Submit
-              </button>
 
+            <div className={this.props.classes.descriptionContainer}>
+              This is an example of some custom graphing using the D3 library. You can
+              enter an equation on the left side and set the dimensions and resoultion of the graph.
+              The calculator is pretty basic as I made the parser from scratch. So far it only supports
+              +, -, *, /, ^, and does not support order of operations.
             </div>
           </div>
         </Paper>

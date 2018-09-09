@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import initScene from './controllers/scene.controller';
@@ -47,6 +49,11 @@ const styles = theme => ({
     right: '15%',
     padding: '10px',
   },
+  controlsContainer: {
+    margin: '0 auto',
+    width: '70%',
+    padding: '10px',
+  },
 });
 
 export class BoatPage extends Component {
@@ -58,8 +65,8 @@ export class BoatPage extends Component {
 
   state = {
     loaded: false,
-    shaded: false,
-    wireframe: false,
+    shaded: true,
+    wireframe: true,
     verticies: false,
   }
 
@@ -82,6 +89,7 @@ export class BoatPage extends Component {
         this.app.render();
         this.setState({
           loaded: true,
+          boat: data,
         });
       });
   }
@@ -93,25 +101,23 @@ export class BoatPage extends Component {
           [e.target.value]: !this.state[e.target.value],
         });
         if (e.target.value === 'shaded') {
-          this.meshController.showMesh(this.state[e.target.value]);
+          this.meshController.showMesh(!this.state[e.target.value]);
         }
         if (e.target.value === 'verticies') {
           this.app.displayVerticies = !this.app.displayVerticies;
-          this.props.getBoat()
-            .then((res) => res.json())
-            .then((data) => {
-              Object.keys(data).forEach((key) => {
-                if (key === 'width' || key === 'height' || key === 'length' || key === 'frames') {
-                  return;
-                }
-                this.app = this.curveController.deleteCurve(this.app, {key});
-              });
-              this.curveController.initCurves(this.app, data);
-            });
+
+          Object.keys(this.state.boat).forEach((key) => {
+            if (key === 'width' || key === 'height' || key === 'length' || key === 'frames') {
+              return;
+            }
+            this.app = this.curveController.deleteCurve(this.app, {key});
+          });
+          this.curveController.initCurves(this.app, this.state.boat);
+
         }
         if (e.target.value === 'wireframe') {
           this.app.displayWireFrame = !this.app.displayWireFrame;
-          this.curveController.showCurves(this.app.displayWireFrame);
+          this.curveController.showCurves(!this.app.displayWireFrame);
         }
       }
     };
@@ -165,6 +171,18 @@ export class BoatPage extends Component {
             />
           </FormGroup>
         </div>
+
+        <Paper className={this.props.classes.controlsContainer}>
+          This was a project done for my senior project at New Mexico State University.
+          The goal was to be able to construct a boat in 3D and output
+          the blueprints so that an amatur boat maker could build it.
+          The user would also be able to save and load their projects via json files as
+          well as be able to export in obj or stl formats for 3D printing.
+          <br />
+          This demo allows you to view the demo boat and trigger some different
+          rendering methods. You can also pan, zoom, and orbit around the boat.
+        </Paper>
+
       </div>
     );
   }

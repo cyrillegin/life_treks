@@ -167,6 +167,15 @@ export default class CurvesController {
     return app;
   }
 
+  deleteAllCurves(app, boat) {
+    Object.keys(boat).forEach((attr) => {
+      if (attr === 'width' || attr === 'height' || attr === 'length' || attr === 'frames') {
+        return;
+      }
+      this.deleteCurve(app, {key: attr});
+    });
+  }
+
   onHandleHover(app, curve, key) {
     this.deleteCurve(app, {key});
     this.curveColor = 0x00ff00;
