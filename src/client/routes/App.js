@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import ReactGA from 'react-ga';
 import BoatContainer from './../pages/Boat/BoatContainer';
 import DragonflyContainer from './../pages/Dragonfly/DragonflyContainer';
@@ -26,9 +26,11 @@ export default class App extends Component {
       <Router onUpdate={this.fireTracking}>
         <div>
           <NavBar />
-          <Route exact path="/boat" component={BoatContainer} />
-          <Route exact path="/dragonfly" component={DragonflyContainer} />
-          <Route exact path="/visualization" component={VisualizationContainer} />
+          <Switch>
+            <Route exact path="/dragonfly" component={DragonflyContainer} />
+            <Route exact path="/visualization" component={VisualizationContainer} />
+            <Route component={BoatContainer} />
+          </Switch>
         </div>
       </Router>
     );
