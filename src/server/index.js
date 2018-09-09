@@ -1,59 +1,58 @@
 import path from 'path';
+import http from 'http';
+import https from 'https';
 import express from 'express';
-// import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import helmet from 'helmet';
-// import Blog from './api/blog/blog.model'; // eslint-disable-line
-// import User from './api/login/login.model'; //eslint-disable-line
-// import blogRoutes from './api/blog/blog.routes';
-// import mailRoutes from './api/mail/mail.routes';
-// import loginRoutes from './api/login/login.routes';// eslint-disable-line
-const dotenv = require('dotenv').config();// eslint-disable-line
 
-const app = express();
+(async () => {
 
-app.use(helmet());
-// This will work once bootstrap has been removed.
-// app.use(helmet.contentSecurityPolicy({
-//     directives: {
-//         defaultSrc: [`'self'`],
-//         scriptSrc: [`'self'`,`'unsafe-inline'`, '*.google-analytics.com/'],
-//         styleSrc: [`'self'`, `'unsafe-inline'`, '*.googleapis.com/'],
-//         fontSrc: [`'self'`, '*.gstatic.com/'],
-//         imgSrc: [`'self'`, '*.google-analytics.com/'],
-//     },
-// }));
-app.use(helmet.hidePoweredBy());
+  const app = express();
 
-app.use(express.static(path.join(process.env.PWD, 'dist/server/public')));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(process.env.PWD, 'dist/server/public/index.html'));
-});
-
-app.get('/demo/boat', (req, res) => {
-    res.sendFile(path.join(process.env.PWD, 'dist/server/public/boatDemo/boat1.json'));
-});
-
-const port = process.env.PORT || 3000;
-
-// mongoose instance connection url connection
-// mongoose.Promise = global.Promise;
-// mongoose.connect(process.env.MONGO_URL);
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: false}));
 
 
-// blogRoutes(app);
-// mailRoutes(app);
-// loginRoutes(app);
+  app.get('*.gz', (req, res, next) => {
+    res.set('Content-Type', 'application/javascript');
+    res.set('Content-Encoding', 'gzip');
+    next();
+  });
 
-app.use((req, res) => {
-    res.status(404).send({url: `${req.originalUrl } not found`});
-});
+  // This sets where all the public files can be served from.
+  app.use(express.static(path.join(process.env.PWD, 'dist/')));
 
+  app.post('/crypto', (req, res) => {
+    console.log(req.body);
+    const crypto = req.body.details.meta;
+    if (!crypto) {
+      res.json('Add a cryptocurrency name to the meta field');
+      return;
+    }
+    https.get('https://api.coinmarketcap.com/v1/ticker/', (resp) => {
+      let data = '';
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+      resp.on('end', () => {
+        const result = JSON.parse(data).filter(e => e.id === crypto.toLowerCase())[0];
+        if (result) {
+          res.json(`Got new reading for ${crypto}: $${result.price_usd}`);
+        } else {
+          res.json(`Could not find entry for ${crypto}`);
+        }
+      });
+    });
+  });
 
-app.listen(port);
+  // serve all endpoints the index
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(process.env.PWD, 'dist/index.html'));
+  });
 
-console.log(`Listening on port: ${ port}`);
+  const port = process.env.PORT || '3000';
+  app.set('port', port);
+
+  const server = http.createServer(app);
+
+  server.listen(port, () => console.log(`Site running on localhost:${port}`));
+})();
