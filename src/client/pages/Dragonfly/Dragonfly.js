@@ -320,7 +320,7 @@ export class DragonflyPage extends Component {
 
         </div>
         <div className={this.props.classes.imageContainer}>
-          <img className={this.props.classes.image} src="/screenshots/home.png" />
+          <img className={this.props.classes.image} src="/screenshots/home.jpg" alt={'Image of the home screen of Dragonfly'} />
         </div>
       </div>
     );

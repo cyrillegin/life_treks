@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import {Link, withRouter} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+// import {FaFacebookF, faLinkedIn, github, twitter, faInstagram} from '@fortawesome/free-solid-svg-icons';
+// import 'font-awesome/css/font-awesome.min.css';
+import {SocialIcon} from 'react-social-icons';
 
 const styles = {
   root: {
@@ -15,8 +18,8 @@ const styles = {
   },
   menuGroup: {
     textAlign: 'center',
-    paddingBottom: '20px',
-    paddingTop: '32px',
+    marginBottom: '20px',
+    marginTop: '20px',
   },
   menuItem: {
     textDecoration: 'none',
@@ -30,6 +33,13 @@ const styles = {
     color: '#000',
     fontSize: '1.4em',
     borderBottom: '1px solid #07c300',
+  },
+  icons: {
+    marginTop: '20px',
+    width: '20%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginLeft: '40%',
   },
 };
 
@@ -63,6 +73,15 @@ export class NavBar extends Component {
         <Typography variant="headline" color="inherit" className={this.props.classes.title}>
             Cyrille Gindreau
         </Typography>
+
+        <div className={this.props.classes.icons}>
+          <SocialIcon style={{height: 25, width: 25}} url="https://www.facebook.com/cyrille.gindreau" />
+          <SocialIcon style={{height: 25, width: 25}} url="https://www.instagram.com/cyrillegin/" />
+          <SocialIcon style={{height: 25, width: 25}} url="https://github.com/cyrillegin" />
+          <SocialIcon style={{height: 25, width: 25}} url="https://twitter.com/cyrillegin" />
+          <SocialIcon style={{height: 25, width: 25}} url="https://www.linkedin.com/in/cyrille-gindreau-77008417/" />
+
+        </div>
 
         <div className={this.props.classes.menuGroup}>
 

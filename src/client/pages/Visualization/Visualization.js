@@ -226,7 +226,12 @@ export class VisualizationPage extends Component {
                     Enter your equation:
                     </td>
                     <td>
-                      <input type="text" value={this.state.equation} onChange={handleEqInput('name')} />
+                      <input
+                        type="text"
+                        value={this.state.equation}
+                        onChange={handleEqInput('name')}
+                        aria-label={'Equation input'}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -234,7 +239,12 @@ export class VisualizationPage extends Component {
                     X Minimum:
                     </td>
                     <td>
-                      <input type="text" value={this.state.xMin} onChange={handleRangeInput('xMin')} />
+                      <input
+                        type="text"
+                        value={this.state.xMin}
+                        onChange={handleRangeInput('xMin')}
+                        aria-label={'X axis minimum'}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -242,7 +252,12 @@ export class VisualizationPage extends Component {
                     X Maximum
                     </td>
                     <td>
-                      <input type="text" value={this.state.xMax} onChange={handleRangeInput('xMax')} />
+                      <input
+                        type="text"
+                        value={this.state.xMax}
+                        onChange={handleRangeInput('xMax')}
+                        aria-label={'X axis maximum'}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -250,7 +265,12 @@ export class VisualizationPage extends Component {
                     Y Minimum
                     </td>
                     <td>
-                      <input type="text" value={this.state.yMin} onChange={handleRangeInput('yMin')} />
+                      <input
+                        type="text"
+                        value={this.state.yMin}
+                        onChange={handleRangeInput('yMin')}
+                        aria-label={'Y axis minimum'}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -258,7 +278,12 @@ export class VisualizationPage extends Component {
                     Y Maximum
                     </td>
                     <td>
-                      <input type="text" value={this.state.yMax} onChange={handleRangeInput('yMax')} />
+                      <input
+                        type="text"
+                        value={this.state.yMax}
+                        onChange={handleRangeInput('yMax')}
+                        aria-label={'Y axis Maximum'}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -270,6 +295,7 @@ export class VisualizationPage extends Component {
                         type="text"
                         value={this.state.resoultion}
                         onChange={handleRangeInput('resoultion')}
+                        aria-label={'Resoultion of the graph line'}
                       />
                     </td>
                   </tr>
