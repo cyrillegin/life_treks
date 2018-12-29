@@ -1,11 +1,8 @@
 # OSX
 *.DS_Store
 
-# Python
-*.pyc
-
 # Config
-config.py
+.env
 
 # Node
 node_modules/
