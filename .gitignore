@@ -8,9 +8,7 @@
 node_modules/
 
 # Builds
-dist/bundle.js
-dist/bundle.js.gz
-dist/bundle.js.map
+dist/*.bundle.*
 dist/sw.js
 
 # Misc

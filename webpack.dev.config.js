@@ -2,13 +2,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   devtool: 'inline-source-map',
   entry: './src/client/index.js',
   mode: 'development',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/',
   },
@@ -16,9 +18,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, 'src'),
-        ],
+        include: [path.resolve(__dirname, 'src')],
         use: {
           loader: 'babel-loader',
           options: {
@@ -30,7 +30,8 @@ module.exports = {
             ],
           },
         },
-      }, {
+      },
+      {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
       },
@@ -42,7 +43,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
     new webpack.ProvidePlugin({
-      'THREE': 'three',
+      THREE: 'three',
     }),
     new CompressionPlugin({
       algorithm: 'gzip',
@@ -50,5 +51,6 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8,
     }),
+    new BundleAnalyzerPlugin(),
   ],
 };

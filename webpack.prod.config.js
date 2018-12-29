@@ -9,22 +9,19 @@ module.exports = {
   entry: './src/client/index.js',
   mode: 'production',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/',
   },
   optimization: {
-    minimizer: [
-      new UglifyJSPlugin(),
-    ],
+    minimizer: [new UglifyJSPlugin()],
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, 'src'),
-        ],
+        include: [path.resolve(__dirname, 'src')],
         use: {
           loader: 'babel-loader',
           options: {
@@ -36,7 +33,8 @@ module.exports = {
             ],
           },
         },
-      }, {
+      },
+      {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
       },
@@ -51,7 +49,7 @@ module.exports = {
       debug: false,
     }),
     new webpack.ProvidePlugin({
-      'THREE': 'three',
+      THREE: 'three',
     }),
     new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
     new CompressionPlugin({
