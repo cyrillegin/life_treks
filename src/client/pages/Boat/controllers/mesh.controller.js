@@ -2,10 +2,19 @@
     mesh.controller.js
     Authors: Cyrille Gindreau
 */
-import * as THREE from 'three';
-// import 'three/examples/js/loaders/MTLLoader';
-// import 'three/examples/js/exporters/OBJExporter';
-// import 'three/examples/js/exporters/STLExporter';
+import {
+  Vector3,
+  MeshBasicMaterial,
+  STLExporter,
+  OBJExporter,
+  DoubleSide,
+  RepeatWrapping,
+  TextureLoader,
+  Face3,
+  Vector2,
+  Mesh,
+  Geometry,
+} from 'three/build/three.module';
 import { applyOffsets, casteljauPoint } from './calculations';
 
 export default class MeshController {
@@ -13,7 +22,7 @@ export default class MeshController {
     const geometry = this.defineGeometry(boat);
     const uvedGeometry = this.defineUvs(geometry);
     const material = this.defineMaterial();
-    this.mesh = new THREE.Mesh(uvedGeometry, material);
+    this.mesh = new Mesh(uvedGeometry, material);
     this.mesh.name = 'boat-mesh';
 
     app.scene.add(this.mesh);
@@ -128,21 +137,21 @@ export default class MeshController {
   }
 
   drawFace(slice) {
-    const geometry = new THREE.Geometry();
-    const normal = new THREE.Vector3(0, 0, 0);
+    const geometry = new Geometry();
+    const normal = new Vector3(0, 0, 0);
     geometry.vertices.push(
-      new THREE.Vector3(slice.start[0][0], slice.start[0][1], slice.start[0][2]),
-      new THREE.Vector3(slice.start[1][0], slice.start[1][1], slice.start[1][2]),
-      new THREE.Vector3(slice.end[0][0], slice.end[0][1], slice.end[0][2]),
+      new Vector3(slice.start[0][0], slice.start[0][1], slice.start[0][2]),
+      new Vector3(slice.start[1][0], slice.start[1][1], slice.start[1][2]),
+      new Vector3(slice.end[0][0], slice.end[0][1], slice.end[0][2]),
     );
-    geometry.faces.push(new THREE.Face3(0, 1, 2, normal));
+    geometry.faces.push(new Face3(0, 1, 2, normal));
 
     geometry.vertices.push(
-      new THREE.Vector3(slice.start[1][0], slice.start[1][1], slice.start[1][2]),
-      new THREE.Vector3(slice.end[0][0], slice.end[0][1], slice.end[0][2]),
-      new THREE.Vector3(slice.end[1][0], slice.end[1][1], slice.end[1][2]),
+      new Vector3(slice.start[1][0], slice.start[1][1], slice.start[1][2]),
+      new Vector3(slice.end[0][0], slice.end[0][1], slice.end[0][2]),
+      new Vector3(slice.end[1][0], slice.end[1][1], slice.end[1][2]),
     );
-    geometry.faces.push(new THREE.Face3(3, 4, 5, normal));
+    geometry.faces.push(new Face3(3, 4, 5, normal));
 
     geometry.computeBoundingSphere();
 
@@ -164,9 +173,9 @@ export default class MeshController {
       const v3 = geometry.vertices[face.c];
 
       geometry.faceVertexUvs[0].push([
-        new THREE.Vector2(v1[components[0]], v1[components[1]]),
-        new THREE.Vector2(v2[components[0]], v2[components[1]]),
-        new THREE.Vector2(v3[components[0]], v3[components[1]]),
+        new Vector2(v1[components[0]], v1[components[1]]),
+        new Vector2(v2[components[0]], v2[components[1]]),
+        new Vector2(v3[components[0]], v3[components[1]]),
       ]);
     });
 
@@ -175,13 +184,13 @@ export default class MeshController {
   }
 
   defineMaterial() {
-    const texture = new THREE.TextureLoader().load('models/wood_texture.webp');
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
+    const texture = new TextureLoader().load('models/wood_texture.webp');
+    texture.wrapS = RepeatWrapping;
+    texture.wrapT = RepeatWrapping;
     texture.repeat.set(0.1, 0.05);
-    const material = new THREE.MeshBasicMaterial({ map: texture });
+    const material = new MeshBasicMaterial({ map: texture });
     material.setValues({
-      side: THREE.DoubleSide,
+      side: DoubleSide,
     });
     return material;
   }
@@ -206,7 +215,7 @@ export default class MeshController {
     document.querySelector('#save-obj').addEventListener(
       'click',
       () => {
-        const exporter = new THREE.OBJExporter();
+        const exporter = new OBJExporter();
         this.downloadFile(exporter, 'OBJ');
       },
       true,
@@ -218,7 +227,7 @@ export default class MeshController {
     document.querySelector('#save-stl').addEventListener(
       'click',
       () => {
-        const exporter = new THREE.STLExporter();
+        const exporter = new STLExporter();
         this.downloadFile(exporter, 'STL');
       },
       true,

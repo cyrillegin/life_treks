@@ -1,10 +1,19 @@
-import * as THREE from 'three';
+import {
+  Vector3,
+  Mesh,
+  CubicBezierCurve3,
+  Line,
+  BoxGeometry,
+  LineBasicMaterial,
+  BufferGeometry,
+  Geometry,
+  MeshBasicMaterial,
+} from 'three/build/three.module';
 import mirrorAttributes from './mirror';
 import { casteljauPoint, applyOffsets, casteljauFromY } from './calculations';
 
 export default class CurvesController {
   constructor() {
-    'ngInject';
     this.curveObjects = [];
   }
 
@@ -86,75 +95,75 @@ export default class CurvesController {
     const newCurve = this.defineCurve(curveAttributes, key);
 
     const points = newCurve.getPoints(50);
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const geometry = new BufferGeometry().setFromPoints(points);
 
-    const material = new THREE.LineBasicMaterial({ color: this.curveColor });
-    const curveObject = new THREE.Line(geometry, material);
+    const material = new LineBasicMaterial({ color: this.curveColor });
+    const curveObject = new Line(geometry, material);
     return curveObject;
   }
 
   defineCurve(curveAttributes, key) {
-    const pointA = new THREE.Vector3(
+    const pointA = new Vector3(
       curveAttributes.start[0],
       curveAttributes.start[1],
       curveAttributes.start[2],
     );
-    const pointB = new THREE.Vector3(
+    const pointB = new Vector3(
       curveAttributes.start[0] + curveAttributes.startControl[0],
       curveAttributes.start[1] + curveAttributes.startControl[1],
       curveAttributes.start[2] + curveAttributes.startControl[2],
     );
-    const pointC = new THREE.Vector3(
+    const pointC = new Vector3(
       curveAttributes.end[0] + curveAttributes.endControl[0],
       curveAttributes.end[1] + curveAttributes.endControl[1],
       curveAttributes.end[2] + curveAttributes.endControl[2],
     );
-    const pointD = new THREE.Vector3(
+    const pointD = new Vector3(
       curveAttributes.end[0],
       curveAttributes.end[1],
       curveAttributes.end[2],
     );
-    const newCurve = new THREE.CubicBezierCurve3(pointA, pointB, pointC, pointD);
+    const newCurve = new CubicBezierCurve3(pointA, pointB, pointC, pointD);
     return newCurve;
   }
 
   drawCurvePoint(location) {
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const mesh = new THREE.Mesh(geometry, material);
+    const geometry = new BoxGeometry(2, 2, 2);
+    const material = new MeshBasicMaterial({ color: 0x00ff00 });
+    const mesh = new Mesh(geometry, material);
     mesh.position.set(location[0], location[1], location[2]);
     return mesh;
   }
 
   drawCurveControlPoint(base, offset) {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-    const mesh = new THREE.Mesh(geometry, material);
+    const geometry = new BoxGeometry(1, 1, 1);
+    const material = new MeshBasicMaterial({ color: 0x0000ff });
+    const mesh = new Mesh(geometry, material);
     mesh.position.set(base[0] + offset[0], base[1] + offset[1], base[2] + offset[2]);
     return mesh;
   }
 
   drawControlLine(start, end) {
-    const material = new THREE.LineBasicMaterial({
+    const material = new LineBasicMaterial({
       color: 0x000088,
     });
 
-    const geometry = new THREE.Geometry();
+    const geometry = new Geometry();
     geometry.vertices.push(
-      new THREE.Vector3(start[0], start[1], start[2]),
-      new THREE.Vector3(start[0] + end[0], start[1] + end[1], start[2] + end[2]),
+      new Vector3(start[0], start[1], start[2]),
+      new Vector3(start[0] + end[0], start[1] + end[1], start[2] + end[2]),
     );
 
-    const line = new THREE.Line(geometry, material);
+    const line = new Line(geometry, material);
     return line;
   }
 
   drawLine(start, end, name) {
-    const material = new THREE.LineBasicMaterial({ color: 0x9400d3 });
-    const geometry = new THREE.Geometry();
-    geometry.vertices.push(new THREE.Vector3(start.x, start.y, start.z));
-    geometry.vertices.push(new THREE.Vector3(end.x, end.y, end.z));
-    const line = new THREE.Line(geometry, material);
+    const material = new LineBasicMaterial({ color: 0x9400d3 });
+    const geometry = new Geometry();
+    geometry.vertices.push(new Vector3(start.x, start.y, start.z));
+    geometry.vertices.push(new Vector3(end.x, end.y, end.z));
+    const line = new Line(geometry, material);
     line.name = name;
     return line;
   }

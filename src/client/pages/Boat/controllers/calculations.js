@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { Vector3 } from 'three/build/three.module';
 // Takes in the boat, a curve to apply offsets to, and its key (the name of the curve)
 // Returns the modifed curve coordinates taking into consideration, width, height, length,
 // as well as positional offsets for the curve controls.
@@ -66,7 +66,7 @@ export function casteljauPoint(curve, t) {
   const Px = (1 - t) * Dx + t * Ex;
   const Py = (1 - t) * Dy + t * Ey;
   const Pz = (1 - t) * Dz + t * Ez;
-  return new THREE.Vector3(Px, Py, Pz);
+  return new Vector3(Px, Py, Pz);
 }
 
 // Inverse of casteljau's algorithem, takes in a curve and a distance from the back
