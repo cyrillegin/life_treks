@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -70,12 +70,11 @@ const styles = theme => ({
 });
 
 export class DragonflyPage extends Component {
-
   static propTypes = {
     classes: PropTypes.object.isRequired,
     testPlugin: PropTypes.func.isRequired,
     plugins: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }
+  };
 
   state = {
     loading: true,
@@ -94,7 +93,7 @@ export class DragonflyPage extends Component {
     units: '',
     endpoint: '',
     meta: '',
-  }
+  };
 
   handlePluginSelect(name) {
     this.setState({
@@ -110,12 +109,10 @@ export class DragonflyPage extends Component {
     });
   };
 
-
   render() {
     const testSensor = () => {
-      this.props.testPlugin(
-        this.state.selectedPlugin,
-        {
+      this.props
+        .testPlugin(this.state.selectedPlugin, {
           name: this.state.name,
           description: this.state.description,
           coefficients: this.state.coefficients,
@@ -125,14 +122,14 @@ export class DragonflyPage extends Component {
           units: this.state.units,
           endpoint: this.state.endpoint,
           meta: this.state.meta,
-        },
-      ).then((data) => {
-        this.setState({
-          dialogIsOpen: true,
-          dialogMessage: data,
-          dialogTitle: 'Test Result',
+        })
+        .then(data => {
+          this.setState({
+            dialogIsOpen: true,
+            dialogMessage: data,
+            dialogTitle: 'Test Result',
+          });
         });
-      });
     };
 
     const closeDialog = () => {
@@ -141,27 +138,19 @@ export class DragonflyPage extends Component {
       });
     };
 
-    const pollerIcon = (icon) => {
+    const pollerIcon = icon => {
       switch (icon) {
         case 'cryptoPoller':
-          return (
-            <MonetizationOnIcon />
-          );
+          return <MonetizationOnIcon />;
         case 'gpioPoller':
-          return (
-            <ACUnitIcon />
-          );
+          return <ACUnitIcon />;
         default:
-          return (
-            <ShowChartIcon />
-          );
+          return <ShowChartIcon />;
       }
     };
     return (
       <div className={this.props.classes.root}>
         <div className={this.props.classes.demoContainer}>
-
-
           <Dialog
             open={this.state.dialogIsOpen}
             onClose={closeDialog}
@@ -177,42 +166,44 @@ export class DragonflyPage extends Component {
               <Button onClick={closeDialog} color="primary">
                 Okay
               </Button>
-
             </DialogActions>
           </Dialog>
 
-
-          <Paper className={
-            this.state.selectedPlugin === '' ?
-              this.props.classes.fullPaper :
-              this.props.classes.leftPaper
-          } elevation={4}>
+          <Paper
+            className={
+              this.state.selectedPlugin === ''
+                ? this.props.classes.fullPaper
+                : this.props.classes.leftPaper
+            }
+            elevation={4}
+          >
             <Typography variant="headline" component="h3" className={this.props.classes.title}>
-          Plugins
+              Plugins
             </Typography>
 
             <List component="nav" className={this.props.classes.pluginsList}>
               {this.props.plugins.map((plugin, index) => {
                 return (
                   <ListItem
-                    className={plugin === this.state.selectedPlugin ?
-                      this.props.classes.selectedPlugin : null
+                    className={
+                      plugin === this.state.selectedPlugin
+                        ? this.props.classes.selectedPlugin
+                        : null
                     }
                     key={index}
                     button
                     onClick={() => {
                       this.handlePluginSelect(plugin);
-                    }}>
-                    <ListItemIcon>
-                      {pollerIcon(plugin)}
-                    </ListItemIcon>
+                    }}
+                  >
+                    <ListItemIcon>{pollerIcon(plugin)}</ListItemIcon>
                     <ListItemText primary={plugin} />
                   </ListItem>
                 );
               })}
             </List>
           </Paper>
-          {this.state.selectedPlugin !== '' &&
+          {this.state.selectedPlugin !== '' && (
             <Paper className={this.props.classes.rightPaper}>
               <Typography variant="headline" component="h3" className={this.props.classes.title}>
                 Details
@@ -290,37 +281,39 @@ export class DragonflyPage extends Component {
                   value={this.state.meta}
                   margin="normal"
                 />
-                <Button className={this.props.classes.button} onClick={testSensor}>Test Sensor</Button>
-                <Button
-                  disabled={true}
-                  className={this.props.classes.button}
-                >
+                <Button className={this.props.classes.button} onClick={testSensor}>
+                  Test Sensor
+                </Button>
+                <Button disabled={true} className={this.props.classes.button}>
                   Submit Sensor
                 </Button>
               </form>
             </Paper>
-          }
+          )}
         </div>
 
         <div className={this.props.classes.descriptionContainer}>
-          Dragonfly is all purpose sensor poller designed to be an easy interface for using raspberry pis.
-          Upon hooking up a sensor to a raspberry pi, the user can then link a poller to it and add
-          polling details like poll rate, coefficients, a station name and description. If the user
-          has many pis running at the same time, multiple dragonfly instances can be linked to
-          each other or forward all of their data to a central server. Once a sensor has been hooked up,
-          actions can then be added to to the poller like sending an email or slack or turning on another
-          sensor
+          Dragonfly is all purpose sensor poller designed to be an easy interface for using
+          raspberry pis. Upon hooking up a sensor to a raspberry pi, the user can then link a poller
+          to it and add polling details like poll rate, coefficients, a station name and
+          description. If the user has many pis running at the same time, multiple dragonfly
+          instances can be linked to each other or forward all of their data to a central server.
+          Once a sensor has been hooked up, actions can then be added to to the poller like sending
+          an email or slack or turning on another sensor
           <br />
-          The example above allows you to see some of the plugins available. The only one functioning is
-          the cryptopoller. In the metadata field, you can add the name of your favorite cryptocurrency
-          and it will respond with its current price in US dollars.
+          The example above allows you to see some of the plugins available. The only one
+          functioning is the cryptopoller. In the metadata field, you can add the name of your
+          favorite cryptocurrency and it will respond with its current price in US dollars.
           <br />
-          You can see in the picture on the right an example of what dragonfly would look like with multiple
-          sensors hooked up.
-
+          You can see in the picture on the right an example of what dragonfly would look like with
+          multiple sensors hooked up.
         </div>
         <div className={this.props.classes.imageContainer}>
-          <img className={this.props.classes.image} src="/screenshots/home.jpg" alt={'Image of the home screen of Dragonfly'} />
+          <img
+            className={this.props.classes.image}
+            src="/screenshots/home.jpg"
+            alt={'Image of the home screen of Dragonfly'}
+          />
         </div>
       </div>
     );

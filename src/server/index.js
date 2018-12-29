@@ -1,9 +1,9 @@
 import path from 'path';
 import http from 'http';
 import https from 'https';
+import fs from 'fs';
 import express from 'express';
 import bodyParser from 'body-parser';
-import fs from 'fs';
 import './dotenv';
 
 (async () => {
@@ -51,12 +51,20 @@ import './dotenv';
   const port = process.env.PORT || '3000';
   app.set('port', port);
 
-  const server = http.createServer(app);
-
-  server.listen(port, () => console.log(`Site running on localhost:${port}`));
-
   // HTTPS
   if (process.env.ENV === 'production') {
+    // Redirect traffic from http to https
+    const redirectApp = express();
+
+    redirectApp.get('*', (req, res) => {
+      res.writeHead(302, {
+        Location: 'https://' + req.headers.host + req.url,
+      });
+    });
+    const redirectHttp = http.createServer(redirectApp);
+    redirectHttp.listen(80);
+
+    // Setup credentials
     const credentials = {
       key: fs.readFileSync(process.env.PRIVATE_KEY, 'utf8'),
       cert: fs.readFileSync(process.env.CERTIFICATE, 'utf8'),
@@ -66,5 +74,8 @@ import './dotenv';
     httpsServer.listen(443, () => {
       console.log('HTTPS Server running on port 443');
     });
+  } else {
+    const server = http.createServer(app);
+    server.listen(port, () => console.log(`Site running on localhost:${port}`));
   }
 })();

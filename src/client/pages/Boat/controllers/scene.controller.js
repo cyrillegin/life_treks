@@ -12,7 +12,6 @@
 import * as THREE from 'three';
 import TWEEN from '@tweenjs/tween.js';
 
-
 function initRenderer(app) {
   app.renderer = new THREE.WebGLRenderer({
     antialias: true,

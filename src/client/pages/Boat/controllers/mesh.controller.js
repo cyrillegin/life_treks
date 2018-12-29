@@ -6,7 +6,7 @@ import * as THREE from 'three';
 // import 'three/examples/js/loaders/MTLLoader';
 // import 'three/examples/js/exporters/OBJExporter';
 // import 'three/examples/js/exporters/STLExporter';
-import {applyOffsets, casteljauPoint} from './calculations';
+import { applyOffsets, casteljauPoint } from './calculations';
 
 export default class MeshController {
   initMesh(app, boat) {
@@ -30,7 +30,7 @@ export default class MeshController {
       length: copiedBoat.length,
       frames: copiedBoat.frames,
     };
-    Object.keys(copiedBoat).forEach((key) => {
+    Object.keys(copiedBoat).forEach(key => {
       if (['width', 'height', 'length', 'frames'].indexOf(key) > -1) {
         return;
       }
@@ -53,7 +53,7 @@ export default class MeshController {
     innerBoat.height -= 1;
     innerBoat.length -= 1;
 
-    Object.keys(innerBoat).forEach((key) => {
+    Object.keys(innerBoat).forEach(key => {
       if (['width', 'height', 'length', 'frames'].indexOf(key) > -1) {
         return;
       }
@@ -88,12 +88,12 @@ export default class MeshController {
     const firstElement = parts.pop();
     const initialFace = this.drawFace(firstElement);
     const faces = [];
-    for (let i = 0; i < parts.length; i ++) {
+    for (let i = 0; i < parts.length; i++) {
       faces.push(this.drawFace(parts[i]));
     }
 
     // Merge faces
-    faces.forEach((face) => {
+    faces.forEach(face => {
       initialFace.merge(face);
     });
 
@@ -115,17 +115,11 @@ export default class MeshController {
     let lastA = casteljauPoint(curveA, 0);
     let lastB = casteljauPoint(curveB, 0);
     for (let i = 1; i < itterations + 1; i++) {
-      const currentA = casteljauPoint(curveA, 1 / itterations * i);
-      const currentB = casteljauPoint(curveB, 1 / itterations * i);
+      const currentA = casteljauPoint(curveA, (1 / itterations) * i);
+      const currentB = casteljauPoint(curveB, (1 / itterations) * i);
       parts.push({
-        start: [
-          [lastA.x, lastA.y, lastA.z],
-          [currentA.x, currentA.y, currentA.z],
-        ],
-        end: [
-          [lastB.x, lastB.y, lastB.z],
-          [currentB.x, currentB.y, currentB.z],
-        ],
+        start: [[lastA.x, lastA.y, lastA.z], [currentA.x, currentA.y, currentA.z]],
+        end: [[lastB.x, lastB.y, lastB.z], [currentB.x, currentB.y, currentB.z]],
       });
       lastA = currentA;
       lastB = currentB;
@@ -160,9 +154,10 @@ export default class MeshController {
     // TODO: We'll need to run our own uving system but this seems to work okay for the time being.
     geometry.faceVertexUvs[0] = [];
 
-    geometry.faces.forEach((face) => {
-
-      const components = ['x', 'y', 'z'].sort((a, b) => Math.abs(face.normal[a]) > Math.abs(face.normal[b]));
+    geometry.faces.forEach(face => {
+      const components = ['x', 'y', 'z'].sort(
+        (a, b) => Math.abs(face.normal[a]) > Math.abs(face.normal[b]),
+      );
 
       const v1 = geometry.vertices[face.a];
       const v2 = geometry.vertices[face.b];
@@ -173,7 +168,6 @@ export default class MeshController {
         new THREE.Vector2(v2[components[0]], v2[components[1]]),
         new THREE.Vector2(v3[components[0]], v3[components[1]]),
       ]);
-
     });
 
     geometry.uvsNeedUpdate = true;
@@ -185,7 +179,7 @@ export default class MeshController {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(0.1, 0.05);
-    const material = new THREE.MeshBasicMaterial({map: texture});
+    const material = new THREE.MeshBasicMaterial({ map: texture });
     material.setValues({
       side: THREE.DoubleSide,
     });
@@ -209,24 +203,31 @@ export default class MeshController {
     let oldElement = document.getElementById('save-obj');
     let newElement = oldElement.cloneNode(true);
     oldElement.parentNode.replaceChild(newElement, oldElement);
-    document.querySelector('#save-obj').addEventListener('click', () => {
-      const exporter = new THREE.OBJExporter();
-      this.downloadFile(exporter, 'OBJ');
-    }, true);
+    document.querySelector('#save-obj').addEventListener(
+      'click',
+      () => {
+        const exporter = new THREE.OBJExporter();
+        this.downloadFile(exporter, 'OBJ');
+      },
+      true,
+    );
 
     oldElement = document.getElementById('save-stl');
     newElement = oldElement.cloneNode(true);
     oldElement.parentNode.replaceChild(newElement, oldElement);
-    document.querySelector('#save-stl').addEventListener('click', () => {
-      const exporter = new THREE.STLExporter();
-      this.downloadFile(exporter, 'STL');
-    }, true);
-
+    document.querySelector('#save-stl').addEventListener(
+      'click',
+      () => {
+        const exporter = new THREE.STLExporter();
+        this.downloadFile(exporter, 'STL');
+      },
+      true,
+    );
   }
 
   downloadFile(exporter, type) {
     const data = exporter.parse(this.mesh);
-    const file = new Blob([data], {type});
+    const file = new Blob([data], { type });
     const a = document.createElement('a');
     const url = URL.createObjectURL(file);
     a.href = url;

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import mirrorAttributes from './mirror';
-import {casteljauPoint, applyOffsets, casteljauFromY} from './calculations';
+import { casteljauPoint, applyOffsets, casteljauFromY } from './calculations';
 
 export default class CurvesController {
   constructor() {
@@ -13,7 +13,7 @@ export default class CurvesController {
     this.boat = JSON.parse(JSON.stringify(boat));
     this.curveColor = 0xff0000;
 
-    Object.keys(this.boat).forEach((key) => {
+    Object.keys(this.boat).forEach(key => {
       if (key === 'width' || key === 'height' || key === 'length' || key === 'frames') {
         return;
       }
@@ -37,12 +37,18 @@ export default class CurvesController {
     curveObject.mirror = mirror;
 
     if (app.displayVerticies) {
-      const startControlLine = this.drawControlLine(curveCoordinates.start, curveCoordinates.startControl);
+      const startControlLine = this.drawControlLine(
+        curveCoordinates.start,
+        curveCoordinates.startControl,
+      );
       startControlLine.name = `curve-start-${key}`;
       app.scene.add(startControlLine);
       curveObject.startControlLine = startControlLine;
 
-      const endControlLine = this.drawControlLine(curveCoordinates.end, curveCoordinates.endControl);
+      const endControlLine = this.drawControlLine(
+        curveCoordinates.end,
+        curveCoordinates.endControl,
+      );
       endControlLine.name = `curve-end-${key}`;
       app.scene.add(endControlLine);
       curveObject.endControlLine = endControlLine;
@@ -57,12 +63,18 @@ export default class CurvesController {
       app.scene.add(endPoint);
       curveObject.endPoint = endPoint;
 
-      const startControlPoint = this.drawCurveControlPoint(curveCoordinates.start, curveCoordinates.startControl);
+      const startControlPoint = this.drawCurveControlPoint(
+        curveCoordinates.start,
+        curveCoordinates.startControl,
+      );
       startControlPoint.name = `start-control-${key}`;
       app.scene.add(startControlPoint);
       curveObject.startControlPoint = startControlPoint;
 
-      const endControlPoint = this.drawCurveControlPoint(curveCoordinates.end, curveCoordinates.endControl);
+      const endControlPoint = this.drawCurveControlPoint(
+        curveCoordinates.end,
+        curveCoordinates.endControl,
+      );
       endControlPoint.name = `end-control-${key}`;
       app.scene.add(endControlPoint);
       curveObject.endControlPoint = endControlPoint;
@@ -76,7 +88,7 @@ export default class CurvesController {
     const points = newCurve.getPoints(50);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-    const material = new THREE.LineBasicMaterial({color: this.curveColor});
+    const material = new THREE.LineBasicMaterial({ color: this.curveColor });
     const curveObject = new THREE.Line(geometry, material);
     return curveObject;
   }
@@ -108,7 +120,7 @@ export default class CurvesController {
 
   drawCurvePoint(location) {
     const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(location[0], location[1], location[2]);
     return mesh;
@@ -116,7 +128,7 @@ export default class CurvesController {
 
   drawCurveControlPoint(base, offset) {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({color: 0x0000ff});
+    const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(base[0] + offset[0], base[1] + offset[1], base[2] + offset[2]);
     return mesh;
@@ -138,7 +150,7 @@ export default class CurvesController {
   }
 
   drawLine(start, end, name) {
-    const material = new THREE.LineBasicMaterial({color: 0x9400D3});
+    const material = new THREE.LineBasicMaterial({ color: 0x9400d3 });
     const geometry = new THREE.Geometry();
     geometry.vertices.push(new THREE.Vector3(start.x, start.y, start.z));
     geometry.vertices.push(new THREE.Vector3(end.x, end.y, end.z));
@@ -168,16 +180,16 @@ export default class CurvesController {
   }
 
   deleteAllCurves(app, boat) {
-    Object.keys(boat).forEach((attr) => {
+    Object.keys(boat).forEach(attr => {
       if (attr === 'width' || attr === 'height' || attr === 'length' || attr === 'frames') {
         return;
       }
-      this.deleteCurve(app, {key: attr});
+      this.deleteCurve(app, { key: attr });
     });
   }
 
   onHandleHover(app, curve, key) {
-    this.deleteCurve(app, {key});
+    this.deleteCurve(app, { key });
     this.curveColor = 0x00ff00;
     const curveCopy = JSON.parse(JSON.stringify(curve));
     const curveCoordinates = applyOffsets(this.boat, curveCopy, key);
@@ -186,7 +198,7 @@ export default class CurvesController {
   }
 
   onHandleHoverOff(app, curve, key) {
-    this.deleteCurve(app, {key});
+    this.deleteCurve(app, { key });
     this.curveColor = 0xff0000;
     const curveCopy = JSON.parse(JSON.stringify(curve));
     const curveCoordinates = applyOffsets(this.boat, curveCopy, key);
@@ -195,8 +207,8 @@ export default class CurvesController {
   }
 
   showCurves(show) {
-    this.curveObjects.forEach((curveObject) => {
-      Object.keys(curveObject).forEach((piece) => {
+    this.curveObjects.forEach(curveObject => {
+      Object.keys(curveObject).forEach(piece => {
         curveObject[piece].visible = show;
       });
     });
@@ -209,7 +221,7 @@ export default class CurvesController {
     const frameLines = [];
     boat.frames.forEach((frame, index) => {
       // calculate frames, returns a beam point, a chine point, and the keel point
-      const {locationA, locationB, locationC} = this.findLocation(boat, frame);
+      const { locationA, locationB, locationC } = this.findLocation(boat, frame);
 
       // Draws a line from the beam to the chine
       frameLines.push(this.drawLine(locationA, locationB, `beam-chine-frame-${index}`));
@@ -224,9 +236,9 @@ export default class CurvesController {
     });
 
     // Add the newly created lines to the scene
-    frameLines.forEach((line) => {
+    frameLines.forEach(line => {
       app.scene.add(line);
-      this.curveObjects.push({line});
+      this.curveObjects.push({ line });
     });
 
     return frameLines;
@@ -235,7 +247,7 @@ export default class CurvesController {
   updateFrames(app, boat) {
     this.removeFrames(app);
     const boatCopy = JSON.parse(JSON.stringify(boat));
-    Object.keys(boatCopy).forEach((key) => {
+    Object.keys(boatCopy).forEach(key => {
       if (key === 'width' || key === 'height' || key === 'length' || key === 'frames') {
         return;
       }
@@ -270,7 +282,7 @@ export default class CurvesController {
     const locationA = casteljauPoint(beamCurve, t1);
     const locationB = casteljauPoint(chineCurve, t2);
     const locationC = casteljauPoint(keelCurve, t3);
-    return {locationA, locationB, locationC};
+    return { locationA, locationB, locationC };
   }
 
   removeFrames(app) {
