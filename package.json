@@ -41,6 +41,7 @@
     "jest": "23.6.0",
     "prettier": "1.15.3",
     "style-loader": "0.23.1",
+    "uglifyjs-webpack-plugin": "2.1.1",
     "webpack": "4.28.2",
     "webpack-cli": "3.1.2"
   },
@@ -58,6 +59,7 @@
     "build:dev": "webpack --progress --config webpack.dev.config.js src/client",
     "build:prod": "webpack --progress --config webpack.prod.config.js src/client",
     "build:server": "babel src --out-dir dist --copy-files --ignore src/client/ --source-maps inline",
+    "build:workers": "babel src/client/sw.js --out-file dist/sw.js --copy-flies",
     "inc:minor": "python utilities/version.py minor",
     "inc:patch": "python utilities/version.py patch",
     "lint": "npm run lint:js",

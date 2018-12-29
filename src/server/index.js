@@ -57,9 +57,7 @@ import './dotenv';
     const redirectApp = express();
 
     redirectApp.get('*', (req, res) => {
-      res.writeHead(302, {
-        Location: 'https://' + req.headers.host + req.url,
-      });
+      res.redirect('https://' + req.headers.host + req.url);
     });
     const redirectHttp = http.createServer(redirectApp);
     redirectHttp.listen(80);
@@ -75,6 +73,7 @@ import './dotenv';
       console.log('HTTPS Server running on port 443');
     });
   } else {
+    // For dev server
     const server = http.createServer(app);
     server.listen(port, () => console.log(`Site running on localhost:${port}`));
   }
