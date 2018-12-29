@@ -75,6 +75,7 @@ import './dotenv';
       console.log('HTTPS Server running on port 443');
     });
   } else {
+    // For dev server
     const server = http.createServer(app);
     server.listen(port, () => console.log(`Site running on localhost:${port}`));
   }
