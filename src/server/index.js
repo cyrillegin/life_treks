@@ -57,9 +57,7 @@ import './dotenv';
     const redirectApp = express();
 
     redirectApp.get('*', (req, res) => {
-      res.writeHead(302, {
-        Location: 'https://' + req.headers.host + req.url,
-      });
+      res.redirect('https://' + req.headers.host + req.url);
     });
     const redirectHttp = http.createServer(redirectApp);
     redirectHttp.listen(80);

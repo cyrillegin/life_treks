@@ -175,7 +175,7 @@ export default class MeshController {
   }
 
   defineMaterial() {
-    const texture = new THREE.TextureLoader().load('models/wood_texture.jpg');
+    const texture = new THREE.TextureLoader().load('models/wood_texture.webp');
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(0.1, 0.05);
