@@ -1,7 +1,6 @@
 /* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
-const CompressionPlugin = require('compression-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
@@ -9,22 +8,19 @@ module.exports = {
   entry: './src/client/index.js',
   mode: 'production',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/',
   },
   optimization: {
-    minimizer: [
-      new UglifyJSPlugin(),
-    ],
+    minimizer: [new UglifyJSPlugin()],
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: [
-          path.resolve(__dirname, 'src'),
-        ],
+        include: [path.resolve(__dirname, 'src')],
         use: {
           loader: 'babel-loader',
           options: {
@@ -36,7 +32,8 @@ module.exports = {
             ],
           },
         },
-      }, {
+      },
+      {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
       },
@@ -44,21 +41,15 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
     }),
     new webpack.ProvidePlugin({
-      'THREE': 'three',
+      THREE: 'three',
     }),
     new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
-    new CompressionPlugin({
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
   ],
 };
