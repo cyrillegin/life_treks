@@ -5,10 +5,12 @@ import fs from 'fs';
 import express from 'express';
 import bodyParser from 'body-parser';
 import './dotenv';
+import compression from 'compression';
 
 (async () => {
   const app = express();
 
+  app.use(compression());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 

@@ -1,7 +1,6 @@
 /* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
-const CompressionPlugin = require('compression-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
@@ -44,12 +43,6 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       THREE: 'three',
-    }),
-    new CompressionPlugin({
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8,
     }),
     new BundleAnalyzerPlugin(),
   ],
