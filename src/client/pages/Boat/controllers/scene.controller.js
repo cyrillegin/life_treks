@@ -9,16 +9,16 @@
     renders the next frame of the scene.
 
 */
-import * as THREE from 'three';
+import { Scene, PCFSoftShadowMap, WebGLRenderer } from 'three/build/three.module';
 import TWEEN from '@tweenjs/tween.js';
 
 function initRenderer(app) {
-  app.renderer = new THREE.WebGLRenderer({
+  app.renderer = new WebGLRenderer({
     antialias: true,
     alpha: true,
   });
   app.renderer.shadowMap.enabled = true;
-  app.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  app.renderer.shadowMap.type = PCFSoftShadowMap;
   app.renderer.gammaInput = true;
   app.renderer.gammaOutput = true;
   app.renderer.autoClear = false;
@@ -42,7 +42,7 @@ function initRenderer(app) {
 
 function initScene(container) {
   const app = {
-    scene: new THREE.Scene(),
+    scene: new Scene(),
     camera: null,
     cameraControls: null,
     lights: {},
