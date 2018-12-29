@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Graph from './graph';
@@ -41,10 +41,9 @@ const styles = theme => ({
 });
 
 export class VisualizationPage extends Component {
-
   static propTypes = {
     classes: PropTypes.object.isRequired,
-  }
+  };
 
   state = {
     readings: [],
@@ -56,7 +55,7 @@ export class VisualizationPage extends Component {
     yMax: 20,
     resoultion: 1,
     hasError: false,
-  }
+  };
 
   checkInputs() {
     let err = false;
@@ -184,17 +183,21 @@ export class VisualizationPage extends Component {
 
   render() {
     const handleEqInput = e => event => {
-      this.setState({
-        equation: event.target.value,
-      }, this.parseEquation);
+      this.setState(
+        {
+          equation: event.target.value,
+        },
+        this.parseEquation,
+      );
     };
 
     const handleRangeInput = e => event => {
-
-
-      this.setState({
-        [e]: event.target.value,
-      }, this.parseEquation);
+      this.setState(
+        {
+          [e]: event.target.value,
+        },
+        this.parseEquation,
+      );
     };
 
     return (
@@ -212,19 +215,17 @@ export class VisualizationPage extends Component {
               yMax: this.state.yMax,
             }}
           />
-          {this.state.hasError &&
+          {this.state.hasError && (
             <div className={this.props.classes.errorMessage}>
               Could not understand input parameters.
             </div>
-          }
+          )}
           <div className={this.props.classes.extras}>
             <div className={this.props.classes.inputContainer}>
               <table>
                 <tbody>
                   <tr>
-                    <td>
-                    Enter your equation:
-                    </td>
+                    <td>Enter your equation:</td>
                     <td>
                       <input
                         type="text"
@@ -235,9 +236,7 @@ export class VisualizationPage extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                    X Minimum:
-                    </td>
+                    <td>X Minimum:</td>
                     <td>
                       <input
                         type="text"
@@ -248,9 +247,7 @@ export class VisualizationPage extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                    X Maximum
-                    </td>
+                    <td>X Maximum</td>
                     <td>
                       <input
                         type="text"
@@ -261,9 +258,7 @@ export class VisualizationPage extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                    Y Minimum
-                    </td>
+                    <td>Y Minimum</td>
                     <td>
                       <input
                         type="text"
@@ -274,9 +269,7 @@ export class VisualizationPage extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                    Y Maximum
-                    </td>
+                    <td>Y Maximum</td>
                     <td>
                       <input
                         type="text"
@@ -287,9 +280,7 @@ export class VisualizationPage extends Component {
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                    Resoultion
-                    </td>
+                    <td>Resoultion</td>
                     <td>
                       <input
                         type="text"
@@ -304,9 +295,9 @@ export class VisualizationPage extends Component {
             </div>
 
             <div className={this.props.classes.descriptionContainer}>
-              This is an example of some custom graphing using the D3 library. You can
-              enter an equation on the left side and set the dimensions and resoultion of the graph.
-              The calculator is pretty basic as I made the parser from scratch. So far it only supports
+              This is an example of some custom graphing using the D3 library. You can enter an
+              equation on the left side and set the dimensions and resoultion of the graph. The
+              calculator is pretty basic as I made the parser from scratch. So far it only supports
               +, -, *, /, ^, and does not support order of operations.
             </div>
           </div>

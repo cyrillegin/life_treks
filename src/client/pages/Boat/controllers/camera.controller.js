@@ -21,12 +21,12 @@ export default class CameraController {
     app.camera.position.set(100, 0, 100);
     app.camera.cameraControls = new THREE.OrbitControls(app.camera, app.renderer.domElement);
     this.initCameraMenu(app);
-    this.tweenCamera(app, {x: 100, y: 100, z: 100});
+    this.tweenCamera(app, { x: 100, y: 100, z: 100 });
     return app;
   }
 
   initCameraMenu(app) {
-    document.querySelector('#camera-front-button').addEventListener('click', (e) => {
+    document.querySelector('#camera-front-button').addEventListener('click', e => {
       const to = {
         x: 0,
         y: 0,
@@ -34,7 +34,7 @@ export default class CameraController {
       };
       this.tweenCamera(app, to);
     });
-    document.querySelector('#camera-top-button').addEventListener('click', (e) => {
+    document.querySelector('#camera-top-button').addEventListener('click', e => {
       const to = {
         x: 0,
         y: 150,
@@ -42,7 +42,7 @@ export default class CameraController {
       };
       this.tweenCamera(app, to);
     });
-    document.querySelector('#camera-side-button').addEventListener('click', (e) => {
+    document.querySelector('#camera-side-button').addEventListener('click', e => {
       const to = {
         x: 100,
         y: 0,
@@ -50,7 +50,7 @@ export default class CameraController {
       };
       this.tweenCamera(app, to);
     });
-    document.querySelector('#camera-45-button').addEventListener('click', (e) => {
+    document.querySelector('#camera-45-button').addEventListener('click', e => {
       const to = {
         x: 100,
         y: 100,
@@ -70,7 +70,7 @@ export default class CameraController {
     new TWEEN.Tween(from)
       .to(to, 600)
       .easing(TWEEN.Easing.Linear.None)
-      .onUpdate((e) => {
+      .onUpdate(e => {
         app.camera.position.set(e.x, e.y, e.z);
         app.camera.lookAt(new THREE.Vector3(0, 0, 0));
       })

@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
+import NavBar from '../components/navbar/NavBar';
 import BoatContainer from './../pages/Boat/BoatContainer';
 import DragonflyContainer from './../pages/Dragonfly/DragonflyContainer';
 import VisualizationContainer from './../pages/Visualization/VisualizationContainer';
-// Nav
-import NavBar from './../components/NavBar/NavBar';
 
 ReactGA.initialize('UA-107911028-1');
 

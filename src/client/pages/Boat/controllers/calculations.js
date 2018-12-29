@@ -17,7 +17,7 @@ export function applyOffsets(boat, curve, key) {
 
   // Apply offsets
   const curveCoordinates = curve;
-  if (! key.toLowerCase().includes('edge')) {
+  if (!key.toLowerCase().includes('edge')) {
     curveCoordinates.start[0] += widthOffset;
   }
   curveCoordinates.end[0] += widthOffset;
@@ -41,28 +41,31 @@ export function applyOffsets(boat, curve, key) {
 export function casteljauPoint(curve, t) {
   // const THREE = require('three'); //eslint-disable-line
   // Step 1
-  const Ax = ((1 - t) * curve.start[0]) + (t * (curve.start[0] + curve.startControl[0]));
-  const Ay = ((1 - t) * curve.start[1]) + (t * (curve.start[1] + curve.startControl[1]));
-  const Az = ((1 - t) * curve.start[2]) + (t * (curve.start[2] + curve.startControl[2]));
-  const Bx = ((1 - t) * (curve.start[0] + curve.startControl[0])) + (t * (curve.end[0] + curve.endControl[0]));
-  const By = ((1 - t) * (curve.start[1] + curve.startControl[1])) + (t * (curve.end[1] + curve.endControl[1]));
-  const Bz = ((1 - t) * (curve.start[2] + curve.startControl[2])) + (t * (curve.end[2] + curve.endControl[2]));
-  const Cx = ((1 - t) * (curve.end[0] + curve.endControl[0])) + (t * curve.end[0]);
-  const Cy = ((1 - t) * (curve.end[1] + curve.endControl[1])) + (t * curve.end[1]);
-  const Cz = ((1 - t) * (curve.end[2] + curve.endControl[2])) + (t * curve.end[2]);
+  const Ax = (1 - t) * curve.start[0] + t * (curve.start[0] + curve.startControl[0]);
+  const Ay = (1 - t) * curve.start[1] + t * (curve.start[1] + curve.startControl[1]);
+  const Az = (1 - t) * curve.start[2] + t * (curve.start[2] + curve.startControl[2]);
+  const Bx =
+    (1 - t) * (curve.start[0] + curve.startControl[0]) + t * (curve.end[0] + curve.endControl[0]);
+  const By =
+    (1 - t) * (curve.start[1] + curve.startControl[1]) + t * (curve.end[1] + curve.endControl[1]);
+  const Bz =
+    (1 - t) * (curve.start[2] + curve.startControl[2]) + t * (curve.end[2] + curve.endControl[2]);
+  const Cx = (1 - t) * (curve.end[0] + curve.endControl[0]) + t * curve.end[0];
+  const Cy = (1 - t) * (curve.end[1] + curve.endControl[1]) + t * curve.end[1];
+  const Cz = (1 - t) * (curve.end[2] + curve.endControl[2]) + t * curve.end[2];
 
   // Step 2
-  const Dx = ((1 - t) * Ax) + (t * Bx);
-  const Dy = ((1 - t) * Ay) + (t * By);
-  const Dz = ((1 - t) * Az) + (t * Bz);
-  const Ex = ((1 - t) * Bx) + (t * Cx);
-  const Ey = ((1 - t) * By) + (t * Cy);
-  const Ez = ((1 - t) * Bz) + (t * Cz);
+  const Dx = (1 - t) * Ax + t * Bx;
+  const Dy = (1 - t) * Ay + t * By;
+  const Dz = (1 - t) * Az + t * Bz;
+  const Ex = (1 - t) * Bx + t * Cx;
+  const Ey = (1 - t) * By + t * Cy;
+  const Ez = (1 - t) * Bz + t * Cz;
 
   // Step 3
-  const Px = ((1 - t) * Dx) + (t * Ex);
-  const Py = ((1 - t) * Dy) + (t * Ey);
-  const Pz = ((1 - t) * Dz) + (t * Ez);
+  const Px = (1 - t) * Dx + t * Ex;
+  const Py = (1 - t) * Dy + t * Ey;
+  const Pz = (1 - t) * Dz + t * Ez;
   return new THREE.Vector3(Px, Py, Pz);
 }
 
@@ -79,14 +82,14 @@ export function casteljauFromY(curve, distFromBack) {
   // 10-15. We use 50 for situations when withinBounds will never be successful, for
   // example, when the frame could go off of the boat when the beam hangs over the chine.
   while (withinBounds === false && tries < 50) {
-    tries ++;
+    tries++;
     const result = casteljauPoint(curveB, t);
     if (Math.abs(Math.abs(result.z) - distFromBack) < bounds) {
       withinBounds = true;
     } else if (Math.abs(result.z) - distFromBack < 0) {
-      t = t + (0.5 / (tries + 1));
+      t = t + 0.5 / (tries + 1);
     } else {
-      t = t - (0.5 / (tries + 1));
+      t = t - 0.5 / (tries + 1);
     }
     // Some funky stuff happens around the mid section so
     // we make sure that t never goes out of bounds.
@@ -126,7 +129,7 @@ export function findLocation(boat, frame) {
   const locationA = casteljauPoint(beamCurve, t1);
   const locationB = casteljauPoint(chineCurve, t2);
   const locationC = casteljauPoint(keelCurve, t3);
-  return {locationA, locationB, locationC};
+  return { locationA, locationB, locationC };
 }
 
-export default {casteljauFromY, casteljauPoint, applyOffsets};
+export default { casteljauFromY, casteljauPoint, applyOffsets };

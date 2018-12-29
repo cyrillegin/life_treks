@@ -1,9 +1,9 @@
 import path from 'path';
 import http from 'http';
 import https from 'https';
+import fs from 'fs';
 import express from 'express';
 import bodyParser from 'body-parser';
-import fs from 'fs';
 import './dotenv';
 
 (async () => {

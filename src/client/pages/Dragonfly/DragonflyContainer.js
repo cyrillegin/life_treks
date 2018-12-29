@@ -1,8 +1,8 @@
-import {compose, mapProps} from 'recompose';
+import { compose, mapProps } from 'recompose';
 import Dragonfly from './Dragonfly';
 
 export default compose(
-  mapProps((ownProps) => {
+  mapProps(ownProps => {
     return {
       ...ownProps,
       testPlugin: (plugin, details) => {
@@ -11,13 +11,13 @@ export default compose(
             fetch('/crypto', {
               method: 'POST',
               headers: {
-                'Accept': 'application/json',
+                Accept: 'application/json',
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({'plugin': plugin, 'details': details}),
+              body: JSON.stringify({ plugin: plugin, details: details }),
             })
               .then(response => response.json())
-              .then((data) => {
+              .then(data => {
                 res(data);
               });
           } else {

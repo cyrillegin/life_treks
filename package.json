@@ -62,6 +62,7 @@
     "inc:patch": "python utilities/version.py patch",
     "lint": "npm run lint:js",
     "lint:js": "eslint src",
+    "prettier": "prettier --list-different \"src/**/*.{js,md}\"",
     "run:prod": "npm run build:prod & npm run start:server'",
     "start": "npm run start:client & concurrently --kill-others 'npm run start:server'",
     "start:client": "webpack --watch --progress --config webpack.dev.config.js src/client",

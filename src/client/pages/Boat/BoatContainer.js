@@ -1,11 +1,11 @@
-import {compose, mapProps} from 'recompose';
+import { compose, mapProps } from 'recompose';
 import Boat from './Boat';
 
 export default compose(
-  mapProps((ownProps) => {
+  mapProps(ownProps => {
     return {
       ...ownProps,
-      getBoat: (model) => {
+      getBoat: model => {
         return fetch('/models/testBoat.json');
       },
     };
