@@ -59,6 +59,7 @@
     "build:dev": "webpack --progress --config webpack.dev.config.js src/client",
     "build:prod": "webpack --progress --config webpack.prod.config.js src/client",
     "build:server": "babel src --out-dir dist --copy-files --ignore src/client/ --source-maps inline",
+    "build:workers": "babel src/client/sw.js --out-file dist/sw.js --copy-flies",
     "inc:minor": "python utilities/version.py minor",
     "inc:patch": "python utilities/version.py patch",
     "lint": "npm run lint:js",

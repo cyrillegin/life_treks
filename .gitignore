@@ -8,9 +8,11 @@
 node_modules/
 
 # Builds
-bundle.js
-bundle.js.gz
-bundle.js.map
+dist/bundle.js
+dist/bundle.js.gz
+dist/bundle.js.map
+dist/sw.js
 
 # Misc
 old/
+localcerts/
