@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -51,5 +52,6 @@ module.exports = {
       THREE: 'three',
     }),
     new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
+    // new BundleAnalyzerPlugin(),
   ],
 };
