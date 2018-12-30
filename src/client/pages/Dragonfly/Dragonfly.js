@@ -18,25 +18,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
+console.log(screen);
 const styles = theme => ({
   root: {
-    width: '80%',
+    width: screen.width > 850 ? '80%' : '90%',
     margin: 'auto',
   },
   descriptionContainer: {
-    width: '36%',
-    height: '300px',
-    display: 'inline-block',
-    padding: '10px',
+    textAlign: 'justified',
+    lineHeight: '1.6em',
   },
-  imageContainer: {
-    width: '60%',
-    height: '300px',
-    float: 'right',
-    padding: '10px',
-  },
+
   image: {
-    width: '100%',
+    width: '53%',
+    float: 'right',
+    margin: '24px 0 0 14px',
   },
   demoContainer: {
     flexGrow: 1,
@@ -44,26 +40,23 @@ const styles = theme => ({
   },
   fullPaper: {
     width: '100%',
-    margin: '32px 64px',
     padding: '16px',
     transition: '500ms',
   },
   leftPaper: {
     width: '33%',
-    margin: '32px 0 32px 32px',
     padding: '16px',
     transition: '500ms',
   },
   rightPaper: {
     width: '100%',
-    margin: '32px 32px',
+    marginLeft: '16px',
     padding: '16px',
     transition: '500ms',
   },
   textField: {
     width: '100%',
   },
-  title: {},
   selectedPlugin: {
     background: '#dcffdc',
   },
@@ -148,6 +141,22 @@ export class DragonflyPage extends Component {
           return <ShowChartIcon />;
       }
     };
+
+    const fullscreen = e => {
+      const image = document.getElementById('dragonfly-image');
+      if (image.requestFullscreen) {
+        image.requestFullscreen();
+      } else if (image.webkitRequestFullscreen) {
+        image.webkitRequestFullscreen();
+      } else if (image.mozRequestFullScreen) {
+        image.mozRequestFullScreen();
+      } else if (image.msRequestFullscreen) {
+        image.msRequestFullscreen();
+      } else {
+        console.log('Fullscreen API is not supported.');
+      }
+    };
+
     return (
       <div className={this.props.classes.root}>
         <div className={this.props.classes.demoContainer}>
@@ -177,7 +186,7 @@ export class DragonflyPage extends Component {
             }
             elevation={4}
           >
-            <Typography variant="headline" component="h3" className={this.props.classes.title}>
+            <Typography variant="headline" component="h3">
               Plugins
             </Typography>
 
@@ -292,29 +301,27 @@ export class DragonflyPage extends Component {
           )}
         </div>
 
-        <div className={this.props.classes.descriptionContainer}>
+        <img
+          className={this.props.classes.image}
+          src="/screenshots/home.webp"
+          id="dragonfly-image"
+          alt={'Image of the home screen of Dragonfly'}
+          onClick={fullscreen}
+        />
+        <p className={this.props.classes.descriptionContainer}>
           Dragonfly is all purpose sensor poller designed to be an easy interface for using
-          raspberry pis. Upon hooking up a sensor to a raspberry pi, the user can then link a poller
-          to it and add polling details like poll rate, coefficients, a station name and
-          description. If the user has many pis running at the same time, multiple dragonfly
-          instances can be linked to each other or forward all of their data to a central server.
-          Once a sensor has been hooked up, actions can then be added to to the poller like sending
-          an email or slack or turning on another sensor
+          raspberry pis. You can see in the picture on the right an example of what dragonfly would
+          look like with multiple sensors hooked up. Upon hooking up a sensor to a raspberry pi, the
+          user can then link a poller to it and add polling details like poll rate, coefficients, a
+          station name and description. If the user has many pis running at the same time, multiple
+          dragonfly instances can be linked to each other or forward all of their data to a central
+          server. Once a sensor has been hooked up, actions can then be added to to the poller like
+          sending an email or slack or turning on another sensor
           <br />
           The example above allows you to see some of the plugins available. The only one
           functioning is the cryptopoller. In the metadata field, you can add the name of your
           favorite cryptocurrency and it will respond with its current price in US dollars.
-          <br />
-          You can see in the picture on the right an example of what dragonfly would look like with
-          multiple sensors hooked up.
-        </div>
-        <div className={this.props.classes.imageContainer}>
-          <img
-            className={this.props.classes.image}
-            src="/screenshots/home.webp"
-            alt={'Image of the home screen of Dragonfly'}
-          />
-        </div>
+        </p>
       </div>
     );
   }
