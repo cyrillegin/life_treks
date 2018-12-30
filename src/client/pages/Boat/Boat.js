@@ -11,46 +11,63 @@ import CameraController from './controllers/camera.controller';
 import MeshController from './controllers/mesh.controller';
 import CurvesController from './controllers/curves.controller';
 
+const baseButton = {
+  position: 'absolute',
+  width: '50px',
+  height: '50px',
+  border: '1px solid black',
+  lineHeight: '50px',
+  fontSize: '20px',
+  fontWeight: 'bold',
+  color: 'white',
+  textAlign: 'center',
+  background: 'hsla(0, 100%, 50%, 0.7)',
+};
 const styles = theme => ({
   canvas: {
-    height: '600px',
-    width: '70%',
+    height: `${screen.height > 600 ? '600' : screen.height - 20}px`,
+    width: screen.height > 600 ? '70%' : '90%',
     background: '#e0e0e0',
-    margin: '72px auto',
+    margin: '16px auto',
   },
-  cameraControls: {
+  cube: {
+    width: '50px',
+    height: '50px',
     position: 'absolute',
-    top: '202px',
-    left: '15%',
-    padding: '10px',
+    top: '176px',
+    right: '66px',
+    transformStyle: 'preserve-3d',
+    transform: 'rotateX(55deg) rotateY(0deg) rotateZ(45deg)',
+    transition: 'transform 1s',
   },
-  cameraControl: {
-    color: 'dark-grey',
-    cursor: 'pointer',
-    display: 'inline-block',
-    font: '0.875rem "Roboto", "Helvetica", "Arial", sans-serif',
-    marginLeft: '14px',
-    marginRight: '14px',
-    fontWeight: '400',
+  cameraTop: {
+    ...baseButton,
+    transform: 'rotateY(0deg) translateZ(25px)',
   },
-  cameraControlDivider: {
-    background: 'linear-gradient(90deg, grey 0, black 50%, grey 90%)',
-    display: 'inline-block',
-    height: '25px',
+  cameraSide: {
+    ...baseButton,
+    transform: 'rotateY(90deg) translateZ(25px)',
+  },
+  cameraFront: {
+    ...baseButton,
+    transform: 'rotateX(-90deg) translateZ(25px)',
+  },
+  cameraPerspective: {
     position: 'absolute',
-    top: '8px',
-    width: '1px',
+    border: '1px solid black',
+    right: '70px',
+    color: 'white',
+    top: '254px',
+    fontSize: '21px',
+    fontWeight: 'bold',
+    padding: '3px',
+    textAlign: 'center',
+    background: 'hsla(0, 100%, 50%, 0.7)',
   },
-  togglesContainer: {
-    position: 'absolute',
-    top: '190px',
-    right: '15%',
-    padding: '10px',
-  },
-  controlsContainer: {
-    margin: '0 auto',
-    width: '70%',
-    padding: '10px',
+  description: {
+    width: screen.height > 600 ? '70%' : 'calc(90% - 24px)',
+    padding: '12px',
+    margin: '16px auto',
   },
 });
 
@@ -123,23 +140,24 @@ export class BoatPage extends Component {
       <div>
         <div id={'canvas'} className={this.props.classes.canvas} />
 
-        <div className={this.props.classes.cameraControls}>
-          <div className={this.props.classes.cameraControl} id={'camera-front-button'}>
-            front
+        <div className={this.props.classes.cube}>
+          <div className={this.props.classes.cameraTop} id={'camera-top-button'}>
+            Top
           </div>
-          <div className={this.props.classes.cameraControlDivider} />
-          <div className={this.props.classes.cameraControl} id={'camera-side-button'}>
-            side
+
+          <div className={this.props.classes.cameraSide} id={'camera-side-button'}>
+            Side
           </div>
-          <div className={this.props.classes.cameraControlDivider} />
-          <div className={this.props.classes.cameraControl} id={'camera-top-button'}>
-            top
-          </div>
-          <div className={this.props.classes.cameraControlDivider} />
-          <div className={this.props.classes.cameraControl} id={'camera-45-button'}>
-            45
+
+          <div className={this.props.classes.cameraFront} id={'camera-front-button'}>
+            Front
           </div>
         </div>
+        <div className={this.props.classes.cameraPerspective} id={'camera-45-button'}>
+          45°
+        </div>
+        {/* }
+
 
         <div className={this.props.classes.togglesContainer}>
           <FormGroup row>
@@ -171,8 +189,8 @@ export class BoatPage extends Component {
             />
           </FormGroup>
         </div>
-
-        <Paper className={this.props.classes.controlsContainer}>
+        */}
+        <Paper className={this.props.classes.description}>
           This was a project done for my senior project at New Mexico State University. The goal was
           to be able to construct a boat in 3D and output the blueprints so that an amatur boat
           maker could build it. The user would also be able to save and load their projects via json
