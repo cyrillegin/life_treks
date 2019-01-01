@@ -33,11 +33,14 @@ const styles = {
   },
   icons: {
     marginTop: '20px',
-    width: '20%',
-    display: 'flex',
+    width: '100%',
     justifyContent: 'space-between',
-    marginLeft: '40%',
+    textAlign: 'center',
   },
+  // icon: {
+  //   marginLeft: '6px',
+  //   marginRight: '6px',
+  // },
 };
 
 export class NavBar extends Component {
@@ -73,17 +76,23 @@ export class NavBar extends Component {
 
         <div className={this.props.classes.icons}>
           <SocialIcon
-            style={{ height: 25, width: 25 }}
+            style={{ height: 25, width: 25, marginLeft: '6px', marginRight: '6px' }}
             url="https://www.facebook.com/cyrille.gindreau"
           />
           <SocialIcon
-            style={{ height: 25, width: 25 }}
+            style={{ height: 25, width: 25, marginLeft: '6px', marginRight: '6px' }}
             url="https://www.instagram.com/cyrillegin/"
           />
-          <SocialIcon style={{ height: 25, width: 25 }} url="https://github.com/cyrillegin" />
-          <SocialIcon style={{ height: 25, width: 25 }} url="https://twitter.com/cyrillegin" />
           <SocialIcon
-            style={{ height: 25, width: 25 }}
+            style={{ height: 25, width: 25, marginLeft: '6px', marginRight: '6px' }}
+            url="https://github.com/cyrillegin"
+          />
+          <SocialIcon
+            style={{ height: 25, width: 25, marginLeft: '6px', marginRight: '6px' }}
+            url="https://twitter.com/cyrillegin"
+          />
+          <SocialIcon
+            style={{ height: 25, width: 25, marginLeft: '6px', marginRight: '6px' }}
             url="https://www.linkedin.com/in/cyrille-gindreau-77008417/"
           />
         </div>
@@ -99,18 +108,6 @@ export class NavBar extends Component {
           >
             Boat Builder
           </Link>
-
-          <Link
-            to="/dragonfly"
-            className={
-              currentPage === '/dragonfly'
-                ? this.props.classes.selectedMenuItem
-                : this.props.classes.menuItem
-            }
-          >
-            Dragonfly
-          </Link>
-
           <Link
             to="/visualization"
             className={
@@ -120,6 +117,16 @@ export class NavBar extends Component {
             }
           >
             Data Visualization
+          </Link>
+          <Link
+            to="/dragonfly"
+            className={
+              currentPage === '/dragonfly'
+                ? this.props.classes.selectedMenuItem
+                : this.props.classes.menuItem
+            }
+          >
+            Dragonfly
           </Link>
         </div>
       </div>

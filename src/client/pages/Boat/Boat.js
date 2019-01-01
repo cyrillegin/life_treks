@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import initScene from './controllers/scene.controller';
 import initLights from './controllers/lights.controller';
@@ -11,46 +10,77 @@ import CameraController from './controllers/camera.controller';
 import MeshController from './controllers/mesh.controller';
 import CurvesController from './controllers/curves.controller';
 
+const baseButton = {
+  position: 'absolute',
+  width: '50px',
+  height: '50px',
+  border: '1px solid black',
+  lineHeight: '50px',
+  fontSize: '20px',
+  fontWeight: 'bold',
+  color: 'white',
+  textAlign: 'center',
+  '&:hover': {
+    background: 'rgba(0, 197, 0, 1)',
+  },
+};
 const styles = theme => ({
   canvas: {
-    height: '600px',
-    width: '70%',
+    height: `${screen.height > 600 ? '600' : screen.height - 20}px`,
+    width: screen.height > 600 ? '70%' : '90%',
     background: '#e0e0e0',
-    margin: '72px auto',
+    margin: '16px auto',
   },
-  cameraControls: {
+  cube: {
+    width: '50px',
+    height: '50px',
     position: 'absolute',
-    top: '202px',
-    left: '15%',
-    padding: '10px',
+    top: '176px',
+    right: screen.height > 600 ? 'calc(15% + 33px)' : 'calc(33px + 5%)',
+    transformStyle: 'preserve-3d',
+    transform: 'rotateX(55deg) rotateY(0deg) rotateZ(45deg)',
+    transition: 'transform 1s',
   },
-  cameraControl: {
-    color: 'dark-grey',
-    cursor: 'pointer',
-    display: 'inline-block',
-    font: '0.875rem "Roboto", "Helvetica", "Arial", sans-serif',
-    marginLeft: '14px',
-    marginRight: '14px',
-    fontWeight: '400',
+  cameraTop: {
+    ...baseButton,
+    transform: 'rotateY(0deg) translateZ(25px)',
+    background: 'rgba(172, 172, 172, 0.7)',
   },
-  cameraControlDivider: {
-    background: 'linear-gradient(90deg, grey 0, black 50%, grey 90%)',
-    display: 'inline-block',
-    height: '25px',
+  cameraSide: {
+    ...baseButton,
+    transform: 'rotateY(90deg) translateZ(25px)',
+    background: 'rgba(76, 76, 76, 0.7)',
+  },
+  cameraFront: {
+    ...baseButton,
+    transform: 'rotateX(-90deg) translateZ(25px)',
+    background: 'rgba(0, 0, 0, 0.7)',
+  },
+  cameraPerspective: {
     position: 'absolute',
-    top: '8px',
-    width: '1px',
+    border: '1px solid black',
+    right: screen.height > 600 ? 'calc(15% + 38px)' : 'calc(38px + 5%)',
+    color: 'white',
+    top: '254px',
+    fontSize: '21px',
+    fontWeight: 'bold',
+    padding: '3px',
+    textAlign: 'center',
+    background: 'rgba(172, 172, 172, 0.7)',
+    '&:hover': {
+      background: 'rgba(0, 197, 0, 1)',
+    },
   },
   togglesContainer: {
     position: 'absolute',
-    top: '190px',
-    right: '15%',
-    padding: '10px',
+    top: '160px',
+    left: screen.height > 600 ? 'calc(15% + 20px)' : 'calc(5% + 20px)',
+    width: '20%',
   },
-  controlsContainer: {
-    margin: '0 auto',
-    width: '70%',
-    padding: '10px',
+  description: {
+    width: screen.height > 600 ? '70%' : 'calc(90% - 24px)',
+    padding: '12px',
+    margin: '16px auto',
   },
 });
 
@@ -123,56 +153,53 @@ export class BoatPage extends Component {
       <div>
         <div id={'canvas'} className={this.props.classes.canvas} />
 
-        <div className={this.props.classes.cameraControls}>
-          <div className={this.props.classes.cameraControl} id={'camera-front-button'}>
-            front
+        <div className={this.props.classes.cube}>
+          <div className={this.props.classes.cameraTop} id={'camera-top-button'}>
+            Top
           </div>
-          <div className={this.props.classes.cameraControlDivider} />
-          <div className={this.props.classes.cameraControl} id={'camera-side-button'}>
-            side
+
+          <div className={this.props.classes.cameraSide} id={'camera-side-button'}>
+            Side
           </div>
-          <div className={this.props.classes.cameraControlDivider} />
-          <div className={this.props.classes.cameraControl} id={'camera-top-button'}>
-            top
+
+          <div className={this.props.classes.cameraFront} id={'camera-front-button'}>
+            Front
           </div>
-          <div className={this.props.classes.cameraControlDivider} />
-          <div className={this.props.classes.cameraControl} id={'camera-45-button'}>
-            45
-          </div>
+        </div>
+        <div className={this.props.classes.cameraPerspective} id={'camera-45-button'}>
+          45°
         </div>
 
         <div className={this.props.classes.togglesContainer}>
-          <FormGroup row>
-            <FormControlLabel
-              control={
-                <Switch checked={this.state.shaded} onChange={handleDisplayChange} value="shaded" />
-              }
-              label="Toggle Shaded"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.verticies}
-                  onChange={handleDisplayChange}
-                  value="verticies"
-                />
-              }
-              label="Toggle Verticies"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.wireframe}
-                  onChange={handleDisplayChange}
-                  value="wireframe"
-                />
-              }
-              label="Toggle Wireframe"
-            />
-          </FormGroup>
+          <FormControlLabel
+            control={
+              <Switch checked={this.state.shaded} onChange={handleDisplayChange} value="shaded" />
+            }
+            label="Toggle Shaded"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.verticies}
+                onChange={handleDisplayChange}
+                value="verticies"
+              />
+            }
+            label="Toggle Verticies"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.wireframe}
+                onChange={handleDisplayChange}
+                value="wireframe"
+              />
+            }
+            label="Toggle Wireframe"
+          />
         </div>
 
-        <Paper className={this.props.classes.controlsContainer}>
+        <Paper className={this.props.classes.description}>
           This was a project done for my senior project at New Mexico State University. The goal was
           to be able to construct a boat in 3D and output the blueprints so that an amatur boat
           maker could build it. The user would also be able to save and load their projects via json

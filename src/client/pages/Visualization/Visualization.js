@@ -14,8 +14,7 @@ const styles = theme => ({
     textAlign: 'center',
   },
   graphTitle: {
-    marginLeft: '8px',
-    textAlign: 'left',
+    textAlign: 'center',
   },
   statsContianer: {
     flexGrow: 1,
@@ -27,6 +26,8 @@ const styles = theme => ({
     flexGrow: 1,
     maxWidth: '50%',
     marginRight: '20px',
+    marginLeft: '12px',
+    textAlign: 'justify',
   },
   extras: {
     display: 'flex',
@@ -135,7 +136,7 @@ export class VisualizationPage extends Component {
       for (
         let i = parseFloat(this.state.xMin);
         i <= parseFloat(this.state.xMax);
-        i += parseFloat(this.state.resoultion)
+        i += parseFloat(1 / this.state.resoultion)
       ) {
         newSet.push({
           x: i,
@@ -204,7 +205,7 @@ export class VisualizationPage extends Component {
       <div className={this.props.classes.root}>
         <Paper className={this.props.classes.paper} elevation={4}>
           <Typography variant="headline" component="h3" className={this.props.classes.graphTitle}>
-            graph
+            Graphing Calculator
           </Typography>
           <Graph
             points={this.state.points}
