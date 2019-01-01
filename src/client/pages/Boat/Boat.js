@@ -21,7 +21,9 @@ const baseButton = {
   fontWeight: 'bold',
   color: 'white',
   textAlign: 'center',
-  background: 'hsla(0, 100%, 50%, 0.7)',
+  '&:hover': {
+    background: 'rgba(0, 197, 0, 1)',
+  },
 };
 const styles = theme => ({
   canvas: {
@@ -35,7 +37,7 @@ const styles = theme => ({
     height: '50px',
     position: 'absolute',
     top: '176px',
-    right: '66px',
+    right: screen.height > 600 ? 'calc(15% + 33px)' : 'calc(33px + 5%)',
     transformStyle: 'preserve-3d',
     transform: 'rotateX(55deg) rotateY(0deg) rotateZ(45deg)',
     transition: 'transform 1s',
@@ -43,26 +45,38 @@ const styles = theme => ({
   cameraTop: {
     ...baseButton,
     transform: 'rotateY(0deg) translateZ(25px)',
+    background: 'rgba(172, 172, 172, 0.7)',
   },
   cameraSide: {
     ...baseButton,
     transform: 'rotateY(90deg) translateZ(25px)',
+    background: 'rgba(76, 76, 76, 0.7)',
   },
   cameraFront: {
     ...baseButton,
     transform: 'rotateX(-90deg) translateZ(25px)',
+    background: 'rgba(0, 0, 0, 0.7)',
   },
   cameraPerspective: {
     position: 'absolute',
     border: '1px solid black',
-    right: '70px',
+    right: screen.height > 600 ? 'calc(15% + 38px)' : 'calc(38px + 5%)',
     color: 'white',
     top: '254px',
     fontSize: '21px',
     fontWeight: 'bold',
     padding: '3px',
     textAlign: 'center',
-    background: 'hsla(0, 100%, 50%, 0.7)',
+    background: 'rgba(172, 172, 172, 0.7)',
+    '&:hover': {
+      background: 'rgba(0, 197, 0, 1)',
+    },
+  },
+  togglesContainer: {
+    position: 'absolute',
+    top: '160px',
+    left: screen.height > 600 ? 'calc(15% + 20px)' : 'calc(5% + 20px)',
+    width: '20%',
   },
   description: {
     width: screen.height > 600 ? '70%' : 'calc(90% - 24px)',
@@ -156,40 +170,36 @@ export class BoatPage extends Component {
         <div className={this.props.classes.cameraPerspective} id={'camera-45-button'}>
           45°
         </div>
-        {/* }
-
 
         <div className={this.props.classes.togglesContainer}>
-          <FormGroup row>
-            <FormControlLabel
-              control={
-                <Switch checked={this.state.shaded} onChange={handleDisplayChange} value="shaded" />
-              }
-              label="Toggle Shaded"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.verticies}
-                  onChange={handleDisplayChange}
-                  value="verticies"
-                />
-              }
-              label="Toggle Verticies"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={this.state.wireframe}
-                  onChange={handleDisplayChange}
-                  value="wireframe"
-                />
-              }
-              label="Toggle Wireframe"
-            />
-          </FormGroup>
+          <FormControlLabel
+            control={
+              <Switch checked={this.state.shaded} onChange={handleDisplayChange} value="shaded" />
+            }
+            label="Toggle Shaded"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.verticies}
+                onChange={handleDisplayChange}
+                value="verticies"
+              />
+            }
+            label="Toggle Verticies"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.wireframe}
+                onChange={handleDisplayChange}
+                value="wireframe"
+              />
+            }
+            label="Toggle Wireframe"
+          />
         </div>
-        */}
+
         <Paper className={this.props.classes.description}>
           This was a project done for my senior project at New Mexico State University. The goal was
           to be able to construct a boat in 3D and output the blueprints so that an amatur boat
