@@ -51,6 +51,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       THREE: 'three',
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
     // new BundleAnalyzerPlugin(),
   ],

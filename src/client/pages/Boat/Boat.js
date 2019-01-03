@@ -201,7 +201,7 @@ export class BoatPage extends Component {
 
         <Paper className={this.props.classes.description}>
           This was a project done for my senior project at New Mexico State University. The goal was
-          to be able to construct a boat in 3D and output the blueprints so that an amatur boat
+          to be able to construct a boat in 3D and output the blueprints so that an amateur boat
           maker could build it. The user would also be able to save and load their projects via json
           files as well as be able to export in obj or stl formats for 3D printing.
           <br />
