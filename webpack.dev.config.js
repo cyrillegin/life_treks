@@ -44,6 +44,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       THREE: 'three',
     }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
   ],
 };
