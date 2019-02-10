@@ -1,7 +1,7 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
-import NavBar from '../components/navbar/NavBar';
+import NavBar from '../components/NavBar/NavBar';
 
 const BoatContainer = lazy(() => import('./../pages/Boat/BoatContainer'));
 const DragonflyContainer = lazy(() => import('./../pages/Dragonfly/DragonflyContainer'));
