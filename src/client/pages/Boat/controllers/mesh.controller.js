@@ -5,8 +5,6 @@
 import {
   Vector3,
   MeshBasicMaterial,
-  STLExporter,
-  OBJExporter,
   DoubleSide,
   RepeatWrapping,
   TextureLoader,
@@ -203,49 +201,5 @@ export default class MeshController {
     const mesh = app.scene.getObjectByName(this.mesh.name);
     app.scene.remove(mesh);
     return app;
-  }
-
-  setupIO() {
-    // NOTE: due to the nature of face creation, every other face is 'backwards'.
-    // In the display, we set double sided to true so that we don't notice.
-    // Most 3d applications and 3d printers will also notice this and autocorrect.
-    let oldElement = document.getElementById('save-obj');
-    let newElement = oldElement.cloneNode(true);
-    oldElement.parentNode.replaceChild(newElement, oldElement);
-    document.querySelector('#save-obj').addEventListener(
-      'click',
-      () => {
-        const exporter = new OBJExporter();
-        this.downloadFile(exporter, 'OBJ');
-      },
-      true,
-    );
-
-    oldElement = document.getElementById('save-stl');
-    newElement = oldElement.cloneNode(true);
-    oldElement.parentNode.replaceChild(newElement, oldElement);
-    document.querySelector('#save-stl').addEventListener(
-      'click',
-      () => {
-        const exporter = new STLExporter();
-        this.downloadFile(exporter, 'STL');
-      },
-      true,
-    );
-  }
-
-  downloadFile(exporter, type) {
-    const data = exporter.parse(this.mesh);
-    const file = new Blob([data], { type });
-    const a = document.createElement('a');
-    const url = URL.createObjectURL(file);
-    a.href = url;
-    a.download = `boat.${type.toLowerCase()}`;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }, 0);
   }
 }
