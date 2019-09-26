@@ -1,7 +1,6 @@
 /* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -16,7 +15,14 @@ module.exports = {
     publicPath: '/',
   },
   optimization: {
-    minimizer: [new UglifyJSPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: false,
+        terserOptions: {},
+      }),
+    ],
   },
   module: {
     rules: [
