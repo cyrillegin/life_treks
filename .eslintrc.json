@@ -195,6 +195,7 @@
     "react/self-closing-comp": "error",
     "react/jsx-curly-brace-presence": "error",
     "react/jsx-boolean-value": "error",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "react/static-property-placement": "off"
   }
 }

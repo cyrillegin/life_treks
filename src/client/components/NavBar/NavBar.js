@@ -37,10 +37,6 @@ const styles = {
     justifyContent: 'space-between',
     textAlign: 'center',
   },
-  // icon: {
-  //   marginLeft: '6px',
-  //   marginRight: '6px',
-  // },
 };
 
 export class NavBar extends Component {
@@ -51,9 +47,12 @@ export class NavBar extends Component {
     }).isRequired,
   };
 
-  state = {
-    anchorEl: null,
-  };
+  constructor() {
+    super();
+    this.state = {
+      anchorEl: null,
+    };
+  }
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });

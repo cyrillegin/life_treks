@@ -9,11 +9,11 @@ window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('sw.js')
       .then(() => {
-        console.log('Service worker registered');
+        console.info('Service worker registered');
       })
       .catch(e => {
-        console.log('Error registering service worker');
-        console.log(e);
+        console.info('Error registering service worker');
+        console.info(e);
       });
   }
 });

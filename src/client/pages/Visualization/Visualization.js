@@ -46,17 +46,24 @@ export class VisualizationPage extends Component {
     classes: PropTypes.object.isRequired,
   };
 
-  state = {
-    readings: [],
-    equation: 'x ^ 2',
-    points: [],
-    xMin: -10,
-    xMax: 10,
-    yMin: 0,
-    yMax: 20,
-    resoultion: 1,
-    hasError: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      readings: [],
+      equation: 'x ^ 2',
+      points: [],
+      xMin: -10,
+      xMax: 10,
+      yMin: 0,
+      yMax: 20,
+      resoultion: 1,
+      hasError: false,
+    };
+  }
+
+  componentDidMount() {
+    this.parseEquation();
+  }
 
   checkInputs() {
     let err = false;
@@ -101,7 +108,7 @@ export class VisualizationPage extends Component {
         case '^':
           tree = {
             left: tree,
-            value: value,
+            value,
             right: null,
           };
           break;
@@ -109,7 +116,7 @@ export class VisualizationPage extends Component {
           if (!isNaN(parseInt(value))) {
             let cursor = 1;
             while (!isNaN(parseInt(arr[i + cursor]))) {
-              value = value + arr[i + cursor];
+              value += arr[i + cursor];
               cursor++;
             }
             i += cursor - 1;
@@ -120,13 +127,13 @@ export class VisualizationPage extends Component {
             tree.left = {
               left: null,
               right: null,
-              value: value,
+              value,
             };
           } else if (tree.right === null) {
             tree.right = {
               left: null,
               right: null,
-              value: value,
+              value,
             };
           }
       }
@@ -176,10 +183,6 @@ export class VisualizationPage extends Component {
       case '^':
         return Math.pow(this.getValue(tree.left, value), this.getValue(tree.right, value));
     }
-  }
-
-  componentDidMount() {
-    this.parseEquation();
   }
 
   render() {
@@ -232,7 +235,7 @@ export class VisualizationPage extends Component {
                         type="text"
                         value={this.state.equation}
                         onChange={handleEqInput('name')}
-                        aria-label={'Equation input'}
+                        aria-label="Equation input"
                       />
                     </td>
                   </tr>
@@ -243,7 +246,7 @@ export class VisualizationPage extends Component {
                         type="text"
                         value={this.state.xMin}
                         onChange={handleRangeInput('xMin')}
-                        aria-label={'X axis minimum'}
+                        aria-label="X axis minimum"
                       />
                     </td>
                   </tr>
@@ -254,7 +257,7 @@ export class VisualizationPage extends Component {
                         type="text"
                         value={this.state.xMax}
                         onChange={handleRangeInput('xMax')}
-                        aria-label={'X axis maximum'}
+                        aria-label="X axis maximum"
                       />
                     </td>
                   </tr>
@@ -265,7 +268,7 @@ export class VisualizationPage extends Component {
                         type="text"
                         value={this.state.yMin}
                         onChange={handleRangeInput('yMin')}
-                        aria-label={'Y axis minimum'}
+                        aria-label="Y axis minimum"
                       />
                     </td>
                   </tr>
@@ -276,7 +279,7 @@ export class VisualizationPage extends Component {
                         type="text"
                         value={this.state.yMax}
                         onChange={handleRangeInput('yMax')}
-                        aria-label={'Y axis Maximum'}
+                        aria-label="Y axis Maximum"
                       />
                     </td>
                   </tr>
@@ -287,7 +290,7 @@ export class VisualizationPage extends Component {
                         type="text"
                         value={this.state.resoultion}
                         onChange={handleRangeInput('resoultion')}
-                        aria-label={'Resoultion of the graph line'}
+                        aria-label="Resoultion of the graph line"
                       />
                     </td>
                   </tr>
