@@ -1,0 +1,41 @@
+.root {
+  margin: 16px;
+}
+
+.paper {
+  padding: 20px;
+  text-align: center;
+}
+
+.graph-title {
+  text-align: center;
+}
+
+.stats-contianer {
+  flex-grow: 1;
+}
+
+.input-container {
+  flex-grow: 1;
+}
+
+.description-container {
+  flex-grow: 1;
+  max-width: 50%;
+  margin-right: 20px;
+  margin-left: 12px;
+  text-align: justify;
+}
+
+.extras {
+  display: flex;
+  text-align: left;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.error-message {
+  color: red;
+}
