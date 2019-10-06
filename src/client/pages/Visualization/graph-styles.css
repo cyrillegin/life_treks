@@ -10,6 +10,6 @@
 }
 
 .chart-axis-shape > g > text {
-  stroke: none;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  stroke: none;
 }

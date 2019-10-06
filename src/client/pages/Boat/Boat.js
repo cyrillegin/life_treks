@@ -116,7 +116,7 @@ export class BoatPage extends Component {
         this.curveController.updateFrames(this.app, data);
         this.meshController.initMesh(this.app, data);
         this.meshController.showMesh(this.app.displayShaded);
-        // this.oldValues = JSON.parse(JSON.stringify(this.boatParametersService.updatePoint(data)));
+        // this.oldValues=JSON.parse(JSON.stringify(this.boatParametersService.updatePoint(data)));
         this.app.render();
         this.setState({
           loaded: true,
@@ -128,13 +128,14 @@ export class BoatPage extends Component {
   render() {
     const handleDisplayChange = e => {
       if (this.state.loaded) {
+        const { value } = e.target;
         this.setState({
-          [e.target.value]: !this.state[e.target.value],
+          [value]: !this.state[value],
         });
-        if (e.target.value === 'shaded') {
-          this.meshController.showMesh(!this.state[e.target.value]);
+        if (value === 'shaded') {
+          this.meshController.showMesh(!this.state[value]);
         }
-        if (e.target.value === 'verticies') {
+        if (value === 'verticies') {
           this.app.displayVerticies = !this.app.displayVerticies;
 
           Object.keys(this.state.boat).forEach(key => {
@@ -145,7 +146,7 @@ export class BoatPage extends Component {
           });
           this.curveController.initCurves(this.app, this.state.boat);
         }
-        if (e.target.value === 'wireframe') {
+        if (value === 'wireframe') {
           this.app.displayWireFrame = !this.app.displayWireFrame;
           this.curveController.showCurves(!this.app.displayWireFrame);
         }
@@ -181,23 +182,23 @@ export class BoatPage extends Component {
             label="Toggle Shaded"
           />
           <FormControlLabel
-            control={
+            control={(
               <Switch
                 checked={this.state.verticies}
                 onChange={handleDisplayChange}
                 value="verticies"
               />
-            }
+            )}
             label="Toggle Verticies"
           />
           <FormControlLabel
-            control={
+            control={(
               <Switch
                 checked={this.state.wireframe}
                 onChange={handleDisplayChange}
                 value="wireframe"
               />
-            }
+            )}
             label="Toggle Wireframe"
           />
         </div>

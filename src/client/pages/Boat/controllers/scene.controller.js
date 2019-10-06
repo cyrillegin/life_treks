@@ -1,14 +1,4 @@
-/*
-    scene.controller.js
-    Authors: Cyrille Gindreau
-
-    initScene()
-    initializes the scene and renderer of THREE scene.
-
-    render()
-    renders the next frame of the scene.
-
-*/
+/* eslint-disable no-param-reassign */
 import { Scene, PCFSoftShadowMap, WebGLRenderer } from 'three/build/three.module';
 import TWEEN from '@tweenjs/tween.js';
 

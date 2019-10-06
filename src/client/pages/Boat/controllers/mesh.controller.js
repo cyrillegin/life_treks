@@ -1,7 +1,4 @@
-/*
-    mesh.controller.js
-    Authors: Cyrille Gindreau
-*/
+/* eslint-disable no-param-reassign */
 import {
   Vector3,
   MeshBasicMaterial,
@@ -116,7 +113,7 @@ export default class MeshController {
     return initialFace;
   }
 
-  splitCurve(curveA, curveB) {
+  splitCurve = (curveA, curveB) => {
     const parts = [];
     const itterations = 8;
     let lastA = casteljauPoint(curveA, 0);
@@ -132,9 +129,9 @@ export default class MeshController {
       lastB = currentB;
     }
     return parts;
-  }
+  };
 
-  drawFace(slice) {
+  drawFace = slice => {
     const geometry = new Geometry();
     const normal = new Vector3(0, 0, 0);
     geometry.vertices.push(
@@ -154,10 +151,11 @@ export default class MeshController {
     geometry.computeBoundingSphere();
 
     return geometry;
-  }
+  };
 
-  defineUvs(geometry) {
-    // NOTE: The following was taken from: https://stackoverflow.com/questions/20774648/three-js-generate-uv-coordinate
+  defineUvs = geometry => {
+    // NOTE: The following was taken from:
+    // https://stackoverflow.com/questions/20774648/three-js-generate-uv-coordinate
     // TODO: We'll need to run our own uving system but this seems to work okay for the time being.
     geometry.faceVertexUvs[0] = [];
 
@@ -179,9 +177,9 @@ export default class MeshController {
 
     geometry.uvsNeedUpdate = true;
     return geometry;
-  }
+  };
 
-  defineMaterial() {
+  defineMaterial = () => {
     const texture = new TextureLoader().load('models/wood_texture.webp');
     texture.wrapS = RepeatWrapping;
     texture.wrapT = RepeatWrapping;
@@ -191,7 +189,7 @@ export default class MeshController {
       side: DoubleSide,
     });
     return material;
-  }
+  };
 
   showMesh(show) {
     this.mesh.visible = show;

@@ -1,12 +1,4 @@
-/*
-    lights.controller.js
-    Authors: Cyrille Gindreau
-
-    initLights()
-    Creates two lights: a sun and a backlight, and adds them to the scene.
-
-
-*/
+/* eslint-disable no-param-reassign */
 import { SpotLight, AmbientLight } from 'three/build/three.module';
 
 function initLights(app) {

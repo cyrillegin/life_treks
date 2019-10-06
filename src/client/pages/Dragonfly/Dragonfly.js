@@ -71,8 +71,6 @@ export class DragonflyPage extends Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
-      plugins: null,
       dialogIsOpen: false,
       dialogMessage: '',
       dialogTitle: '',
@@ -82,7 +80,6 @@ export class DragonflyPage extends Component {
       description: '',
       coefficients: '',
       station: '',
-      poller: '',
       pin: '',
       units: '',
       endpoint: '',
@@ -93,14 +90,12 @@ export class DragonflyPage extends Component {
   handlePluginSelect(name) {
     this.setState({
       selectedPlugin: name,
-      testResult: {},
     });
   }
 
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
-      testResult: {},
     });
   };
 
@@ -198,7 +193,7 @@ export class DragonflyPage extends Component {
                   className={
                     plugin === this.state.selectedPlugin ? this.props.classes.selectedPlugin : null
                   }
-                  key={index}
+                  key={plugin}
                   button
                   onClick={() => {
                     this.handlePluginSelect(plugin);
@@ -305,6 +300,7 @@ export class DragonflyPage extends Component {
           id="dragonfly-image"
           alt="Home screen of Dragonfly"
           onClick={fullscreen}
+          onKeyDown={fullscreen}
         />
         <p className={this.props.classes.descriptionContainer}>
           Dragonfly is all purpose sensor poller designed to be an easy interface for using

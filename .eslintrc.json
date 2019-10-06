@@ -169,7 +169,7 @@
     "jsx-a11y/media-has-caption": "error",
     "no-extra-boolean-cast": "error",
     "no-param-reassign": "error",
-    "no-restricted-globals": "error",
+    "no-restricted-globals": ["error", "event", "fdescribe"],
     "jsx-a11y/label-has-associated-control": "error",
     "no-useless-return": "error",
     "function-paren-newline": "off",

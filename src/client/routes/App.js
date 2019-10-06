@@ -1,7 +1,7 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
-import NavBar from '../components/NavBar/NavBar';
+import NavBar from '../components/navbar/NavBar';
 
 const BoatContainer = lazy(() => import('../pages/Boat/BoatContainer'));
 const DragonflyContainer = lazy(() => import('../pages/Dragonfly/DragonflyContainer'));
@@ -17,9 +17,9 @@ export default class App extends Component {
     document.querySelector('.loader').style.visibility = 'hidden';
   }
 
-  fireTracking() {
+  fireTracking = () => {
     ReactGA.pageview(window.location.hash);
-  }
+  };
 
   render() {
     return (

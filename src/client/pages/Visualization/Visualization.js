@@ -49,7 +49,6 @@ export class VisualizationPage extends Component {
   constructor() {
     super();
     this.state = {
-      readings: [],
       equation: 'x ^ 2',
       points: [],
       xMin: -10,
@@ -113,9 +112,9 @@ export class VisualizationPage extends Component {
           };
           break;
         default:
-          if (!isNaN(parseInt(value))) {
+          if (!isNaN(parseInt(value, 10))) {
             let cursor = 1;
-            while (!isNaN(parseInt(arr[i + cursor]))) {
+            while (!isNaN(parseInt(arr[i + cursor], 10))) {
               value += arr[i + cursor];
               cursor++;
             }
@@ -161,13 +160,13 @@ export class VisualizationPage extends Component {
     });
   }
 
-  getValue(tree, value) {
+  getValue = (tree, value) => {
     // leaf node
     if (tree.left === null && tree.right === null) {
-      if (isNaN(parseInt(tree.value))) {
+      if (isNaN(parseInt(tree.value, 10))) {
         return value;
       }
-      return parseInt(tree.value);
+      return parseInt(tree.value, 10);
     }
 
     // operator
@@ -183,7 +182,7 @@ export class VisualizationPage extends Component {
       case '^':
         return Math.pow(this.getValue(tree.left, value), this.getValue(tree.right, value));
     }
-  }
+  };
 
   render() {
     const handleEqInput = e => event => {
