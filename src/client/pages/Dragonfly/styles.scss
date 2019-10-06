@@ -1,41 +1,43 @@
+$light-green: #dcffdc;
+
 .root {
-  // width: screen.width > 850 ? 80% : 90%,
   margin: auto;
+  width: 80%;
 }
 
 .description-container {
-  text-align: justified;
   line-height: 1.6em;
+  text-align: justified;
 }
 
 image {
-  width: 53%;
   float: right;
   margin: 24px 0 0 14px;
+  width: 53%;
 }
 
 .demo-container {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
 }
 
 .full-paper {
-  width: 100%;
   padding: 16px;
   transition: 500ms;
+  width: 100%;
 }
 
 .left-paper {
-  width: 33%;
   padding: 16px;
   transition: 500ms;
+  width: 33%;
 }
 
 .right-paper {
-  width: 100%;
   margin-left: 16px;
   padding: 16px;
   transition: 500ms;
+  width: 100%;
 }
 
 .text-field {
@@ -43,5 +45,5 @@ image {
 }
 
 .selected-plugin {
-  background: #dcffdc;
+  background: $light-green;
 }

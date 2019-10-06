@@ -1,81 +1,90 @@
+$grey: #e0e0e0;
+$shadow1: rgba(172, 172, 172, 0.7);
+$shadow2: rgba(76, 76, 76, 0.7);
+$shadow3: rgba(0, 0, 0, 0.7);
+$green: rgba(0, 197, 0, 1);
+$black: #000;
+$white: #fff;
+$red: rgba(0, 197, 0, 1);
+
 .canvas {
+  background: $grey;
   height: 600px;
-  width: 70%;
-  background: #e0e0e0;
   margin: 16px auto;
+  width: 70%;
 }
 
 .cube {
-  width: 50px;
   height: 50px;
   position: absolute;
-  top: 176px;
   right: calc(15% + 33px);
-  transform-style: preserve-3d;
+  top: 176px;
   transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);
+  transform-style: preserve-3d;
   transition: transform 1s;
+  width: 50px;
 }
 
 @mixin base-button() {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border: 1px solid black;
-  line-height: 50px;
+  border: 1px solid $black;
+  color: $white;
   font-size: 20px;
   font-weight: bold;
-  color: white;
+  height: 50px;
+  line-height: 50px;
+  position: absolute;
   text-align: center;
+  width: 50px;
 
   &:hover {
-    background: rgba(0, 197, 0, 1);
+    background: $red;
   }
 }
 
 .camera-top {
   @include base-button();
+  background: $shadow1;
   transform: rotateY(0deg) translateZ(25px);
-  background: rgba(172, 172, 172, 0.7);
 }
 
 .camera-side {
   @include base-button();
+  background: $shadow2;
   transform: rotateY(90deg) translateZ(25px);
-  background: rgba(76, 76, 76, 0.7);
 }
 
 .camera-front {
   @include base-button();
+  background: $shadow3;
   transform: rotateX(-90deg) translateZ(25px);
-  background: rgba(0, 0, 0, 0.7);
 }
 
 .camera-perspective {
-  position: absolute;
-  border: 1px solid black;
-  right: calc(15% + 38px);
-  color: white;
-  top: 254px;
+  background: $shadow1;
+  border: 1px solid $black;
+  color: $white;
   font-size: 21px;
   font-weight: bold;
   padding: 3px;
+  position: absolute;
+  right: calc(15% + 38px);
   text-align: center;
-  background: rgba(172, 172, 172, 0.7);
+  top: 254px;
 
   &:hover {
-    background: rgba(0, 197, 0, 1);
+    background: $green;
   }
 }
 
 .toggles-container {
+  left: calc(15% + 20px);
   position: absolute;
   top: 160px;
-  left: calc(15% + 20px);
   width: 20%;
 }
 
 .description {
-  width: 70%;
-  padding: 12px;
   margin: 16px auto;
+  padding: 12px;
+  width: 70%;
 }

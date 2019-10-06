@@ -1,6 +1,9 @@
+$black: #000;
+$green: #07c300;
+
 .root {
-  width: 100%;
   top: 0;
+  width: 100%;
 }
 
 .title {
@@ -8,29 +11,29 @@
 }
 
 .menu-group {
-  text-align: center;
   margin-bottom: 20px;
   margin-top: 20px;
+  text-align: center;
 }
 
 .menu-item {
-  text-decoration: none;
-  margin: 36px;
-  color: #000;
+  color: $black;
   font-size: 1.4rem;
+  margin: 36px;
+  text-decoration: none;
 }
 
 .selected-menu-item {
-  text-decoration: none;
-  margin: 36px;
-  color: #000;
+  border-bottom: 1px solid $green;
+  color: $black;
   font-size: 1.4rem;
-  border-bottom: 1px solid #07c300;
+  margin: 36px;
+  text-decoration: none;
 }
 
 .icons {
-  margin-top: 20px;
-  width: 100%;
   justify-content: space-between;
+  margin-top: 20px;
   text-align: center;
+  width: 100%;
 }

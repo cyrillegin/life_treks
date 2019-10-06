@@ -1,7 +1,9 @@
+$black: #000;
+
 .chart-axis-shape {
   fill: none;
   shape-rendering: crispEdges;
-  stroke: #000;
+  stroke: $black;
   stroke-width: 1px;
 }
 
