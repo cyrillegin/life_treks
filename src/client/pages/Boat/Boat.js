@@ -90,12 +90,15 @@ export class BoatPage extends Component {
     getBoat: PropTypes.func.isRequired,
   };
 
-  state = {
-    loaded: false,
-    shaded: true,
-    wireframe: true,
-    verticies: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      loaded: false,
+      shaded: true,
+      wireframe: true,
+      verticies: false,
+    };
+  }
 
   componentDidMount() {
     this.app = initScene(document.querySelector('#canvas'));
@@ -151,22 +154,22 @@ export class BoatPage extends Component {
 
     return (
       <div>
-        <div id={'canvas'} className={this.props.classes.canvas} />
+        <div id="canvas" className={this.props.classes.canvas} />
 
         <div className={this.props.classes.cube}>
-          <div className={this.props.classes.cameraTop} id={'camera-top-button'}>
+          <div className={this.props.classes.cameraTop} id="camera-top-button">
             Top
           </div>
 
-          <div className={this.props.classes.cameraSide} id={'camera-side-button'}>
+          <div className={this.props.classes.cameraSide} id="camera-side-button">
             Side
           </div>
 
-          <div className={this.props.classes.cameraFront} id={'camera-front-button'}>
+          <div className={this.props.classes.cameraFront} id="camera-front-button">
             Front
           </div>
         </div>
-        <div className={this.props.classes.cameraPerspective} id={'camera-45-button'}>
+        <div className={this.props.classes.cameraPerspective} id="camera-45-button">
           45°
         </div>
 
@@ -178,23 +181,23 @@ export class BoatPage extends Component {
             label="Toggle Shaded"
           />
           <FormControlLabel
-            control={
+            control={(
               <Switch
                 checked={this.state.verticies}
                 onChange={handleDisplayChange}
                 value="verticies"
               />
-            }
+            )}
             label="Toggle Verticies"
           />
           <FormControlLabel
-            control={
+            control={(
               <Switch
                 checked={this.state.wireframe}
                 onChange={handleDisplayChange}
                 value="wireframe"
               />
-            }
+            )}
             label="Toggle Wireframe"
           />
         </div>

@@ -18,7 +18,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
-console.log(screen);
 const styles = theme => ({
   root: {
     width: screen.width > 850 ? '80%' : '90%',
@@ -69,24 +68,27 @@ export class DragonflyPage extends Component {
     plugins: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   };
 
-  state = {
-    loading: true,
-    plugins: null,
-    dialogIsOpen: false,
-    dialogMessage: '',
-    dialogTitle: '',
-    selectedPlugin: '',
-    pollRate: '',
-    name: '',
-    description: '',
-    coefficients: '',
-    station: '',
-    poller: '',
-    pin: '',
-    units: '',
-    endpoint: '',
-    meta: '',
-  };
+  constructor() {
+    super();
+    this.state = {
+      loading: true,
+      plugins: null,
+      dialogIsOpen: false,
+      dialogMessage: '',
+      dialogTitle: '',
+      selectedPlugin: '',
+      pollRate: '',
+      name: '',
+      description: '',
+      coefficients: '',
+      station: '',
+      poller: '',
+      pin: '',
+      units: '',
+      endpoint: '',
+      meta: '',
+    };
+  }
 
   handlePluginSelect(name) {
     this.setState({
@@ -153,7 +155,7 @@ export class DragonflyPage extends Component {
       } else if (image.msRequestFullscreen) {
         image.msRequestFullscreen();
       } else {
-        console.log('Fullscreen API is not supported.');
+        console.error('Fullscreen API is not supported.');
       }
     };
 
@@ -191,25 +193,21 @@ export class DragonflyPage extends Component {
             </Typography>
 
             <List component="nav" className={this.props.classes.pluginsList}>
-              {this.props.plugins.map((plugin, index) => {
-                return (
-                  <ListItem
-                    className={
-                      plugin === this.state.selectedPlugin
-                        ? this.props.classes.selectedPlugin
-                        : null
-                    }
-                    key={index}
-                    button
-                    onClick={() => {
-                      this.handlePluginSelect(plugin);
-                    }}
-                  >
-                    <ListItemIcon>{pollerIcon(plugin)}</ListItemIcon>
-                    <ListItemText primary={plugin} />
-                  </ListItem>
-                );
-              })}
+              {this.props.plugins.map((plugin, index) => (
+                <ListItem
+                  className={
+                    plugin === this.state.selectedPlugin ? this.props.classes.selectedPlugin : null
+                  }
+                  key={index}
+                  button
+                  onClick={() => {
+                    this.handlePluginSelect(plugin);
+                  }}
+                >
+                  <ListItemIcon>{pollerIcon(plugin)}</ListItemIcon>
+                  <ListItemText primary={plugin} />
+                </ListItem>
+              ))}
             </List>
           </Paper>
           {this.state.selectedPlugin !== '' && (
@@ -276,7 +274,7 @@ export class DragonflyPage extends Component {
                 />
                 <TextField
                   id="endpoint"
-                  label={'Endpoint'}
+                  label="Endpoint"
                   onChange={this.handleChange('endpoint')}
                   className={this.props.classes.textField}
                   value={this.state.endpoint}
@@ -284,7 +282,7 @@ export class DragonflyPage extends Component {
                 />
                 <TextField
                   id="meta"
-                  label={'Meta'}
+                  label="Meta"
                   onChange={this.handleChange('meta')}
                   className={this.props.classes.textField}
                   value={this.state.meta}
@@ -293,7 +291,7 @@ export class DragonflyPage extends Component {
                 <Button className={this.props.classes.button} onClick={testSensor}>
                   Test Sensor
                 </Button>
-                <Button disabled={true} className={this.props.classes.button}>
+                <Button disabled className={this.props.classes.button}>
                   Submit Sensor
                 </Button>
               </form>
@@ -305,7 +303,7 @@ export class DragonflyPage extends Component {
           className={this.props.classes.image}
           src="/screenshots/home.webp"
           id="dragonfly-image"
-          alt={'Image of the home screen of Dragonfly'}
+          alt="Home screen of Dragonfly"
           onClick={fullscreen}
         />
         <p className={this.props.classes.descriptionContainer}>

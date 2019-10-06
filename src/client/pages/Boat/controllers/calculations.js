@@ -37,7 +37,8 @@ export function applyOffsets(boat, curve, key) {
 
 // Implementation of casteljau's algorithem, adapted from 2d to 3d from
 // https://stackoverflow.com/questions/14174252/how-to-find-out-y-coordinate-of-specific-point-in-bezier-curve-in-canvas
-// Takes a curve and a percent along the curve and returns the 3d coordinates of that point in a vector3
+// Takes a curve and a percent along the curve and returns
+// the 3d coordinates of that point in a vector3
 export function casteljauPoint(curve, t) {
   // const THREE = require('three'); //eslint-disable-line
   // Step 1
@@ -87,9 +88,9 @@ export function casteljauFromY(curve, distFromBack) {
     if (Math.abs(Math.abs(result.z) - distFromBack) < bounds) {
       withinBounds = true;
     } else if (Math.abs(result.z) - distFromBack < 0) {
-      t = t + 0.5 / (tries + 1);
+      t += 0.5 / (tries + 1);
     } else {
-      t = t - 0.5 / (tries + 1);
+      t -= 0.5 / (tries + 1);
     }
     // Some funky stuff happens around the mid section so
     // we make sure that t never goes out of bounds.

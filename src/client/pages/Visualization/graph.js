@@ -33,9 +33,19 @@ export class Graph extends Component {
     }).isRequired,
   };
 
-  state = {
-    mounted: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      mounted: false,
+    };
+  }
+
+  componentDidMount() {
+    this.drawGraph();
+    this.setState({
+      mounted: true,
+    });
+  }
 
   drawGraph() {
     if (this.props.points.length === 0) {
@@ -135,14 +145,13 @@ export class Graph extends Component {
     // Graph lines
     const lineFunction = d3
       .line()
-      .defined(d => {
-        return (
+      .defined(
+        d =>
           d.x <= this.props.ranges.xMax &&
           d.x >= this.props.ranges.xMin &&
           d.y >= this.props.ranges.yMin &&
-          d.y <= this.props.ranges.yMax
-        );
-      })
+          d.y <= this.props.ranges.yMax,
+      )
       .x(d => xScale(d.x))
       .y(d => yScale(d.y));
 
@@ -153,13 +162,6 @@ export class Graph extends Component {
       .attr('stroke-width', 2)
       .attr('fill', 'none');
   } // End D3
-
-  componentDidMount() {
-    this.drawGraph();
-    this.setState({
-      mounted: true,
-    });
-  }
 
   render() {
     if (this.state.mounted) {
