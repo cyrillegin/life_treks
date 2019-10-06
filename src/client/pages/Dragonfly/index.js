@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+// import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,59 +16,17 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import './styles.scss';
 
-const styles = theme => ({
-  root: {
-    width: screen.width > 850 ? '80%' : '90%',
-    margin: 'auto',
-  },
-  descriptionContainer: {
-    textAlign: 'justified',
-    lineHeight: '1.6em',
-  },
+const PLUGINS = ['cryptoPoller', 'customEntry', 'gpioPoller', 'BMP180Poller', 'DHT11Poller'];
 
-  image: {
-    width: '53%',
-    float: 'right',
-    margin: '24px 0 0 14px',
-  },
-  demoContainer: {
-    flexGrow: 1,
-    display: 'flex',
-  },
-  fullPaper: {
-    width: '100%',
-    padding: '16px',
-    transition: '500ms',
-  },
-  leftPaper: {
-    width: '33%',
-    padding: '16px',
-    transition: '500ms',
-  },
-  rightPaper: {
-    width: '100%',
-    marginLeft: '16px',
-    padding: '16px',
-    transition: '500ms',
-  },
-  textField: {
-    width: '100%',
-  },
-  selectedPlugin: {
-    background: '#dcffdc',
-  },
-});
+export default class Dragonfly extends Component {
+  // static propTypes = {
+  //   testPlugin: PropTypes.func.isRequired,
+  // };
 
-export class DragonflyPage extends Component {
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-    testPlugin: PropTypes.func.isRequired,
-    plugins: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  };
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       dialogIsOpen: false,
       dialogMessage: '',
@@ -99,67 +56,85 @@ export class DragonflyPage extends Component {
     });
   };
 
-  render() {
-    const testSensor = () => {
-      this.props
-        .testPlugin(this.state.selectedPlugin, {
-          name: this.state.name,
-          description: this.state.description,
-          coefficients: this.state.coefficients,
-          station: this.state.station,
-          pollRate: this.state.pollRate,
-          pin: this.state.pin,
-          units: this.state.units,
-          endpoint: this.state.endpoint,
-          meta: this.state.meta,
-        })
-        .then(data => {
-          this.setState({
-            dialogIsOpen: true,
-            dialogMessage: data,
-            dialogTitle: 'Test Result',
-          });
-        });
-    };
-
-    const closeDialog = () => {
+  testSensor = () => {
+    this.testPlugin(this.state.selectedPlugin, {
+      name: this.state.name,
+      description: this.state.description,
+      coefficients: this.state.coefficients,
+      station: this.state.station,
+      pollRate: this.state.pollRate,
+      pin: this.state.pin,
+      units: this.state.units,
+      endpoint: this.state.endpoint,
+      meta: this.state.meta,
+    }).then(data => {
       this.setState({
-        dialogIsOpen: false,
+        dialogIsOpen: true,
+        dialogMessage: data,
+        dialogTitle: 'Test Result',
       });
-    };
+    });
+  };
 
-    const pollerIcon = icon => {
-      switch (icon) {
-        case 'cryptoPoller':
-          return <MonetizationOnIcon />;
-        case 'gpioPoller':
-          return <ACUnitIcon />;
-        default:
-          return <ShowChartIcon />;
-      }
-    };
+  closeDialog = () => {
+    this.setState({
+      dialogIsOpen: false,
+    });
+  };
 
-    const fullscreen = e => {
-      const image = document.getElementById('dragonfly-image');
-      if (image.requestFullscreen) {
-        image.requestFullscreen();
-      } else if (image.webkitRequestFullscreen) {
-        image.webkitRequestFullscreen();
-      } else if (image.mozRequestFullScreen) {
-        image.mozRequestFullScreen();
-      } else if (image.msRequestFullscreen) {
-        image.msRequestFullscreen();
+  pollerIcon = icon => {
+    switch (icon) {
+      case 'cryptoPoller':
+        return <MonetizationOnIcon />;
+      case 'gpioPoller':
+        return <ACUnitIcon />;
+      default:
+        return <ShowChartIcon />;
+    }
+  };
+
+  fullscreen = e => {
+    const image = document.getElementById('dragonfly-image');
+    if (image.requestFullscreen) {
+      image.requestFullscreen();
+    } else if (image.webkitRequestFullscreen) {
+      image.webkitRequestFullscreen();
+    } else if (image.mozRequestFullScreen) {
+      image.mozRequestFullScreen();
+    } else if (image.msRequestFullscreen) {
+      image.msRequestFullscreen();
+    } else {
+      console.error('Fullscreen API is not supported.');
+    }
+  };
+
+  testPlugin = (plugin, details) =>
+    new Promise((res, rej) => {
+      if (plugin === 'cryptoPoller') {
+        fetch('/crypto', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ plugin, details }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            res(data);
+          });
       } else {
-        console.error('Fullscreen API is not supported.');
+        res({});
       }
-    };
+    });
 
+  render() {
     return (
-      <div className={this.props.classes.root}>
-        <div className={this.props.classes.demoContainer}>
+      <div className="root">
+        <div className="demo-container">
           <Dialog
             open={this.state.dialogIsOpen}
-            onClose={closeDialog}
+            onClose={this.closeDialog}
             onClick={event => {
               event.nativeEvent.stopImmediatePropagation();
             }}
@@ -169,53 +144,47 @@ export class DragonflyPage extends Component {
               <DialogContentText>{this.state.dialogMessage}</DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={closeDialog} color="primary">
+              <Button onClick={this.closeDialog} color="primary">
                 Okay
               </Button>
             </DialogActions>
           </Dialog>
 
           <Paper
-            className={
-              this.state.selectedPlugin === ''
-                ? this.props.classes.fullPaper
-                : this.props.classes.leftPaper
-            }
+            className={this.state.selectedPlugin === '' ? 'full-paper' : 'left-paper'}
             elevation={4}
           >
             <Typography variant="headline" component="h3">
               Plugins
             </Typography>
 
-            <List component="nav" className={this.props.classes.pluginsList}>
-              {this.props.plugins.map((plugin, index) => (
+            <List component="nav" className="plugins-list">
+              {PLUGINS.map((plugin, index) => (
                 <ListItem
-                  className={
-                    plugin === this.state.selectedPlugin ? this.props.classes.selectedPlugin : null
-                  }
+                  className={plugin === this.state.selectedPlugin ? 'selected-plugin' : null}
                   key={plugin}
                   button
                   onClick={() => {
                     this.handlePluginSelect(plugin);
                   }}
                 >
-                  <ListItemIcon>{pollerIcon(plugin)}</ListItemIcon>
+                  <ListItemIcon>{this.pollerIcon(plugin)}</ListItemIcon>
                   <ListItemText primary={plugin} />
                 </ListItem>
               ))}
             </List>
           </Paper>
           {this.state.selectedPlugin !== '' && (
-            <Paper className={this.props.classes.rightPaper}>
-              <Typography variant="headline" component="h3" className={this.props.classes.title}>
+            <Paper className="right-paper">
+              <Typography variant="headline" component="h3" className="title">
                 Details
               </Typography>
-              <form className={this.props.classes.container} noValidate autoComplete="off">
+              <form className="container" noValidate autoComplete="off">
                 <TextField
                   id="name"
                   label="Name"
                   onChange={this.handleChange('name')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.name}
                   margin="normal"
                 />
@@ -223,7 +192,7 @@ export class DragonflyPage extends Component {
                   id="description"
                   label="Description"
                   onChange={this.handleChange('description')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.description}
                   margin="normal"
                 />
@@ -231,7 +200,7 @@ export class DragonflyPage extends Component {
                   id="coefficients"
                   label="Coefficients"
                   onChange={this.handleChange('coefficients')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.coefficients}
                   margin="normal"
                 />
@@ -239,7 +208,7 @@ export class DragonflyPage extends Component {
                   id="station"
                   label="Station"
                   onChange={this.handleChange('station')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.station}
                   margin="normal"
                 />
@@ -247,7 +216,7 @@ export class DragonflyPage extends Component {
                   id="pollRate"
                   label="Poll Rate"
                   onChange={this.handleChange('pollRate')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.pollRate}
                   margin="normal"
                 />
@@ -255,7 +224,7 @@ export class DragonflyPage extends Component {
                   id="pin"
                   label="Pin"
                   onChange={this.handleChange('pin')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.pin}
                   margin="normal"
                 />
@@ -263,7 +232,7 @@ export class DragonflyPage extends Component {
                   id="units"
                   label="Units"
                   onChange={this.handleChange('units')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.units}
                   margin="normal"
                 />
@@ -271,7 +240,7 @@ export class DragonflyPage extends Component {
                   id="endpoint"
                   label="Endpoint"
                   onChange={this.handleChange('endpoint')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.endpoint}
                   margin="normal"
                 />
@@ -279,30 +248,29 @@ export class DragonflyPage extends Component {
                   id="meta"
                   label="Meta"
                   onChange={this.handleChange('meta')}
-                  className={this.props.classes.textField}
+                  className="text-field"
                   value={this.state.meta}
                   margin="normal"
                 />
-                <Button className={this.props.classes.button} onClick={testSensor}>
+                <Button className="button" onClick={this.testSensor}>
                   Test Sensor
                 </Button>
-                <Button disabled className={this.props.classes.button}>
+                <Button disabled className="button">
                   Submit Sensor
                 </Button>
               </form>
             </Paper>
           )}
         </div>
-
         <img
-          className={this.props.classes.image}
+          className="image"
           src="/screenshots/home.webp"
           id="dragonfly-image"
           alt="Home screen of Dragonfly"
-          onClick={fullscreen}
-          onKeyDown={fullscreen}
+          onClick={this.fullscreen}
+          onKeyDown={this.fullscreen}
         />
-        <p className={this.props.classes.descriptionContainer}>
+        <p className="description-container">
           Dragonfly is all purpose sensor poller designed to be an easy interface for using
           raspberry pis. You can see in the picture on the right an example of what dragonfly would
           look like with multiple sensors hooked up. Upon hooking up a sensor to a raspberry pi, the
@@ -320,5 +288,3 @@ export class DragonflyPage extends Component {
     );
   }
 }
-
-export default withStyles(styles)(DragonflyPage);

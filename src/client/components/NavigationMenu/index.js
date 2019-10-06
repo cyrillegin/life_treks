@@ -9,8 +9,6 @@ export default function NavigationMenu() {
     currentPage = '/boat';
   }
 
-  // return <div>hi</div>;
-
   return (
     <div>
       <div className="title">Cyrille Gindreau</div>

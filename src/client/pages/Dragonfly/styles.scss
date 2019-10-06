@@ -1,0 +1,47 @@
+.root {
+  // width: screen.width > 850 ? 80% : 90%,
+  margin: auto;
+}
+
+.description-container {
+  text-align: justified;
+  line-height: 1.6em;
+}
+
+image {
+  width: 53%;
+  float: right;
+  margin: 24px 0 0 14px;
+}
+
+.demo-container {
+  flex-grow: 1;
+  display: flex;
+}
+
+.full-paper {
+  width: 100%;
+  padding: 16px;
+  transition: 500ms;
+}
+
+.left-paper {
+  width: 33%;
+  padding: 16px;
+  transition: 500ms;
+}
+
+.right-paper {
+  width: 100%;
+  margin-left: 16px;
+  padding: 16px;
+  transition: 500ms;
+}
+
+.text-field {
+  width: 100%;
+}
+
+.selected-plugin {
+  background: #dcffdc;
+}
