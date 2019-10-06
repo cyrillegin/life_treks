@@ -8,9 +8,7 @@
 node_modules/
 
 # Builds
-dist/*.bundle.*
-dist/bundle.*
-dist/sw.js
+dist/
 
 # Misc
 old/
