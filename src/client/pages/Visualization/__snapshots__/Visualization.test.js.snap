@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Visualization should render snapshots 1`] = `
+<div
+  className="VisualizationPage-root-1"
+>
+  <div
+    className="MuiPaper-root-10 MuiPaper-elevation4-16 MuiPaper-rounded-11 VisualizationPage-paper-2"
+  >
+    <h3
+      className="MuiTypography-root-37 MuiTypography-headline-42 VisualizationPage-graphTitle-3"
+    >
+      Graphing Calculator
+    </h3>
+    <div
+      className="Graph-root-73"
+    >
+      <div
+        id="graph-container"
+      />
+    </div>
+    <div
+      className="VisualizationPage-extras-7"
+    >
+      <div
+        className="VisualizationPage-inputContainer-5"
+      >
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                Enter your equation:
+              </td>
+              <td>
+                <input
+                  aria-label="Equation input"
+                  onChange={[Function]}
+                  type="text"
+                  value="x ^ 2"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                X Minimum:
+              </td>
+              <td>
+                <input
+                  aria-label="X axis minimum"
+                  onChange={[Function]}
+                  type="text"
+                  value={-10}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                X Maximum
+              </td>
+              <td>
+                <input
+                  aria-label="X axis maximum"
+                  onChange={[Function]}
+                  type="text"
+                  value={10}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Y Minimum
+              </td>
+              <td>
+                <input
+                  aria-label="Y axis minimum"
+                  onChange={[Function]}
+                  type="text"
+                  value={0}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Y Maximum
+              </td>
+              <td>
+                <input
+                  aria-label="Y axis Maximum"
+                  onChange={[Function]}
+                  type="text"
+                  value={20}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Resoultion
+              </td>
+              <td>
+                <input
+                  aria-label="Resoultion of the graph line"
+                  onChange={[Function]}
+                  type="text"
+                  value={1}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        className="VisualizationPage-descriptionContainer-6"
+      >
+        This is an example of some custom graphing using the D3 library. You can enter an equation on the left side and set the dimensions and resoultion of the graph. The calculator is pretty basic as I made the parser from scratch. So far it only supports +, -, *, /, ^, and does not support order of operations.
+      </div>
+    </div>
+  </div>
+</div>
+`;

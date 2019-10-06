@@ -41,7 +41,9 @@
     "eslint-plugin-jest": "22.17.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
+    "jest": "^24.9.0",
     "prettier": "1.18.2",
+    "react-test-renderer": "^16.10.2",
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "2.1.2",
     "webpack": "4.41.0",
@@ -71,7 +73,14 @@
     "start:prod": "webpack --watch --progress --config webpack.prod.config.js src/client & concurrently --kill-others 'npm run start:server'",
     "start:server": "nodemon --ignore /client/ --exec babel-node src/server",
     "test": "npm run test:unit && npm run lint",
-    "test:unit": "jest src/client"
+    "test:unit": "jest src/client",
+    "watch:tests": "jest src --watch"
   },
-  "version": "0.1.1"
+  "version": "0.1.1",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
+  }
 }
