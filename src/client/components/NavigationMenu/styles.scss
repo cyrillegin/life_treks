@@ -1,0 +1,36 @@
+.root {
+  width: 100%;
+  top: 0;
+}
+
+.title {
+  text-align: center;
+}
+
+.menu-group {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.menu-item {
+  text-decoration: none;
+  margin: 36px;
+  color: #000;
+  font-size: 1.4rem;
+}
+
+.selected-menu-item {
+  text-decoration: none;
+  margin: 36px;
+  color: #000;
+  font-size: 1.4rem;
+  border-bottom: 1px solid #07c300;
+}
+
+.icons {
+  margin-top: 20px;
+  width: 100%;
+  justify-content: space-between;
+  text-align: center;
+}
