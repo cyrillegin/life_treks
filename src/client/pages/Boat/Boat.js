@@ -181,23 +181,23 @@ export class BoatPage extends Component {
             label="Toggle Shaded"
           />
           <FormControlLabel
-            control={(
+            control={
               <Switch
                 checked={this.state.verticies}
                 onChange={handleDisplayChange}
                 value="verticies"
               />
-            )}
+            }
             label="Toggle Verticies"
           />
           <FormControlLabel
-            control={(
+            control={
               <Switch
                 checked={this.state.wireframe}
                 onChange={handleDisplayChange}
                 value="wireframe"
               />
-            )}
+            }
             label="Toggle Wireframe"
           />
         </div>
