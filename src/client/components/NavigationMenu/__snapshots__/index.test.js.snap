@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Nav bar should render snapshots 1`] = `
+exports[`Navigation Menu should render snapshots 1`] = `
 <div>
-  <h1
-    className="MuiTypography-root-7 MuiTypography-headline-12 MuiTypography-colorInherit-36 NavBar-title-2"
+  <div
+    className="title"
   >
     Cyrille Gindreau
-  </h1>
+  </div>
   <div
-    className="NavBar-icons-6"
+    className="icons"
   >
     <a
       aria-label="facebook"
@@ -512,24 +512,24 @@ exports[`Nav bar should render snapshots 1`] = `
     </a>
   </div>
   <div
-    className="NavBar-menuGroup-3"
+    className="menu-group"
   >
     <a
-      className="NavBar-selectedMenuItem-5"
+      className="selected-menu-item"
       href="/boat"
       onClick={[Function]}
     >
       Boat Builder
     </a>
     <a
-      className="NavBar-menuItem-4"
+      className="menu-item"
       href="/visualization"
       onClick={[Function]}
     >
       Data Visualization
     </a>
     <a
-      className="NavBar-menuItem-4"
+      className="menu-item"
       href="/dragonfly"
       onClick={[Function]}
     >

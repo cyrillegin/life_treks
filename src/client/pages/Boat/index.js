@@ -43,30 +43,31 @@ export default class Boat extends Component {
   }
 
   handleDisplayChange = e => {
-    if (this.state.loaded) {
-      const { value } = e.target;
-      const currentState = this.state[value];
-      this.setState({
-        [value]: !currentState,
-      });
-      if (value === 'shaded') {
-        this.meshController.showMesh(!currentState);
-      }
-      if (value === 'verticies') {
-        this.app.displayVerticies = !this.app.displayVerticies;
+    if (!this.state.loaded) {
+      return;
+    }
+    const value = e;
+    const currentState = this.state[value];
+    this.setState({
+      [value]: !currentState,
+    });
+    if (value === 'shaded') {
+      this.meshController.showMesh(!currentState);
+    }
+    if (value === 'verticies') {
+      this.app.displayVerticies = !this.app.displayVerticies;
 
-        Object.keys(this.state.boat).forEach(key => {
-          if (key === 'width' || key === 'height' || key === 'length' || key === 'frames') {
-            return;
-          }
-          this.app = this.curveController.deleteCurve(this.app, { key });
-        });
-        this.curveController.initCurves(this.app, this.state.boat);
-      }
-      if (value === 'wireframe') {
-        this.app.displayWireFrame = !this.app.displayWireFrame;
-        this.curveController.showCurves(!this.app.displayWireFrame);
-      }
+      Object.keys(this.state.boat).forEach(key => {
+        if (key === 'width' || key === 'height' || key === 'length' || key === 'frames') {
+          return;
+        }
+        this.app = this.curveController.deleteCurve(this.app, { key });
+      });
+      this.curveController.initCurves(this.app, this.state.boat);
+    }
+    if (value === 'wireframe') {
+      this.app.displayWireFrame = !this.app.displayWireFrame;
+      this.curveController.showCurves(!this.app.displayWireFrame);
     }
   };
 
@@ -93,11 +94,23 @@ export default class Boat extends Component {
         </div>
         <div className="toggles-container">
           Toggle Shaded
-          <input type="checkbox" value={this.state.shaded} onChange={this.handleDisplayChange} />
+          <input
+            type="checkbox"
+            value={this.state.shaded}
+            onChange={() => this.handleDisplayChange('shaded')}
+          />
           Toggle Vertices
-          <input type="checkbox" value={this.state.verticies} onChange={this.handleDisplayChange} />
+          <input
+            type="checkbox"
+            value={this.state.verticies}
+            onChange={() => this.handleDisplayChange('verticies')}
+          />
           Toggle Wireframe
-          <input type="checkbox" value={this.state.wireframe} onChange={this.handleDisplayChange} />
+          <input
+            type="checkbox"
+            value={this.state.wireframe}
+            onChange={() => this.handleDisplayChange('wireframe')}
+          />
         </div>
         <div className="description">
           This was a project done for my senior project at New Mexico State University. The goal was

@@ -2,28 +2,26 @@
 
 exports[`Visualization should render snapshots 1`] = `
 <div
-  className="VisualizationPage-root-1"
+  className="root"
 >
   <div
-    className="MuiPaper-root-10 MuiPaper-elevation4-16 MuiPaper-rounded-11 VisualizationPage-paper-2"
+    className="paper"
   >
-    <h3
-      className="MuiTypography-root-37 MuiTypography-headline-42 VisualizationPage-graphTitle-3"
+    <div
+      className="graph-title"
     >
       Graphing Calculator
-    </h3>
-    <div
-      className="Graph-root-73"
-    >
+    </div>
+    <div>
       <div
         id="graph-container"
       />
     </div>
     <div
-      className="VisualizationPage-extras-7"
+      className="extras"
     >
       <div
-        className="VisualizationPage-inputContainer-5"
+        className="input-container"
       >
         <table>
           <tbody>
@@ -109,7 +107,7 @@ exports[`Visualization should render snapshots 1`] = `
         </table>
       </div>
       <div
-        className="VisualizationPage-descriptionContainer-6"
+        className="description-container"
       >
         This is an example of some custom graphing using the D3 library. You can enter an equation on the left side and set the dimensions and resoultion of the graph. The calculator is pretty basic as I made the parser from scratch. So far it only supports +, -, *, /, ^, and does not support order of operations.
       </div>

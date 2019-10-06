@@ -5,6 +5,7 @@ import NavigationMenu from './index';
 
 describe('Navigation Menu', () => {
   it('should render snapshots', () => {
+    global.window.location.pathname = '/';
     const tree = renderer
       .create(
         <Router>
