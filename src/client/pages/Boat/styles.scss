@@ -1,0 +1,81 @@
+.canvas {
+  height: 600px;
+  width: 70%;
+  background: #e0e0e0;
+  margin: 16px auto;
+}
+
+.cube {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 176px;
+  right: calc(15% + 33px);
+  transform-style: preserve-3d;
+  transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);
+  transition: transform 1s;
+}
+
+@mixin base-button() {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+
+  &:hover {
+    background: rgba(0, 197, 0, 1);
+  }
+}
+
+.camera-top {
+  @include base-button();
+  transform: rotateY(0deg) translateZ(25px);
+  background: rgba(172, 172, 172, 0.7);
+}
+
+.camera-side {
+  @include base-button();
+  transform: rotateY(90deg) translateZ(25px);
+  background: rgba(76, 76, 76, 0.7);
+}
+
+.camera-front {
+  @include base-button();
+  transform: rotateX(-90deg) translateZ(25px);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.camera-perspective {
+  position: absolute;
+  border: 1px solid black;
+  right: calc(15% + 38px);
+  color: white;
+  top: 254px;
+  font-size: 21px;
+  font-weight: bold;
+  padding: 3px;
+  text-align: center;
+  background: rgba(172, 172, 172, 0.7);
+
+  &:hover {
+    background: rgba(0, 197, 0, 1);
+  }
+}
+
+.toggles-container {
+  position: absolute;
+  top: 160px;
+  left: calc(15% + 20px);
+  width: 20%;
+}
+
+.description {
+  width: 70%;
+  padding: 12px;
+  margin: 16px auto;
+}
