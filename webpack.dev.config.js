@@ -1,7 +1,8 @@
 /* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -32,13 +33,16 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader',
+        test: /\.(s*)css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css',
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),

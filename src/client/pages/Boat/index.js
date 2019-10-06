@@ -6,7 +6,7 @@ import MeshController from './controllers/mesh.controller';
 import CurvesController from './controllers/curves.controller';
 import './styles.scss';
 
-export default class BoatPage extends Component {
+export default class Boat extends Component {
   constructor() {
     super();
     this.state = {
@@ -45,11 +45,12 @@ export default class BoatPage extends Component {
   handleDisplayChange = e => {
     if (this.state.loaded) {
       const { value } = e.target;
+      const currentState = this.state[value];
       this.setState({
-        [value]: !this.state[value],
+        [value]: !currentState,
       });
       if (value === 'shaded') {
-        this.meshController.showMesh(!this.state[value]);
+        this.meshController.showMesh(!currentState);
       }
       if (value === 'verticies') {
         this.app.displayVerticies = !this.app.displayVerticies;

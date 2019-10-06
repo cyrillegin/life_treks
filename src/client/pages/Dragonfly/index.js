@@ -262,14 +262,14 @@ export default class Dragonfly extends Component {
             </Paper>
           )}
         </div>
-        <img
-          className="image"
-          src="/screenshots/home.webp"
-          id="dragonfly-image"
-          alt="Home screen of Dragonfly"
-          onClick={this.fullscreen}
-          onKeyDown={this.fullscreen}
-        />
+        <div role="button" onClick={this.fullscreen} onKeyPress={this.fullscreen} tabIndex={0}>
+          <img
+            className="image"
+            src="/screenshots/home.webp"
+            id="dragonfly-image"
+            alt="Home screen of Dragonfly"
+          />
+        </div>
         <p className="description-container">
           Dragonfly is all purpose sensor poller designed to be an easy interface for using
           raspberry pis. You can see in the picture on the right an example of what dragonfly would

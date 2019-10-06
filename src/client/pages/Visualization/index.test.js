@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Visualization from './Visualization';
+import Visualization from './index';
 
 describe('Visualization', () => {
   it('should render snapshots', () => {
