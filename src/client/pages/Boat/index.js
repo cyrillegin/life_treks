@@ -75,7 +75,6 @@ export default class Boat extends Component {
     return (
       <div>
         <div id="canvas" className="canvas" />
-        hei
         <div className="cube">
           <div className="camera-top" id="camera-top-button">
             Top

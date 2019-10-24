@@ -130,7 +130,7 @@ export default class Dragonfly extends Component {
 
   render() {
     return (
-      <div className="root">
+      <div className="dragonfly-root">
         <div className="demo-container">
           <Dialog
             open={this.state.dialogIsOpen}

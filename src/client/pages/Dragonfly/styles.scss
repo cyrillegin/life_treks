@@ -1,49 +1,51 @@
 $light-green: #dcffdc;
 
-.root {
-  margin: auto;
-  width: 80%;
-}
+.dragonfly-root {
+  margin: 5rem auto;
+  width: 70%;
 
-.description-container {
-  line-height: 1.6em;
-  text-align: justified;
-}
+  .description-container {
+    line-height: 1.6em;
+    text-align: justified;
+  }
 
-image {
-  float: right;
-  margin: 24px 0 0 14px;
-  width: 53%;
-}
+  img {
+    float: right;
+    margin: 24px 0 0 14px;
+    width: 53%;
+  }
 
-.demo-container {
-  display: flex;
-  flex-grow: 1;
-}
+  .demo-container {
+    display: flex;
+    flex-grow: 1;
+    height: 750px;
+    margin-bottom: 4rem;
+  }
 
-.full-paper {
-  padding: 16px;
-  transition: 500ms;
-  width: 100%;
-}
+  .full-paper {
+    padding: 16px;
+    transition: 500ms;
+    width: 100%;
+  }
 
-.left-paper {
-  padding: 16px;
-  transition: 500ms;
-  width: 33%;
-}
+  .left-paper {
+    padding: 16px;
+    transition: 500ms;
+    width: 33%;
+  }
 
-.right-paper {
-  margin-left: 16px;
-  padding: 16px;
-  transition: 500ms;
-  width: 100%;
-}
+  .right-paper {
+    margin-left: 16px;
+    padding: 16px;
+    transition: 500ms;
+    width: 100%;
+  }
 
-.text-field {
-  width: 100%;
-}
+  .text-field {
+    width: 100%;
+  }
 
-.selected-plugin {
-  background: $light-green;
+  .selected-plugin {
+    background: $light-green;
+  }
 }

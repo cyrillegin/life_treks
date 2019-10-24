@@ -1,43 +1,45 @@
 $red: #f00;
 
-.root {
-  margin: 16px;
-}
+.visualization-root {
+  margin: auto;
+  width: 70%;
 
-.paper {
-  padding: 20px;
-  text-align: center;
-}
+  .paper {
+    padding: 20px;
+    text-align: center;
+  }
 
-.graph-title {
-  text-align: center;
-}
+  .graph-title {
+    text-align: center;
+  }
 
-.stats-contianer {
-  flex-grow: 1;
-}
+  .stats-contianer {
+    flex-grow: 1;
+  }
 
-.input-container {
-  flex-grow: 1;
-}
+  .input-container {
+    flex-grow: 1;
+  }
 
-.description-container {
-  flex-grow: 1;
-  margin-left: 12px;
-  margin-right: 20px;
-  max-width: 50%;
-  text-align: justify;
-}
+  .description-container {
+    flex-grow: 1;
+    margin-left: 12px;
+    margin-right: 20px;
+    max-width: 50%;
+    text-align: justify;
+  }
 
-.extras {
-  display: flex;
-  text-align: left;
-}
+  .extras {
+    display: flex;
+    text-align: left;
+    margin-top: 2rem;
+  }
 
-.list {
-  list-style-type: none;
-}
+  .list {
+    list-style-type: none;
+  }
 
-.error-message {
-  color: $red;
+  .error-message {
+    color: $red;
+  }
 }

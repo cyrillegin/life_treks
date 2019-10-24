@@ -163,7 +163,7 @@ export default class VisualizationPage extends Component {
     };
 
     return (
-      <div className="root">
+      <div className="visualization-root">
         <div className="paper">
           <div className="graph-title">Graphing Calculator</div>
           <Graph
