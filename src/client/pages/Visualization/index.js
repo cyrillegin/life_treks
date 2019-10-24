@@ -1,55 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Graph from './graph';
+import './styles.scss';
 
-const styles = theme => ({
-  root: {
-    margin: '16px',
-  },
-  paper: {
-    padding: '20px',
-    textAlign: 'center',
-  },
-  graphTitle: {
-    textAlign: 'center',
-  },
-  statsContianer: {
-    flexGrow: 1,
-  },
-  inputContainer: {
-    flexGrow: 1,
-  },
-  descriptionContainer: {
-    flexGrow: 1,
-    maxWidth: '50%',
-    marginRight: '20px',
-    marginLeft: '12px',
-    textAlign: 'justify',
-  },
-  extras: {
-    display: 'flex',
-    textAlign: 'left',
-  },
-  list: {
-    listStyleType: 'none',
-  },
-  errorMessage: {
-    color: 'red',
-  },
-});
-
-export class VisualizationPage extends Component {
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-
+export default class VisualizationPage extends Component {
   constructor() {
     super();
     this.state = {
-      readings: [],
       equation: 'x ^ 2',
       points: [],
       xMin: -10,
@@ -113,9 +69,9 @@ export class VisualizationPage extends Component {
           };
           break;
         default:
-          if (!isNaN(parseInt(value))) {
+          if (!isNaN(parseInt(value, 10))) {
             let cursor = 1;
-            while (!isNaN(parseInt(arr[i + cursor]))) {
+            while (!isNaN(parseInt(arr[i + cursor], 10))) {
               value += arr[i + cursor];
               cursor++;
             }
@@ -161,13 +117,13 @@ export class VisualizationPage extends Component {
     });
   }
 
-  getValue(tree, value) {
+  getValue = (tree, value) => {
     // leaf node
     if (tree.left === null && tree.right === null) {
-      if (isNaN(parseInt(tree.value))) {
+      if (isNaN(parseInt(tree.value, 10))) {
         return value;
       }
-      return parseInt(tree.value);
+      return parseInt(tree.value, 10);
     }
 
     // operator
@@ -181,9 +137,11 @@ export class VisualizationPage extends Component {
       case '/':
         return this.getValue(tree.left, value) / this.getValue(tree.right, value);
       case '^':
-        return Math.pow(this.getValue(tree.left, value), this.getValue(tree.right, value));
+        return this.getValue(tree.left, value) ** this.getValue(tree.right, value);
+      default:
+        return '';
     }
-  }
+  };
 
   render() {
     const handleEqInput = e => event => {
@@ -205,11 +163,9 @@ export class VisualizationPage extends Component {
     };
 
     return (
-      <div className={this.props.classes.root}>
-        <Paper className={this.props.classes.paper} elevation={4}>
-          <Typography variant="headline" component="h3" className={this.props.classes.graphTitle}>
-            Graphing Calculator
-          </Typography>
+      <div className="visualization-root">
+        <div className="paper">
+          <div className="graph-title">Graphing Calculator</div>
           <Graph
             points={this.state.points}
             ranges={{
@@ -220,12 +176,10 @@ export class VisualizationPage extends Component {
             }}
           />
           {this.state.hasError && (
-            <div className={this.props.classes.errorMessage}>
-              Could not understand input parameters.
-            </div>
+            <div className="error-message">Could not understand input parameters.</div>
           )}
-          <div className={this.props.classes.extras}>
-            <div className={this.props.classes.inputContainer}>
+          <div className="extras">
+            <div className="input-container">
               <table>
                 <tbody>
                   <tr>
@@ -298,17 +252,15 @@ export class VisualizationPage extends Component {
               </table>
             </div>
 
-            <div className={this.props.classes.descriptionContainer}>
+            <div className="description-container">
               This is an example of some custom graphing using the D3 library. You can enter an
               equation on the left side and set the dimensions and resoultion of the graph. The
               calculator is pretty basic as I made the parser from scratch. So far it only supports
               +, -, *, /, ^, and does not support order of operations.
             </div>
           </div>
-        </Paper>
+        </div>
       </div>
     );
   }
 }
-
-export default withStyles(styles)(VisualizationPage);

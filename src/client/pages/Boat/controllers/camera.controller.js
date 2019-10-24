@@ -1,11 +1,4 @@
-/*
-    camera.controller.js
-    Authors: Cyrille Gindreau
-
-    initCamera()
-    Creates a camera and adds OrbitControls to it.
-
-*/
+/* eslint-disable no-param-reassign */
 import * as THREE from 'three/build/three.module';
 import 'three/examples/js/controls/OrbitControls';
 import TWEEN from '@tweenjs/tween.js';
@@ -60,7 +53,7 @@ export default class CameraController {
     });
   }
 
-  tweenCamera(app, to) {
+  tweenCamera = (app, to) => {
     const from = {
       x: app.camera.position.x,
       y: app.camera.position.y,
@@ -78,5 +71,5 @@ export default class CameraController {
         app.camera.lookAt(new THREE.Vector3(0, 0, 0));
       })
       .start();
-  }
+  };
 }

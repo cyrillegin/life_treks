@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Dragonfly from './Dragonfly';
+import Dragonfly from './index';
 
 describe('Dragonfly', () => {
   it('should render snapshots', () => {

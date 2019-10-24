@@ -36,6 +36,7 @@ export function applyOffsets(boat, curve, key) {
 }
 
 // Implementation of casteljau's algorithem, adapted from 2d to 3d from
+/* eslint-disable max-len */
 // https://stackoverflow.com/questions/14174252/how-to-find-out-y-coordinate-of-specific-point-in-bezier-curve-in-canvas
 // Takes a curve and a percent along the curve and returns
 // the 3d coordinates of that point in a vector3

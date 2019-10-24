@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import './graph-styles.css';
+import './graph-styles.scss';
 
 const d3 = {
   ...require('d3-selection'), // eslint-disable-line
@@ -12,13 +11,8 @@ const d3 = {
   ...require('d3-array'), // eslint-disable-line
 };
 
-const styles = theme => ({
-  root: {},
-});
-
-export class Graph extends Component {
+export default class Graph extends Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
     points: PropTypes.arrayOf(
       PropTypes.shape({
         x: PropTypes.number.isRequired,
@@ -168,11 +162,9 @@ export class Graph extends Component {
       this.drawGraph();
     }
     return (
-      <div className={this.props.classes.root}>
+      <div>
         <div id="graph-container" />
       </div>
     );
   }
 }
-
-export default withStyles(styles)(Graph);

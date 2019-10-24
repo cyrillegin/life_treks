@@ -1,0 +1,39 @@
+$black: #000;
+$green: #07c300;
+
+.root {
+  top: 0;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+}
+
+.menu-group {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.menu-item {
+  color: $black;
+  font-size: 1.4rem;
+  margin: 36px;
+  text-decoration: none;
+}
+
+.selected-menu-item {
+  border-bottom: 1px solid $green;
+  color: $black;
+  font-size: 1.4rem;
+  margin: 36px;
+  text-decoration: none;
+}
+
+.icons {
+  justify-content: space-between;
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}

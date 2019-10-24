@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Boat should render snapshots 1`] = `
+<div>
+  <div
+    className="canvas"
+    id="canvas"
+  />
+  <div
+    className="cube"
+  >
+    <div
+      className="camera-top"
+      id="camera-top-button"
+    >
+      Top
+    </div>
+    <div
+      className="camera-side"
+      id="camera-side-button"
+    >
+      Side
+    </div>
+    <div
+      className="camera-front"
+      id="camera-front-button"
+    >
+      Front
+    </div>
+  </div>
+  <div
+    className="camera-perspective"
+    id="camera-45-button"
+  >
+    45°
+  </div>
+  <div
+    className="toggles-container"
+  >
+    Toggle Shaded
+    <input
+      onChange={[Function]}
+      type="checkbox"
+      value={true}
+    />
+    Toggle Vertices
+    <input
+      onChange={[Function]}
+      type="checkbox"
+      value={false}
+    />
+    Toggle Wireframe
+    <input
+      onChange={[Function]}
+      type="checkbox"
+      value={true}
+    />
+  </div>
+  <div
+    className="description"
+  >
+    This was a project done for my senior project at New Mexico State University. The goal was to be able to construct a boat in 3D and output the blueprints so that an amateur boat maker could build it. The user would also be able to save and load their projects via json files as well as be able to export in obj or stl formats for 3D printing.
+    <br />
+    This demo allows you to view the demo boat and trigger some different rendering methods. You can also pan, zoom, and orbit around the boat.
+  </div>
+</div>
+`;
+
+exports[`Boat should test different displays 1`] = `"<div><div id=\\"canvas\\" class=\\"canvas\\"></div><div class=\\"cube\\"><div class=\\"camera-top\\" id=\\"camera-top-button\\">Top</div><div class=\\"camera-side\\" id=\\"camera-side-button\\">Side</div><div class=\\"camera-front\\" id=\\"camera-front-button\\">Front</div></div><div class=\\"camera-perspective\\" id=\\"camera-45-button\\">45°</div><div class=\\"toggles-container\\">Toggle Shaded<input type=\\"checkbox\\" value=\\"false\\">Toggle Vertices<input type=\\"checkbox\\" value=\\"false\\">Toggle Wireframe<input type=\\"checkbox\\" value=\\"true\\"></div><div class=\\"description\\">This was a project done for my senior project at New Mexico State University. The goal was to be able to construct a boat in 3D and output the blueprints so that an amateur boat maker could build it. The user would also be able to save and load their projects via json files as well as be able to export in obj or stl formats for 3D printing.<br>This demo allows you to view the demo boat and trigger some different rendering methods. You can also pan, zoom, and orbit around the boat.</div></div>"`;
+
+exports[`Boat should test different displays 2`] = `"<div><div id=\\"canvas\\" class=\\"canvas\\"></div><div class=\\"cube\\"><div class=\\"camera-top\\" id=\\"camera-top-button\\">Top</div><div class=\\"camera-side\\" id=\\"camera-side-button\\">Side</div><div class=\\"camera-front\\" id=\\"camera-front-button\\">Front</div></div><div class=\\"camera-perspective\\" id=\\"camera-45-button\\">45°</div><div class=\\"toggles-container\\">Toggle Shaded<input type=\\"checkbox\\" value=\\"false\\">Toggle Vertices<input type=\\"checkbox\\" value=\\"true\\">Toggle Wireframe<input type=\\"checkbox\\" value=\\"true\\"></div><div class=\\"description\\">This was a project done for my senior project at New Mexico State University. The goal was to be able to construct a boat in 3D and output the blueprints so that an amateur boat maker could build it. The user would also be able to save and load their projects via json files as well as be able to export in obj or stl formats for 3D printing.<br>This demo allows you to view the demo boat and trigger some different rendering methods. You can also pan, zoom, and orbit around the boat.</div></div>"`;
+
+exports[`Boat should test different displays 3`] = `"<div><div id=\\"canvas\\" class=\\"canvas\\"></div><div class=\\"cube\\"><div class=\\"camera-top\\" id=\\"camera-top-button\\">Top</div><div class=\\"camera-side\\" id=\\"camera-side-button\\">Side</div><div class=\\"camera-front\\" id=\\"camera-front-button\\">Front</div></div><div class=\\"camera-perspective\\" id=\\"camera-45-button\\">45°</div><div class=\\"toggles-container\\">Toggle Shaded<input type=\\"checkbox\\" value=\\"false\\">Toggle Vertices<input type=\\"checkbox\\" value=\\"true\\">Toggle Wireframe<input type=\\"checkbox\\" value=\\"false\\"></div><div class=\\"description\\">This was a project done for my senior project at New Mexico State University. The goal was to be able to construct a boat in 3D and output the blueprints so that an amateur boat maker could build it. The user would also be able to save and load their projects via json files as well as be able to export in obj or stl formats for 3D printing.<br>This demo allows you to view the demo boat and trigger some different rendering methods. You can also pan, zoom, and orbit around the boat.</div></div>"`;

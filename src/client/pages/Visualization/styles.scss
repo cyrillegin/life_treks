@@ -1,0 +1,45 @@
+$red: #f00;
+
+.visualization-root {
+  margin: auto;
+  width: 70%;
+
+  .paper {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .graph-title {
+    text-align: center;
+  }
+
+  .stats-contianer {
+    flex-grow: 1;
+  }
+
+  .input-container {
+    flex-grow: 1;
+  }
+
+  .description-container {
+    flex-grow: 1;
+    margin-left: 12px;
+    margin-right: 20px;
+    max-width: 50%;
+    text-align: justify;
+  }
+
+  .extras {
+    display: flex;
+    margin-top: 2rem;
+    text-align: left;
+  }
+
+  .list {
+    list-style-type: none;
+  }
+
+  .error-message {
+    color: $red;
+  }
+}

@@ -1,22 +1,27 @@
-/*
-    scene.controller.js
-    Authors: Cyrille Gindreau
-
-    initScene()
-    initializes the scene and renderer of THREE scene.
-
-    render()
-    renders the next frame of the scene.
-
-*/
+/* eslint-disable no-param-reassign */
 import { Scene, PCFSoftShadowMap, WebGLRenderer } from 'three/build/three.module';
 import TWEEN from '@tweenjs/tween.js';
 
-function initRenderer(app) {
-  app.renderer = new WebGLRenderer({
-    antialias: true,
-    alpha: true,
-  });
+function initScene(container) {
+  const app = {
+    scene: new Scene(),
+    camera: null,
+    cameraControls: null,
+    lights: {},
+    meshes: {},
+    renderer: new WebGLRenderer({
+      antialias: true,
+      alpha: true,
+    }),
+    container,
+    loaded: false,
+    render: () => {
+      app.renderer.render(app.scene, app.camera);
+      TWEEN.update();
+      requestAnimationFrame(app.render);
+    },
+  };
+
   app.renderer.shadowMap.enabled = true;
   app.renderer.shadowMap.type = PCFSoftShadowMap;
   app.renderer.gammaInput = true;
@@ -28,30 +33,6 @@ function initRenderer(app) {
   app.renderer.setClearColor(0xffffff, 0);
 
   app.container.appendChild(app.renderer.domElement);
-
-  app.render = () => {
-    // if (app.loaded === false) {
-    //   return;
-    // }
-    app.renderer.render(app.scene, app.camera);
-    TWEEN.update();
-    requestAnimationFrame(app.render);
-  };
-  return app;
-}
-
-function initScene(container) {
-  const app = {
-    scene: new Scene(),
-    camera: null,
-    cameraControls: null,
-    lights: {},
-    meshes: {},
-    renderer: null,
-    container,
-    loaded: false,
-  };
-  initRenderer(app);
   return app;
 }
 

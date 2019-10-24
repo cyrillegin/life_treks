@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
   Vector3,
   Mesh,
@@ -102,7 +103,7 @@ export default class CurvesController {
     return curveObject;
   }
 
-  defineCurve(curveAttributes, key) {
+  defineCurve = (curveAttributes, key) => {
     const pointA = new Vector3(
       curveAttributes.start[0],
       curveAttributes.start[1],
@@ -125,25 +126,25 @@ export default class CurvesController {
     );
     const newCurve = new CubicBezierCurve3(pointA, pointB, pointC, pointD);
     return newCurve;
-  }
+  };
 
-  drawCurvePoint(location) {
+  drawCurvePoint = location => {
     const geometry = new BoxGeometry(2, 2, 2);
     const material = new MeshBasicMaterial({ color: 0x00ff00 });
     const mesh = new Mesh(geometry, material);
     mesh.position.set(location[0], location[1], location[2]);
     return mesh;
-  }
+  };
 
-  drawCurveControlPoint(base, offset) {
+  drawCurveControlPoint = (base, offset) => {
     const geometry = new BoxGeometry(1, 1, 1);
     const material = new MeshBasicMaterial({ color: 0x0000ff });
     const mesh = new Mesh(geometry, material);
     mesh.position.set(base[0] + offset[0], base[1] + offset[1], base[2] + offset[2]);
     return mesh;
-  }
+  };
 
-  drawControlLine(start, end) {
+  drawControlLine = (start, end) => {
     const material = new LineBasicMaterial({
       color: 0x000088,
     });
@@ -156,9 +157,9 @@ export default class CurvesController {
 
     const line = new Line(geometry, material);
     return line;
-  }
+  };
 
-  drawLine(start, end, name) {
+  drawLine = (start, end, name) => {
     const material = new LineBasicMaterial({ color: 0x9400d3 });
     const geometry = new Geometry();
     geometry.vertices.push(new Vector3(start.x, start.y, start.z));
@@ -166,9 +167,9 @@ export default class CurvesController {
     const line = new Line(geometry, material);
     line.name = name;
     return line;
-  }
+  };
 
-  deleteCurve(app, update) {
+  deleteCurve = (app, update) => {
     const curve = app.scene.getObjectByName(`curve-${update.key}`);
     app.scene.remove(curve);
     const mirror = app.scene.getObjectByName(`curve-mirror-${update.key}`);
@@ -186,7 +187,7 @@ export default class CurvesController {
     const endPoint = app.scene.getObjectByName(`end-control-${update.key}`);
     app.scene.remove(endPoint);
     return app;
-  }
+  };
 
   deleteAllCurves(app, boat) {
     Object.keys(boat).forEach(attr => {
@@ -225,7 +226,7 @@ export default class CurvesController {
 
   drawFrames(app, boat) {
     if (Object.keys(boat).length < 5) {
-      return;
+      return [];
     }
     const frameLines = [];
     boat.frames.forEach((frame, index) => {
@@ -265,7 +266,7 @@ export default class CurvesController {
     this.drawFrames(app, boatCopy);
   }
 
-  findLocation(boat, frame) {
+  findLocation = (boat, frame) => {
     let beamCurve;
     let chineCurve;
     let keelCurve;
@@ -292,9 +293,9 @@ export default class CurvesController {
     const locationB = casteljauPoint(chineCurve, t2);
     const locationC = casteljauPoint(keelCurve, t3);
     return { locationA, locationB, locationC };
-  }
+  };
 
-  removeFrames(app) {
+  removeFrames = app => {
     // 15 is the max number of frames allowable. We can't use boat.frames.length
     // because that number could be lower than the actual number of frames in the scene.
     // ie: i had 12 frames, now I want 11.
@@ -308,5 +309,5 @@ export default class CurvesController {
       const frameD = app.scene.getObjectByName(`chine-keel-frame-mirror-${i}`);
       app.scene.remove(frameD);
     }
-  }
+  };
 }

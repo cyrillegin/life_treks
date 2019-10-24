@@ -1,11 +1,11 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
-import NavBar from '../components/NavBar/NavBar';
+import NavigationMenu from '../components/NavigationMenu';
 
-const BoatContainer = lazy(() => import('../pages/Boat/BoatContainer'));
-const DragonflyContainer = lazy(() => import('../pages/Dragonfly/DragonflyContainer'));
-const VisualizationContainer = lazy(() => import('../pages/Visualization/VisualizationContainer'));
+const Boat = lazy(() => import('../pages/Boat'));
+const Dragonfly = lazy(() => import('../pages/Dragonfly'));
+const Visualization = lazy(() => import('../pages/Visualization'));
 
 ReactGA.initialize('UA-107911028-1');
 
@@ -17,20 +17,20 @@ export default class App extends Component {
     document.querySelector('.loader').style.visibility = 'hidden';
   }
 
-  fireTracking() {
+  fireTracking = () => {
     ReactGA.pageview(window.location.hash);
-  }
+  };
 
   render() {
     return (
       <Router onUpdate={this.fireTracking}>
         <div>
-          <NavBar />
+          <NavigationMenu />
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
-              <Route exact path="/dragonfly" component={DragonflyContainer} />
-              <Route exact path="/visualization" component={VisualizationContainer} />
-              <Route component={BoatContainer} />
+              <Route exact path="/dragonfly" component={Dragonfly} />
+              <Route exact path="/visualization" component={Visualization} />
+              <Route component={Boat} />
             </Switch>
           </Suspense>
         </div>
