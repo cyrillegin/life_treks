@@ -2,7 +2,7 @@
 
 exports[`Dragonfly should render snapshots 1`] = `
 <div
-  className="root"
+  className="dragonfly-root"
 >
   <div
     className="demo-container"
