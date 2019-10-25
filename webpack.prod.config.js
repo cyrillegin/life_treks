@@ -1,11 +1,11 @@
 /* eslint-env node */
 const path = require('path');
 const webpack = require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
   entry: './src/client/index.js',
   mode: 'production',
   output: {
@@ -43,14 +43,17 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader',
+        test: /\.(s*)css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css',
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
